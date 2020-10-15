@@ -1,4 +1,4 @@
-lexer grammar CoolLexer;
+lexer grammar DroolLexer;
  
 tokens{
    ERROR,
@@ -26,6 +26,7 @@ tokens{
    DOT,
    DARROW,
    LE,
+   GE,
    ASSIGN,
    CLASS,
    ELSE,
@@ -154,6 +155,7 @@ LT: '<';
 GT: '>';
 EQUALS: '=';
 LE: '<=';
+GE: '=>';
 ASSIGN: '<-';
 PUSH: '<<';
 PULL: '>>';
