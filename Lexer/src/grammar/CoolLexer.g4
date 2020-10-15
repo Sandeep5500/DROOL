@@ -25,9 +25,6 @@ tokens{
    RBRACE,
    DOT,
    DARROW,
-   LE,
-   GE,
-   ASSIGN,
    CLASS,
    ELSE,
    FI,
@@ -154,9 +151,6 @@ TILDE: '~';
 LT: '<';
 GT: '>';
 EQUALS: '=';
-LE: '<=';
-GE: '=>';
-ASSIGN: '<-';
 PUSH: '<<';
 PULL: '>>';
 NEGATION: '!';
