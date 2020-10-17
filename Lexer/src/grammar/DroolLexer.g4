@@ -53,7 +53,6 @@ tokens{
    EQ,
    NEQ,
    IS,
-   IN,
    PRINT,
    FOREACH
 }
@@ -208,7 +207,6 @@ GRAPH: G R A P H;
 VERTEX: V E R T E X;
 EDGE: E D G E;
 IS : I S;
-IN: I N;
 PRINT: P R I N T;
 FOREACH: F O R E A C H;
  

@@ -1,7 +1,7 @@
 parser grammar DroolParser;
 
 options {
-	tokenVocab = CoolLexer;
+	tokenVocab = DroolLexer;
 }
 
 @header{
@@ -17,34 +17,125 @@ options {
 
 }	
 
-program :
+program returns [AST.program value] : 
+	cl=class_list EOF 
+	{
+		$value = new AST.program($cl.value, $cl.value.get(0).lineNo);
+	}
+	
 	
 ;
 
-classs_list:
-	[class_element]+
+class_list returns [ArrayList<AST.class_element> value]
+	@init
+	{
+		$value = new ArrayList<AST.class_element>();
+	}
+	:
+		(c = class_element SEMICOLON {$value.add($c.value);})+
+	
+	//[class_element]+
 ;
 
-class_element:
-	CLASS TYPEID [INHERITS TYPEID] '{' feature_list '}'
+class_element returns [AST.class_element value]
+	//class type { [[feature]]* }
+	:cl=CLASS type=TYPEID LBRACE fl=feature_list RBRACE
+	{
+		$value = new AST.class_element($type.getText(), filename, "Object", $feature_list.value, $cl.getLine());
+	}
+
+	//class TYPE [inherits TYPE] { [[feature]]* }
+	| cl=CLASS type=TYPEID INHERITS parent_type=TYPEID LBRACE fl=feature_list RBRACE
+	{
+		$value = new AST.class_element($type.getText(), filename, $parent_type.getText(), $feature_list.value, $cl.getLine());
+	}
+	
+	//CLASS TYPEID [INHERITS TYPEID] '{' feature_list '}'
 ;
 
-feature_list:
-	(feature)+
+feature_list returns [ArrayList<AST.feature> value]
+	//(feature ;) *
+	@init
+	{
+		$value = new ArrayList<AST.feature>();
+	}
+	:(f=feature SEMICOLON {$value.add($f.value);})*	
+	
 ;
 
-feature:
-	ID COLON LPAREN formal(COMMA formal)*  RPAREN COLON TYPEID LBRACE EXPR RBRACE
-	| ID COLON TYPEID ASSIGNVAL expr
+
+feature returns [AST.feature value]
+	//function
+	:function=method
+	{
+		$value=$feature.value
+	}
+	|variable=attr
+	{
+		$value=$variable.value
+	}
+
+	// ID COLON LPAREN formal(COMMA formal)*  RPAREN COLON TYPEID LBRACE EXPR RBRACE
+	// | ID COLON TYPEID ASSIGNVAL expr
 ;
 
-formal:
-	ID COLON TYPEID
-;
+attr returns [AST.attr value]
+	// ID:TYPE
+	:id=OBJECTID COLON type=TYPEID
+	{
+		$value=  new AST.attr($id.getText(), $type.getText(), new AST.no_expr($id.getLine()), $id.getLine());
+	}
+	//ID:TYPE[<-EXPR]
+	|id=OBJECTID COLON type= TYPEID ASSIGN expression=expr
+	{
+		$value = new AST.attr($id.getText(), $type.getText(), $expression.value, $id.getLine());
+	}
+	;
 
-expr_list:
-	expr_element((COMMA expr)*)?
-;
+method returns [AST.method value]
+	// ID(FORMAL):TYPE{EXPR}
+	:id=OBJECTID LPAREN RPAREN COLON type=TYPEID LBRACE expression=expr RBRACE
+	{
+		$value = new AST.method($id.getText(), new ArrayList<AST.formal>(), $type.getText(), $expression.value, $id.getLine());
+	}
+	//ID(FORMAL_LIST+):TYPE{EXPR}
+	| id=OBJECTID LPAREN fr_l=formal_list RPAREN COLON type=TYPEID LBRACE expression=expr RBRACE
+	{
+		$value = new AST.method($id.getText(), $fr_l.value, $type.getText(), $expression.value, $id.getLine());
+	}
+	;	
+
+formal_list returns [Arraylist<AST.formal>value]
+	@init
+	{
+		$value = new ArrayList<AST.formal>();
+	}
+	://([formal[[,formal]]*)
+		a = formal {$value.add($c.value);} (COMMA b = formal {$value.add($y.value);})*
+	;
+
+formal returns [AST.formal value]
+	//ID:TYPE
+	:id=OBJECTID COLON type=TYPEID
+	{
+		$value = new AST.formal($id.getText(), $type.getText(), $id.getLine()) ;
+	}
+	;
+	
+
+//expr_list:[expr [[, expr]]* ]
+expr_list returns [ArrayList<AST.expr> value]
+	@init
+	{
+		$value = new ArrayList<AST.expr>();
+	}
+	:
+		( expression = expr {$value.add($expression.value);} (COMMA expression = expr {$value.add($expression.value);})* )?
+	;
+	//expr_element((COMMA expr)*)?
+
+//till here done	
+
 expr_element:
 	id ASSIGNVAL expr
 	| expr_element ATSYM TYPEID DOT ID expr_list
