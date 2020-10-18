@@ -17,157 +17,489 @@ options {
 
 }	
 
-program returns [AST.program value] : 
-	cl=class_list EOF 
-	{
-		$value = new AST.program($cl.value, $cl.value.get(0).lineNo);
-	}
-	
-	
-;
+/*Basic concepts*/
 
-class_list returns [ArrayList<AST.class_element> value]
-	@init
-	{
-		$value = new ArrayList<AST.class_element>();
-	}
-	:
-		(c = class_element SEMICOLON {$value.add($c.value);})+
-	
-	//[class_element]+
-;
+translationUnit: declarationseq? EOF;
+/*Expressions*/
 
-class_element returns [AST.class_element value]
-	//class type { [[feature]]* }
-	:cl=CLASS type=TYPEID LBRACE fl=feature_list RBRACE
-	{
-		$value = new AST.class_element($type.getText(), filename, "Object", $feature_list.value, $cl.getLine());
-	}
+primaryExpression:
+  Literal+
+  | LeftParen expression RightParen
+  | Identifier
 
-	//class TYPE [inherits TYPE] { [[feature]]* }
-	| cl=CLASS type=TYPEID INHERITS parent_type=TYPEID LBRACE fl=feature_list RBRACE
-	{
-		$value = new AST.class_element($type.getText(), filename, $parent_type.getText(), $feature_list.value, $cl.getLine());
-	}
-	
-	//CLASS TYPEID [INHERITS TYPEID] '{' feature_list '}'
-;
-
-feature_list returns [ArrayList<AST.feature> value]
-	//(feature ;) *
-	@init
-	{
-		$value = new ArrayList<AST.feature>();
-	}
-	:(f=feature SEMICOLON {$value.add($f.value);})*	
-	
-;
+/*postfixExpression:
+  // primaryExpression
+  // | postfixExpression LeftBracket (expression | bracedInitList) RightBracket
+  // | postfixExpression LeftParen expressionList? RightParen
+  // | (simpleTypeSpecifier | typeNameSpecifier) (
+  //   LeftParen expressionList? RightParen
+  //   | bracedInitList
+  // )
+  // | postfixExpression.idExpression
+  // | postfixExpression (PlusPlus | MinusMinus)
+  
+/*
+ add a middle layer to eliminate duplicated function declarations
+ */
 
 
-feature returns [AST.feature value]
-	//function
-	:function=method
-	{
-		$value=$feature.value
-	}
-	|variable=attr
-	{
-		$value=$variable.value
-	}
+expressionList: initializerList;
 
-	// ID COLON LPAREN formal(COMMA formal)*  RPAREN COLON TYPEID LBRACE EXPR RBRACE
-	// | ID COLON TYPEID ASSIGNVAL expr
-;
 
-attr returns [AST.attr value]
-	// ID:TYPE
-	:id=OBJECTID COLON type=TYPEID
-	{
-		$value=  new AST.attr($id.getText(), $type.getText(), new AST.no_expr($id.getLine()), $id.getLine());
-	}
-	//ID:TYPE[<-EXPR]
-	|id=OBJECTID COLON type= TYPEID ASSIGN expression=expr
-	{
-		$value = new AST.attr($id.getText(), $type.getText(), $expression.value, $id.getLine());
-	}
-	;
+unaryExpression:
+  primaryExpression
+  | (PlusPlus | MinusMinus | unaryOperator | Sizeof) unaryExpression
+  | Sizeof LeftParen theTypeId RightParen;
+ // | newExpression
+  //| deleteExpression;
 
-method returns [AST.method value]
-	// ID(FORMAL):TYPE{EXPR}
-	:id=OBJECTID LPAREN RPAREN COLON type=TYPEID LBRACE expression=expr RBRACE
-	{
-		$value = new AST.method($id.getText(), new ArrayList<AST.formal>(), $type.getText(), $expression.value, $id.getLine());
-	}
-	//ID(FORMAL_LIST+):TYPE{EXPR}
-	| id=OBJECTID LPAREN fr_l=formal_list RPAREN COLON type=TYPEID LBRACE expression=expr RBRACE
-	{
-		$value = new AST.method($id.getText(), $fr_l.value, $type.getText(), $expression.value, $id.getLine());
-	}
-	;	
+unaryOperator: Or | Star | And | Plus | Tilde | Minus | Not;
 
-formal_list returns [Arraylist<AST.formal>value]
-	@init
-	{
-		$value = new ArrayList<AST.formal>();
-	}
-	://([formal[[,formal]]*)
-		a = formal {$value.add($c.value);} (COMMA b = formal {$value.add($y.value);})*
-	;
+/*newExpression:
+  Doublecolon? New (
+    newTypeId
+    | (LeftParen theTypeId RightParen)
+  ) newInitializer?;
 
-formal returns [AST.formal value]
-	//ID:TYPE
-	:id=OBJECTID COLON type=TYPEID
-	{
-		$value = new AST.formal($id.getText(), $type.getText(), $id.getLine()) ;
-	}
-	;
-	
+newPlacement: LeftParen expressionList RightParen;
 
-//expr_list:[expr [[, expr]]* ]
-expr_list returns [ArrayList<AST.expr> value]
-	@init
-	{
-		$value = new ArrayList<AST.expr>();
-	}
-	:
-		( expression = expr {$value.add($expression.value);} (COMMA expression = expr {$value.add($expression.value);})* )?
-	;
-	//expr_element((COMMA expr)*)?
+newTypeId: typeSpecifierSeq newDeclarator?;
 
-//till here done	
+// newDeclarator:
+//   pointerOperator newDeclarator?
+//   | noPointerNewDeclarator;
 
-expr_element:
-	id ASSIGNVAL expr
-	| expr_element ATSYM TYPEID DOT ID expr_list
-	| ID LPAREN expr_list RPAREN
-	| IF expr_element THEN expr_element ELSE expr_element FI
-	| WHILE expr_element LOOP expr_element POOL
-	| expr_element STAR expr_element
-	| expr_element EQUALS expr_element
-	| expr_element SLASH expr_element
-	| expr_element PLUS expr_element
-	| expr_element MINUS expr_element
-	| expr_element DSLASH expr_element
-	| expr_element OR expr_element
-	| expr_element AND expr_element
-	| expr_element BOR expr_element
-	| expr_element BAND expr_element
-	| expr_element XOR expr_element
-	| expr_element LT expr_element
-	| expr_element GT expr_element
-	| expr_element LE expr_element
-	| expr_element GE expr_element
-	| expr_element POW expr_element
-	| expr_element MOD expr_element
-	| TILDE expr_element 
-	| ID
-	| INT_CONST
-	| FLOAT_CONST
-	| MATRIX_CONST
-	| GRAPH_CONST
-	| EDGE_CONST
-	| vERTEX_COST
-	| BOOL_CONST
-	| STRING_CONST
-	| ID
-;
+noPointerNewDeclarator:
+  LeftBracket expression RightBracket attributeSpecifierSeq?
+  | noPointerNewDeclarator LeftBracket constantExpression RightBracket attributeSpecifierSeq?;
+
+newInitializer:
+  LeftParen expressionList? RightParen
+  | bracedInitList;
+
+*/
+multiplicativeExpression:
+  unaryExpression (
+    (Star | Div | Mod) unaryExpression
+  )*;
+
+additiveExpression:
+  multiplicativeExpression (
+    (Plus | Minus) multiplicativeExpression
+  )*;
+
+/*shiftExpression:
+  additiveExpression (shiftOperator additiveExpression)*;
+
+shiftOperator: RightShift | LeftShift;
+*/
+relationalExpression:
+  additiveExpression (
+    (Less | Greater | LessEqual | GreaterEqual) additiveExpression
+  )*;
+
+equalityExpression:
+  relationalExpression (
+    (Equal | NotEqual) relationalExpression
+  )*;
+
+andExpression: equalityExpression (And equalityExpression)*;
+
+exclusiveOrExpression: andExpression (Caret andExpression)*;
+
+inclusiveOrExpression:
+  exclusiveOrExpression (Or exclusiveOrExpression)*;
+
+logicalAndExpression:
+  inclusiveOrExpression (AndAnd inclusiveOrExpression)*;
+
+logicalOrExpression:
+  logicalAndExpression (OrOr logicalAndExpression)*;
+
+/*conditionalExpression:
+  logicalOrExpression (
+    Question expression Colon assignmentExpression
+  )?;
+*/
+assignmentExpression:
+  logicalOrExpression
+  | logicalOrExpression assignmentOperator initializerClause;
+
+assignmentOperator:
+  Assign
+  | StarAssign
+  | DivAssign
+  | ModAssign
+  | PlusAssign
+  | MinusAssign
+  | AndAssign
+  | XorAssign
+  | OrAssign;
+
+expression: assignmentExpression (Comma assignmentExpression)*;
+
+constantExpression: conditionalExpression;
+/*Statements*/
+
+statement:
+  caseStatement
+  |expressionStatement
+  | compoundStatement
+  | selectionStatement
+  | iterationStatement
+  | declarationStatement;
+
+caseStatement:
+  (
+    Case constantExpression
+    | Default
+  ) Colon statement;
+
+expressionStatement: expression? Semi;
+
+compoundStatement: LeftBrace statementSeq? RightBrace;
+
+statementSeq: statement+;
+
+selectionStatement:
+  If LeftParen condition RightParen statement (Else statement)?
+  | Switch LeftParen condition RightParen LeftBrace (caseStatement)* RightBrace;
+
+condition:
+  expression
+  | declarator (
+    Assign initializerClause
+    | bracedInitList
+  );
+
+iterationStatement:
+  While LeftParen condition RightParen statement
+  | For LeftParen (
+    forInitStatement condition? Semi expression?
+  ) RightParen statement;
+
+forInitStatement: expressionStatement | simpleDeclaration;
+
+
+
+
+declarationStatement: blockDeclaration;
+/*Declarations*/
+
+declarationseq: declaration+;
+
+declaration:
+  blockDeclaration
+  | functionDefinition;
+
+blockDeclaration:
+  simpleDeclaration Semi;
+  
+simpleDeclaration:
+  initDeclaratorList? Semi
+  | initDeclaratorList Semi;
+
+
+/*declSpecifier:
+  typeSpecifier
+  | functionSpecifier
+  | Constexpr;
+*/
+// declSpecifierSeq: declSpecifier+ attributeSpecifierSeq?;
+
+//typedefName: Identifier;
+
+dataType:
+   Bool
+  | Int
+  | Float
+  | Void
+  | String
+  | Graph
+  | Edge
+  | Matrix
+  | Vertex
+  | className;
+
+// typeSpecifier:
+//   trailingTypeSpecifier
+//   | classSpecifier;
+
+
+// trailingTypeSpecifier:
+//   simpleTypeSpecifier
+//   | elaboratedTypeSpecifier
+//   | typeNameSpecifier;
+
+// typeSpecifierSeq: typeSpecifier+ attributeSpecifierSeq?;
+
+// trailingTypeSpecifierSeq:
+//   trailingTypeSpecifier+ attributeSpecifierSeq?;
+
+
+
+// simpleTypeSpecifier:
+//   nestedNameSpecifier? theTypeName
+//   | Bool
+//   | Int
+//   | Float
+//   | Double
+//   | Void
+//   | decltypeSpecifier;
+
+// theTypeName:
+//   className
+//   | enumName
+//   | typedefName
+//   | simpleTemplateId;
+
+// decltypeSpecifier:
+//   Decltype LeftParen (expression ) RightParen;
+
+// elaboratedTypeSpecifier:
+//   classKey (
+//     attributeSpecifierSeq? nestedNameSpecifier? Identifier
+//     | simpleTemplateId
+//     | nestedNameSpecifier Template? simpleTemplateId
+//   )
+//   | Enum nestedNameSpecifier? Identifier;
+
+
+// qualifiednamespacespecifier: nestedNameSpecifier? namespaceName;
+
+
+
+/*attributeSpecifierSeq: attributeSpecifier+;``
+
+attributeSpecifier:
+  LeftBracket LeftBracket attributeList? RightBracket RightBracket;
+
+
+attributeList: attribute (Comma attribute)* ;
+
+attribute:  Identifier attributeArgumentClause?;
+
+
+attributeArgumentClause: LeftParen balancedTokenSeq? RightParen;
+
+balancedTokenSeq: balancedtoken+;
+
+balancedtoken:
+  LeftParen balancedTokenSeq RightParen
+  | LeftBracket balancedTokenSeq RightBracket
+  | LeftBrace balancedTokenSeq RightBrace
+  | ~(
+    LeftParen
+    | RightParen
+    | LeftBrace
+    | RightBrace
+    | LeftBracket
+    | RightBracket
+  )+;
+/*Declarators*/
+
+initDeclaratorList: initDeclarator (Comma initDeclarator)*;
+
+// initDeclarator: declarator initializer?;
+initDeclarator:  dataType Identifier initializer?;
+
+// declarator:
+//   noPointerDeclarator parametersAndQualifiers trailingReturnType;
+
+
+// noPointerDeclarator:
+//   declaratorid attributeSpecifierSeq?
+//   | noPointerDeclarator (
+//     parametersAndQualifiers
+//     | LeftBracket constantExpression? RightBracket attributeSpecifierSeq?
+//   )
+//   | LeftParen pointerDeclarator RightParen;
+
+// parametersAndQualifiers:
+//   LeftParen parameterDeclarationClause? RightParen refqualifier?
+//     exceptionSpecification? attributeSpecifierSeq?;
+
+// trailingReturnType:
+//   Arrow trailingTypeSpecifierSeq abstractDeclarator?;
+
+//pointerOperator:
+//  (And | AndAnd) attributeSpecifierSeq?
+//  | nestedNameSpecifier? Star attributeSpecifierSeq? ;
+
+
+
+// refqualifier: And | AndAnd;
+
+// declaratorid: idExpression;
+
+// theTypeId: typeSpecifierSeq ;
+
+
+
+parameterDeclarationClause:
+  parameterDeclarationList;
+
+parameterDeclarationList:
+  parameterDeclaration (Comma parameterDeclaration)*;
+
+parameterDeclaration:
+   (initDeclarator)?;
+
+functionDefinition:
+  dataType Identifier Lparen parameterDeclarationClause Rparen functionBody;
+
+functionBody:
+  compoundStatement
+  | Assign (Default | Delete) Semi;
+
+initializer:
+  braceOrEqualInitializer
+  | LeftParen expressionList RightParen;
+
+braceOrEqualInitializer:
+  Assign initializerClause
+  | bracedInitList;
+
+initializerClause: assignmentExpression | bracedInitList;
+
+initializerList:
+  initializerClause  (
+    Comma initializerClause 
+  )*;
+
+bracedInitList: LeftBrace (initializerList Comma?)? RightBrace;
+/*Classes*/
+
+className: Identifier;
+
+classSpecifier:
+  classHead LeftBrace memberSpecification? RightBrace;
+
+classHead:
+  Class className baseClause?;
+
+
+memberSpecification:
+  (memberdeclaration)+;
+
+memberdeclaration:
+   memberDeclaratorList? Semi
+  | functionDefinition;
+
+memberDeclaratorList:
+  memberDeclarator (Comma memberDeclarator)*;
+
+memberDeclarator:
+  initDeclarator (
+    | braceOrEqualInitializer?
+  )
+
+
+
+/*Derived classes*/
+
+baseClause: Colon baseSpecifierList;
+
+baseSpecifierList:
+  className (Comma className )*;
+
+// baseSpecifier:
+//   baseTypeSpecifier;
+
+// classOrDeclType:
+//   nestedNameSpecifier? className
+//   | decltypeSpecifier;
+
+// baseTypeSpecifier: classOrDeclType;
+
+/*Special member functions*/
+
+// conversionFunctionId: Operator conversionTypeId;
+
+// conversionTypeId: typeSpecifierSeq conversionDeclarator?;
+
+// conversionDeclarator: pointerOperator conversionDeclarator?;
+
+// constructorInitializer: Colon memInitializerList;
+
+memInitializerList:
+  memInitializer Ellipsis? (Comma memInitializer Ellipsis?)*;
+
+memInitializer:
+  meminitializerid (
+    LeftParen expressionList? RightParen
+    | bracedInitList
+  );
+
+meminitializerid: classOrDeclType | Identifier;
+/*Overloading*/
+
+// operatorFunctionId: Operator theOperator;
+
+// literalOperatorId:
+//   Operator (
+//     StringLiteral Identifier
+//     | UserDefinedStringLiteral
+//   );
+/*Templates*/
+// typeParameter:
+//   (
+//     (Template Less templateparameterList Greater)? Class
+//     | Typename_
+//   ) ((Ellipsis? Identifier?) | (Identifier? Assign theTypeId));
+
+
+
+// typeNameSpecifier:
+//   Typename_ nestedNameSpecifier (
+//     Identifier
+//   );
+
+
+
+
+// typeIdList: theTypeId Ellipsis? (Comma theTypeId Ellipsis?)*;
+
+
+/*Preprocessing directives*/
+
+/*Lexer*/
+
+theOperator:
+  New (LeftBracket RightBracket)?
+  | Plus
+  | Minus
+  | Star
+  | Div
+  | Mod
+  | Caret
+  | And
+  | Or
+  | Tilde
+  | Not
+  | Assign
+  | Less
+  | GreaterEqual
+  | PlusAssign
+  | MinusAssign
+  | StarAssign
+  | Assign
+  | ModAssign
+  | XorAssign
+  | AndAssign
+  | OrAssign
+  | LeftShift
+  | RightShift
+  | RightShiftAssign
+  | LeftShiftAssign
+  | Equal
+  | NotEqual
+  | LessEqual
+  | GreaterEqual
+  | AndAnd
+  | OrOr
+  | PlusPlus
+  | MinusMinus
+  | Comma
+  | LeftParen RightParen
+  | LeftBracket RightBracket;
