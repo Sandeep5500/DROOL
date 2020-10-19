@@ -1,55 +1,36 @@
 parser grammar DroolParser;
-
 options {
-	tokenVocab = DroolLexer;
+  tokenVocab = DroolLexer;
 }
-
-@header{
-	import cool.AST;
-	import java.util.List;
-}
-
-@members{
-	String filename;
-	public void setFilename(String f){
-		filename = f;
-	}
-
-}	
-
 /*Basic concepts*/
 
 translationUnit: declarationseq? EOF;
 /*Expressions*/
 
 primaryExpression:
-  Literal+
+  Literal
   | LeftParen expression RightParen
-  | Identifier
+  | Identifier;
 
-/*postfixExpression:
-  // primaryExpression
-  // | postfixExpression LeftBracket (expression | bracedInitList) RightBracket
-  // | postfixExpression LeftParen expressionList? RightParen
-  // | (simpleTypeSpecifier | typeNameSpecifier) (
-  //   LeftParen expressionList? RightParen
-  //   | bracedInitList
-  // )
-  // | postfixExpression.idExpression
-  // | postfixExpression (PlusPlus | MinusMinus)
+postfixExpression:
+  primaryExpression
+  | postfixExpression LeftParen expressionList? RightParen
+  | postfixExpression (Dot|Arrow) Identifier
+  | postfixExpression (PlusPlus | MinusMinus);
+
   
-/*
- add a middle layer to eliminate duplicated function declarations
- */
+
+ // add a middle layer to eliminate duplicated function declarations
+ // */
 
 
 expressionList: initializerList;
 
 
 unaryExpression:
-  primaryExpression
+  postfixExpression
   | (PlusPlus | MinusMinus | unaryOperator | Sizeof) unaryExpression
-  | Sizeof LeftParen theTypeId RightParen;
+  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Transpose) LeftParen theTypeId RightParen;
  // | newExpression
   //| deleteExpression;
 
@@ -78,9 +59,20 @@ newInitializer:
   | bracedInitList;
 
 */
+countExpression:
+  unaryExpression (Hashtag unaryExpression)?
+  | Hashtag unaryExpression;
+
+addrcExpression:
+  countExpression ((Addc | Addr) countExpression)?;
+
+questionExpression:
+  addrcExpression (
+    Questionmark addrcExpression)?;
+
 multiplicativeExpression:
-  unaryExpression (
-    (Star | Div | Mod) unaryExpression
+  questionExpression (
+    (Star | Div | Mod) questionExpression
   )*;
 
 additiveExpression:
@@ -88,20 +80,22 @@ additiveExpression:
     (Plus | Minus) multiplicativeExpression
   )*;
 
-/*shiftExpression:
+shiftExpression: 
   additiveExpression (shiftOperator additiveExpression)*;
 
 shiftOperator: RightShift | LeftShift;
-*/
+
 relationalExpression:
-  additiveExpression (
-    (Less | Greater | LessEqual | GreaterEqual) additiveExpression
+  shiftExpression (
+    (Less | Greater | LessEqual | GreaterEqual) shiftExpression
   )*;
 
 equalityExpression:
   relationalExpression (
     (Equal | NotEqual) relationalExpression
   )*;
+
+
 
 andExpression: equalityExpression (And equalityExpression)*;
 
@@ -301,23 +295,19 @@ balancedtoken:
 initDeclaratorList: initDeclarator (Comma initDeclarator)*;
 
 // initDeclarator: declarator initializer?;
-initDeclarator:  dataType Identifier initializer?;
+initDeclarator: datatype declarator initializer?;
 
 // declarator:
 //   noPointerDeclarator parametersAndQualifiers trailingReturnType;
 
 
-// noPointerDeclarator:
-//   declaratorid attributeSpecifierSeq?
-//   | noPointerDeclarator (
-//     parametersAndQualifiers
-//     | LeftBracket constantExpression? RightBracket attributeSpecifierSeq?
-//   )
-//   | LeftParen pointerDeclarator RightParen;
+declarator:
+  Identifier (parametersAndQualifiers
+  | LeftBracket constantExpression? RightBracket)?
+  // | LeftParen pointerDeclarator RightParen;
 
-// parametersAndQualifiers:
-//   LeftParen parameterDeclarationClause? RightParen refqualifier?
-//     exceptionSpecification? attributeSpecifierSeq?;
+parametersAndQualifiers:
+  LeftParen parameterDeclarationClause? RightParen;
 
 // trailingReturnType:
 //   Arrow trailingTypeSpecifierSeq abstractDeclarator?;
@@ -465,14 +455,13 @@ meminitializerid: classOrDeclType | Identifier;
 
 /*Lexer*/
 
-theOperator:
+/*theOperator:
   New (LeftBracket RightBracket)?
   | Plus
   | Minus
   | Star
   | Div
   | Mod
-  | Caret
   | And
   | Or
   | Tilde
@@ -502,4 +491,4 @@ theOperator:
   | MinusMinus
   | Comma
   | LeftParen RightParen
-  | LeftBracket RightBracket;
+  | LeftBracket RightBracket;*/
