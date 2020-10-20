@@ -172,7 +172,6 @@ fragment Rawstring: '"' .*? '(' .*? ')' .*? '"';
 BooleanLiteral: False_ | True_;
 
 VertexLiteral: SingleQuote Identifier SingleQuote Comma (StringLiteral)?;
-EdgeLiteral: LeftParen Identifier Comma Identifier Comma (IntegerLiteral)? RightParen;
 
 Whitespace: [ \t]+ -> skip;
 Newline: ('\r' '\n'? | '\n') -> skip;
