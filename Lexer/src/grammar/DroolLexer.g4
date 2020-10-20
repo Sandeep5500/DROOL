@@ -42,20 +42,6 @@ fragment X : [xX];
 fragment Y : [yY];
 fragment Z : [zZ];
 
-fragment Escapesequence:
-	'\\\''
-	| '\\"'
-	| '\\?'
-	| '\\\\'
-	| '\\a'
-	| '\\b'
-	| '\\f'
-	| '\\n'
-	| '\\r'
-	| '\\t'
-	| '\\v';
-
-
 // Symbols
 LeftParen: '(';
 RightParen: ')';
@@ -74,8 +60,6 @@ Not:'!';
 Div: '/';
 Mod: '%';
 
-RightShift: '->>';
-LeftShift: '<<-';
 Less: '<';
 Greater: '>';
 LessEqual: '<=';
@@ -114,8 +98,8 @@ Trans: T R A N S;
 Vsizeof: V S I Z E O F;
 Esizeof: E S I Z E O F;
 Val: V A L;
-Push: '<<';
-Pull: '>>';
+RightShift: '>>';
+LeftShift: '<<';
 
 If: I F;
 Else: E L S E;
@@ -130,6 +114,7 @@ Colon: ':';
 Semi: ';';
 Ellipsis: '...';
 SingleQuote: '\'';
+DoubleQuote: '"';
 
 Class: C L A S S;
 Void: V O I D;
@@ -155,12 +140,9 @@ True_: 'true';
 Identifier:
 	NONDIGIT (NONDIGIT | DIGIT)*;
 
-IntegerLiteral:
-	DecimalLiteral Integersuffix?
-	| BinaryLiteral Integersuffix?;
+IntegerLiteral: DecimalLiteral Integersuffix?
 
 DecimalLiteral: NONZERODIGIT ('\''? DIGIT)*;
-BinaryLiteral: ('0b' | '0B') BINARYDIGIT ('\''? BINARYDIGIT)*;
 
 Integersuffix:
 	Unsignedsuffix Longsuffix?
@@ -186,18 +168,29 @@ fragment SIGN: [+-];
 fragment Digitsequence: DIGIT ('\''? DIGIT)*;
 fragment Floatingsuffix: [flFL];
 
-StringLiteral:
-	Encodingprefix? '"' Schar* '"'
-	| Encodingprefix? 'R' Rawstring;
-fragment Encodingprefix: 'u8' | 'u' | 'U' | 'L';
+StringLiteral: DoubleQuote Schar* DoubleQuote
+	
+fragment Escapesequence:
+	'\\\''
+	| '\\"'
+	| '\\?'
+	| '\\\\'
+	| '\\a'
+	| '\\b'
+	| '\\f'
+	| '\\n'
+	| '\\r'
+	| '\\t'
+	| '\\v';
 
 fragment Schar:
-	~ ["\\\r\n]
+	~["\\\r\n]
 	| Escapesequence;
 
-fragment Rawstring: '"' .*? '(' .*? ')' .*? '"';
 
-BooleanLiteral: False_ | True_;
+BooleanLiteral: 
+	False_ 
+	| True_;
 
 VertexLiteral: SingleQuote Identifier SingleQuote Comma (StringLiteral)?;
 
