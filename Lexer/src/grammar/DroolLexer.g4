@@ -14,6 +14,47 @@ fragment DIGIT: [0-9];
 fragment NONZERODIGIT: [1-9];
 fragment BINARYDIGIT: [01];
 
+// Creating case insensitive alphabets
+fragment A : [aA];
+fragment B : [bB];
+fragment C : [cC];
+fragment D : [dD];
+fragment E : [eE];
+fragment F : [fF];
+fragment G : [gG];
+fragment H : [hH];
+fragment I : [iI];
+fragment J : [jJ];
+fragment K : [kK];
+fragment L : [lL];
+fragment M : [mM];
+fragment N : [nN];
+fragment O : [oO];
+fragment P : [pP];
+fragment Q : [qQ];
+fragment R : [rR];
+fragment S : [sS];
+fragment T : [tT];
+fragment U : [uU];
+fragment V : [vV];
+fragment W : [wW];
+fragment X : [xX];
+fragment Y : [yY];
+fragment Z : [zZ];
+
+fragment Escapesequence:
+	'\\\''
+	| '\\"'
+	| '\\?'
+	| '\\\\'
+	| '\\a'
+	| '\\b'
+	| '\\f'
+	| '\\n'
+	| '\\r'
+	| '\\t'
+	| '\\v';
+
 
 // Symbols
 LeftParen: '(';
@@ -62,27 +103,27 @@ MinusMinus: '--';
 Dot: '.';
 Arrow: '->';
 
-Sizeof: 'sizeof';
+Sizeof: S I Z E O F;
 Hashtag: '#';
-Addc: 'addc';
-Addr: 'addr';
-Delr: 'delr';
+Addc: A D D C;
+Addr: A D D R;
+Delr: D E L R;
 Questionmark: '?';
-Inv: 'inv';
-Trans: 'trans';
-Vsizeof: 'vsizeof';
-Esizeof: 'esizeof';
-Val: 'val';
+Inv: I N V;
+Trans: T R A N S;
+Vsizeof: V S I Z E O F;
+Esizeof: E S I Z E O F;
+Val: V A L;
 Push: '<<';
 Pull: '<<';
 
-If: 'if';
-Else: 'else';
-Switch: 'switch';
-While: 'while';
-For: 'for';
-Case: 'case';
-Default: 'default';
+If: I F;
+Else: E L S E;
+Switch: S W I T C H;
+While: W H I L E;
+For: F O R;
+Case: C A S E;
+Default: D E F A U L T;
 
 Comma: ',';
 Colon: ':';
@@ -90,38 +131,25 @@ Semi: ';';
 Ellipsis: '...';
 SingleQuote: '\'';
 
-Class: 'class';
-Void: 'void';
-Bool: 'bool';
-Int: 'int';
-Float: 'float';
-String: 'string';
-Graph: 'graph';
-Edge: 'edge';
-Matrix: 'matrix';
-Vertex: 'vertex';
-Long: 'long';
-Unsigned: 'unsigned';
-Delete: 'delete';
-Operator: 'operator';
-Return: 'return';
+Class: C L A S S;
+Void: V O I D;
+Bool: B O O L;
+Int: I N T;
+Float: F L O A T;
+String: S T R I N G;
+Graph: G R A P H;
+Edge: E D G E;
+Matrix: M A T R I X;
+Vertex: V E R T E X;
+Long: L O N G;
+Unsigned: U N S I G N E D;
+Delete: D E LE T E;
+Operator: O P E R A T O R;
+Return: R E T U R N;
 
-Const: 'const';
+Const: C O N S T;
 False_: 'false';
 True_: 'true';
-
-fragment Escapesequence:
-	'\\\''
-	| '\\"'
-	| '\\?'
-	| '\\\\'
-	| '\\a'
-	| '\\b'
-	| '\\f'
-	| '\\n'
-	| '\\r'
-	| '\\t'
-	| '\\v';
 
 
 Identifier:
