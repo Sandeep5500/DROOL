@@ -115,7 +115,7 @@ Vsizeof: V S I Z E O F;
 Esizeof: E S I Z E O F;
 Val: V A L;
 Push: '<<';
-Pull: '<<';
+Pull: '>>';
 
 If: I F;
 Else: E L S E;

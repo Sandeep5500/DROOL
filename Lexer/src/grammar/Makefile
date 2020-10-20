@@ -4,7 +4,7 @@ ANTLR_OUT_DIR = ../java
 PACKAGE = cool
 ANTLR_FLAGS = -no-listener -visitor -package $(PACKAGE)
 LEXER = DroolLexer
-PARSER = Cool
+PARSER = DroolParser
 
 %: all
 

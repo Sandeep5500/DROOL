@@ -64,9 +64,10 @@ public class DroolLexer extends Lexer {
 		"'<='", "'>='", "'=='", "'!='", "'^'", "'&&'", "'||'", "'='", "'*='", 
 		"'/='", "'%='", "'+='", "'-='", "'&='", "'^='", "'|='", "'++'", "'--'", 
 		"'.'", "'->'", null, "'#'", null, null, null, "'?'", null, null, null, 
-		null, null, null, null, null, null, null, null, null, null, null, "','", 
-		"':'", "';'", "'...'", "'''", null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, "'false'", "'true'"
+		null, null, "'<<'", "'>>'", null, null, null, null, null, null, null, 
+		"','", "':'", "';'", "'...'", "'''", null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, "'false'", 
+		"'true'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "Literal", "LeftParen", "RightParen", "LeftBrace", "RightBrace", 
@@ -344,7 +345,7 @@ public class DroolLexer extends Lexer {
 		"\5!\21\2\u020c\u020d\5C\"\2\u020d\u020e\5\31\r\2\u020e\u020f\5-\27\2\u020f"+
 		"\u0210\5\33\16\2\u0210\u00a8\3\2\2\2\u0211\u0212\5;\36\2\u0212\u0213\5"+
 		"\21\t\2\u0213\u0214\5\'\24\2\u0214\u00aa\3\2\2\2\u0215\u0216\7>\2\2\u0216"+
-		"\u0217\7>\2\2\u0217\u00ac\3\2\2\2\u0218\u0219\7>\2\2\u0219\u021a\7>\2"+
+		"\u0217\7>\2\2\u0217\u00ac\3\2\2\2\u0218\u0219\7@\2\2\u0219\u021a\7@\2"+
 		"\2\u021a\u00ae\3\2\2\2\u021b\u021c\5!\21\2\u021c\u021d\5\33\16\2\u021d"+
 		"\u00b0\3\2\2\2\u021e\u021f\5\31\r\2\u021f\u0220\5\'\24\2\u0220\u0221\5"+
 		"\65\33\2\u0221\u0222\5\31\r\2\u0222\u00b2\3\2\2\2\u0223\u0224\5\65\33"+

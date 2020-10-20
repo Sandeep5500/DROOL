@@ -67,7 +67,7 @@ public class LexerTest {
 			System.exit(1);
 		}
 
-		CoolLexer lexer = new CoolLexer(inStream);
+		DroolLexer lexer = new DroolLexer(inStream);
 
 		//Call Lexer API for token stream
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
