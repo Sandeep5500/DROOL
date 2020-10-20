@@ -143,7 +143,7 @@ Matrix: M A T R I X;
 Vertex: V E R T E X;
 Long: L O N G;
 Unsigned: U N S I G N E D;
-Delete: D E LE T E;
+Delete: D E L E T E;
 Operator: O P E R A T O R;
 Return: R E T U R N;
 

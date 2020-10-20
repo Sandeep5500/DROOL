@@ -303,7 +303,7 @@ initDeclarator: datatype declarator initializer?;
 
 declarator:
   Identifier (parametersAndQualifiers
-  | LeftBracket constantExpression? RightBracket)?
+  | LeftBracket constantExpression? RightBracket)? ;
   // | LeftParen pointerDeclarator RightParen;
 
 parametersAndQualifiers:
@@ -383,7 +383,7 @@ memberDeclarator:
   initDeclarator (
     | braceOrEqualInitializer?
   )
-
+  ;
 
 
 /*Derived classes*/

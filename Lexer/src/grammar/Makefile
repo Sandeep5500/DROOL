@@ -3,7 +3,7 @@ ANTLR = java -jar $(ANTLR_JAR)
 ANTLR_OUT_DIR = ../java
 PACKAGE = cool
 ANTLR_FLAGS = -no-listener -visitor -package $(PACKAGE)
-LEXER = CoolLexer
+LEXER = DroolLexer
 PARSER = Cool
 
 %: all
