@@ -30,7 +30,7 @@ expressionList: initializerList;
 unaryExpression:
   postfixExpression
   | (PlusPlus | MinusMinus | unaryOperator | Sizeof) unaryExpression
-  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Transpose) LeftParen theTypeId RightParen;
+  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Transpose) LeftParen dataType RightParen;
  // | newExpression
   //| deleteExpression;
 
@@ -132,7 +132,7 @@ assignmentOperator:
 
 expression: assignmentExpression (Comma assignmentExpression)*;
 
-constantExpression: conditionalExpression;
+constantExpression: logicalOrExpression;
 /*Statements*/
 
 statement:
@@ -295,7 +295,7 @@ balancedtoken:
 initDeclaratorList: initDeclarator (Comma initDeclarator)*;
 
 // initDeclarator: declarator initializer?;
-initDeclarator: datatype declarator initializer?;
+initDeclarator: dataType declarator initializer?;
 
 // declarator:
 //   noPointerDeclarator parametersAndQualifiers trailingReturnType;
@@ -421,7 +421,7 @@ memInitializer:
     | bracedInitList
   );
 
-meminitializerid: classOrDeclType | Identifier;
+meminitializerid: className|Identifier;
 /*Overloading*/
 
 // operatorFunctionId: Operator theOperator;
