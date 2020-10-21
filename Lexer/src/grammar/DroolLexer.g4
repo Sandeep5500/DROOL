@@ -168,7 +168,9 @@ fragment SIGN: [+-];
 fragment Digitsequence: DIGIT ('\''? DIGIT)*;
 fragment Floatingsuffix: [flFL];
 
-StringLiteral: DoubleQuote Schar* DoubleQuote
+StringLiteral: DoubleQuote Schar* DoubleQuote;
+
+// Error handling what do I have no clue
 	
 fragment Escapesequence:
 	'\\\''
