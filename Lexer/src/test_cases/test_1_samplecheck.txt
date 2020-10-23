@@ -1,0 +1,206 @@
+ ./lexer test_1.dr 
+#name "test_1.dr"
+#1 Int
+#1 Identifier
+#1 Comma
+#1 Identifier
+#1 Comma
+#1 Identifier
+#1 Semi
+#2 Bool
+#2 Identifier
+#2 Assign
+#2 Literal false
+#2 Semi
+#3 Float
+#3 Identifier
+#3 Assign
+#3 Minus
+#3 Literal 3.343
+#4 Identifier
+#4 Assign
+#4 Identifier
+#4 Star
+#4 LeftParen (
+#4 Identifier
+#4 Plus
+#4 Identifier
+#4 RightParen )
+#4 Semi
+#5 Identifier
+#5 PlusAssign
+#5 Identifier
+#6 If
+#6 LeftParen (
+#6 Identifier
+#6 Greater
+#6 Identifier
+#6 RightParen )
+#7 LeftBrace {
+#8 Identifier
+#8 Assign
+#8 Literal true
+#8 Semi
+#9 RightBrace }
+#11 String
+#11 Identifier
+#11 Assign
+#11 Literal "abddd"
+#11 Semi
+#13 Vertex
+#13 Identifier
+#13 Comma
+#13 Identifier
+#13 Semi
+#14 Identifier
+#14 Assign
+#14 Literal 'vertex1',
+#14 Literal "80"
+#14 Semi
+#15 Identifier
+#15 Assign
+#15 SingleQuote
+#15 Identifier
+#15 SingleQuote
+#15 Semi
+#16 Graph
+#16 Identifier
+#16 Comma
+#16 Identifier
+#16 Semi
+#17 Identifier
+#17 LeftShift
+#17 Identifier
+#17 Semi
+#18 Identifier
+#18 LeftShift
+#18 Identifier
+#18 Semi
+#19 Identifier
+#19 Assign
+#19 Identifier
+#19 Assign
+#19 Identifier
+#19 Semi
+#20 Bool
+#20 Identifier
+#20 Assign
+#20 Identifier
+#20 Questionmark
+#20 Identifier
+#20 Semi
+#21 Edge
+#21 Identifier
+#21 Assign
+#21 LeftParen (
+#21 Identifier
+#21 Comma
+#21 Identifier
+#21 RightParen )
+#22 Int
+#22 Identifier
+#22 Assign
+#22 LeftParen (
+#22 Identifier
+#22 Comma
+#22 Identifier
+#22 RightParen )
+#22 Questionmark
+#22 Identifier
+#22 Semi
+#23 Int
+#23 Identifier
+#23 Assign
+#23 Sizeof
+#23 Identifier
+#23 Semi
+#24 Int
+#24 Identifier
+#24 Assign
+#24 Esizeof
+#24 Identifier
+#24 Semi
+#25 Vertex
+#25 Identifier
+#25 LeftBracket
+#25 Literal 10
+#25 RightBracket
+#25 Assign
+#25 Hashtag
+#25 Identifier
+#25 Semi
+#27 Matrix
+#27 Identifier
+#27 LeftBracket
+#27 Literal 10
+#27 RightBracket
+#27 LeftBracket
+#27 Literal 15
+#27 RightBracket
+#27 Semi
+#28 Matrix
+#28 Identifier
+#28 LeftBracket
+#28 Literal 10
+#28 RightBracket
+#28 LeftBracket
+#28 Literal 15
+#28 RightBracket
+#28 Semi
+#29 Identifier
+#29 Assign
+#29 LeftBrace {
+#29 Literal 1
+#29 Comma
+#29 Literal 2
+#29 Comma
+#29 RightBrace }
+#29 Semi
+#30 Identifier
+#30 LeftBracket
+#30 Literal 2
+#30 RightBracket
+#30 LeftBracket
+#30 Literal 3
+#30 RightBracket
+#30 Assign
+#30 Literal 7
+#30 Semi
+#31 Identifier
+#31 Assign
+#31 Identifier
+#31 Star
+#31 Identifier
+#31 Semi
+#32 Identifier
+#32 Delr
+#32 Semi
+#33 Int
+#33 Identifier
+#33 Assign
+#33 Sizeof
+#33 LeftParen (
+#33 Identifier
+#33 RightParen )
+#33 Semi
+#34 Identifier
+#34 Assign
+#34 Identifier
+#34 LeftParen (
+#34 Identifier
+#34 RightParen )
+#34 Semi
+#35 Identifier
+#35 Assign
+#35 Inv
+#35 LeftParen (
+#35 Identifier
+#35 RightParen )
+#35 Semi
+#36 Identifier
+#36 Assign
+#36 Trans
+#36 LeftParen (
+#36 Identifier
+#36 RightParen )
+#36 Semi

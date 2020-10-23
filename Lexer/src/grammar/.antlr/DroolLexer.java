@@ -1,4 +1,4 @@
-// Generated from /home/shreyas/Documents/DROOL/Lexer/src/grammar/DroolLexer.g4 by ANTLR 4.8
+// Generated from /home/manya/Desktop/COMPILERS2/DROOL/Lexer/src/grammar/DroolLexer.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -16,26 +16,26 @@ public class DroolLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		Literal=1, LeftParen=2, RightParen=3, LeftBrace=4, RightBrace=5, LeftBracket=6, 
-		RightBracket=7, Or=8, Star=9, And=10, Plus=11, Minus=12, Tildae=13, Not=14, 
-		Div=15, Mod=16, Less=17, Greater=18, LessEqual=19, GreaterEqual=20, Equal=21, 
-		NotEqual=22, Caret=23, AndAnd=24, OrOr=25, Assign=26, StarAssign=27, DivAssign=28, 
-		ModAssign=29, PlusAssign=30, MinusAssign=31, AndAssign=32, XorAssign=33, 
-		OrAssign=34, PlusPlus=35, MinusMinus=36, Dot=37, Arrow=38, Sizeof=39, 
-		Hashtag=40, Addc=41, Addr=42, Delr=43, Questionmark=44, Inv=45, Trans=46, 
-		Vsizeof=47, Esizeof=48, Val=49, RightShift=50, LeftShift=51, If=52, Else=53, 
-		Switch=54, While=55, For=56, Case=57, Default=58, Comma=59, Colon=60, 
-		Semi=61, Ellipsis=62, SingleQuote=63, DoubleQuote=64, Class=65, Void=66, 
-		Bool=67, Int=68, Float=69, String=70, Graph=71, Edge=72, Matrix=73, Vertex=74, 
-		Long=75, Unsigned=76, Delete=77, Operator=78, Return=79, Const=80, False_=81, 
-		True_=82, Identifier=83, IntegerLiteral=84, DecimalLiteral=85, Integersuffix=86, 
-		FloatingLiteral=87, StringLiteral=88, BooleanLiteral=89, VertexLiteral=90, 
-		Newline=91, WHITESPACE=92, ESC=93, UNTERM_STR=94, NULL_STR=95, ESC_NULL_STR=96, 
-		EOF_BCKSLSH_STR=97, EOF_STR=98, EOF_COMMENT_0=99, OPEN_COMMENT=100, SINGLE_LINE_COMMENT=101, 
-		MULTI_LINE_COMMENT=102, EOF_COMMENT_1=103, EOF_COMMENT_2=104, IN_NEST_MLC_0=105, 
-		CLOSE_MLC_0=106, CONTENT_MLC_0=107, EOF_COMMENT_3=108, EOF_COMMENT_4=109, 
-		EOF_COMMENT_5=110, IN_NEST_MLC_1=111, CLOSE_MLC_1=112, CONTENT_MLC_1=113, 
-		OTHER=114;
+		ERROR=1, Literal=2, LeftParen=3, RightParen=4, LeftBrace=5, RightBrace=6, 
+		LeftBracket=7, RightBracket=8, Or=9, Star=10, And=11, Plus=12, Minus=13, 
+		Tildae=14, Not=15, Div=16, Mod=17, Less=18, Greater=19, LessEqual=20, 
+		GreaterEqual=21, Equal=22, NotEqual=23, Caret=24, AndAnd=25, OrOr=26, 
+		Assign=27, StarAssign=28, DivAssign=29, ModAssign=30, PlusAssign=31, MinusAssign=32, 
+		AndAssign=33, XorAssign=34, OrAssign=35, PlusPlus=36, MinusMinus=37, Dot=38, 
+		Arrow=39, Sizeof=40, Hashtag=41, Addc=42, Addr=43, Delr=44, Questionmark=45, 
+		Inv=46, Trans=47, Vsizeof=48, Esizeof=49, Val=50, RightShift=51, LeftShift=52, 
+		If=53, Else=54, Switch=55, While=56, For=57, Case=58, Default=59, Comma=60, 
+		Colon=61, Semi=62, Ellipsis=63, SingleQuote=64, DoubleQuote=65, Class=66, 
+		Void=67, Bool=68, Int=69, Float=70, String=71, Graph=72, Edge=73, Matrix=74, 
+		Vertex=75, Long=76, Unsigned=77, Delete=78, Operator=79, Return=80, Const=81, 
+		False_=82, True_=83, Identifier=84, IntegerLiteral=85, DecimalLiteral=86, 
+		Integersuffix=87, FloatingLiteral=88, StringLiteral=89, BooleanLiteral=90, 
+		VertexLiteral=91, Newline=92, WHITESPACE=93, ESC=94, UNTERM_STR=95, NULL_STR=96, 
+		ESC_NULL_STR=97, EOF_BCKSLSH_STR=98, EOF_STR=99, EOF_COMMENT_0=100, OPEN_COMMENT=101, 
+		SINGLE_LINE_COMMENT=102, MULTI_LINE_COMMENT=103, EOF_COMMENT_1=104, EOF_COMMENT_2=105, 
+		IN_NEST_MLC_0=106, CLOSE_MLC_0=107, CONTENT_MLC_0=108, EOF_COMMENT_3=109, 
+		EOF_COMMENT_4=110, EOF_COMMENT_5=111, IN_NEST_MLC_1=112, CLOSE_MLC_1=113, 
+		CONTENT_MLC_1=114, OTHER=115;
 	public static final int
 		IN_MLC=1, NESTED_MLC=2;
 	public static String[] channelNames = {
@@ -78,20 +78,21 @@ public class DroolLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, "'('", "')'", "'{'", "'}'", "'['", "']'", "'|'", "'*'", "'&'", 
-			"'+'", "'-'", "'~'", "'!'", "'/'", "'%'", "'<'", "'>'", "'<='", "'>='", 
-			"'=='", "'!='", "'^'", "'&&'", "'||'", "'='", "'*='", "'/='", "'%='", 
-			"'+='", "'-='", "'&='", "'^='", "'|='", "'++'", "'--'", "'.'", "'->'", 
-			null, "'#'", null, null, null, "'?'", null, null, null, null, null, "'>>'", 
-			"'<<'", null, null, null, null, null, null, null, "','", "':'", "';'", 
-			"'...'", "'''", "'\"'", null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, "'false'", "'true'"
+			null, null, null, "'('", "')'", "'{'", "'}'", "'['", "']'", "'|'", "'*'", 
+			"'&'", "'+'", "'-'", "'~'", "'!'", "'/'", "'%'", "'<'", "'>'", "'<='", 
+			"'>='", "'=='", "'!='", "'^'", "'&&'", "'||'", "'='", "'*='", "'/='", 
+			"'%='", "'+='", "'-='", "'&='", "'^='", "'|='", "'++'", "'--'", "'.'", 
+			"'->'", null, "'#'", null, null, null, "'?'", null, null, null, null, 
+			null, "'>>'", "'<<'", null, null, null, null, null, null, null, "','", 
+			"':'", "';'", "'...'", "'''", "'\"'", null, null, null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, "'false'", 
+			"'true'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "Literal", "LeftParen", "RightParen", "LeftBrace", "RightBrace", 
+			null, "ERROR", "Literal", "LeftParen", "RightParen", "LeftBrace", "RightBrace", 
 			"LeftBracket", "RightBracket", "Or", "Star", "And", "Plus", "Minus", 
 			"Tildae", "Not", "Div", "Mod", "Less", "Greater", "LessEqual", "GreaterEqual", 
 			"Equal", "NotEqual", "Caret", "AndAnd", "OrOr", "Assign", "StarAssign", 
@@ -374,7 +375,7 @@ public class DroolLexer extends Lexer {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2t\u0404\b\1\b\1\b"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2u\u0404\b\1\b\1\b"+
 		"\1\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n"+
 		"\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21"+
 		"\4\22\t\22\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30"+
@@ -447,21 +448,21 @@ public class DroolLexer extends Lexer {
 		"\3\u0099\3\u009a\3\u009a\3\u009a\3\u009a\3\u009a\3\u009a\3\u009b\3\u009b"+
 		"\3\u009b\3\u009b\3\u009b\3\u009b\3\u009c\3\u009c\3\u009c\3\u009c\3\u009c"+
 		"\3\u009c\3\u009d\3\u009d\3\u009d\3\u009d\3\u009d\3\u009d\3\u009e\3\u009e"+
-		"\3\u009e\3\u009e\3\u009f\3\u009f\3\u009f\3\u03b9\2\u00a0\5\3\7\2\t\2\13"+
+		"\3\u009e\3\u009e\3\u009f\3\u009f\3\u009f\3\u03b9\2\u00a0\5\4\7\2\t\2\13"+
 		"\2\r\2\17\2\21\2\23\2\25\2\27\2\31\2\33\2\35\2\37\2!\2#\2%\2\'\2)\2+\2"+
-		"-\2/\2\61\2\63\2\65\2\67\29\2;\2=\2?\2A\2C\2E\2G\4I\5K\6M\7O\bQ\tS\nU"+
-		"\13W\fY\r[\16]\17_\20a\21c\22e\23g\24i\25k\26m\27o\30q\31s\32u\33w\34"+
-		"y\35{\36}\37\177 \u0081!\u0083\"\u0085#\u0087$\u0089%\u008b&\u008d\'\u008f"+
-		"(\u0091)\u0093*\u0095+\u0097,\u0099-\u009b.\u009d/\u009f\60\u00a1\61\u00a3"+
-		"\62\u00a5\63\u00a7\64\u00a9\65\u00ab\66\u00ad\67\u00af8\u00b19\u00b3:"+
-		"\u00b5;\u00b7<\u00b9=\u00bb>\u00bd?\u00bf@\u00c1A\u00c3B\u00c5C\u00c7"+
-		"D\u00c9E\u00cbF\u00cdG\u00cfH\u00d1I\u00d3J\u00d5K\u00d7L\u00d9M\u00db"+
-		"N\u00ddO\u00dfP\u00e1Q\u00e3R\u00e5S\u00e7T\u00e9U\u00ebV\u00edW\u00ef"+
-		"X\u00f1\2\u00f3\2\u00f5\2\u00f7Y\u00f9\2\u00fb\2\u00fd\2\u00ff\2\u0101"+
-		"\2\u0103Z\u0105\2\u0107\2\u0109[\u010b\\\u010d]\u010f^\u0111_\u0113\2"+
-		"\u0115\2\u0117`\u0119a\u011bb\u011dc\u011fd\u0121e\u0123f\u0125g\u0127"+
-		"h\u0129i\u012bj\u012dk\u012fl\u0131m\u0133n\u0135o\u0137p\u0139q\u013b"+
-		"r\u013ds\u013ft\5\2\3\4*\3\2C\\\3\2c|\3\2\62;\3\2\63;\3\2\62\63\4\2CC"+
+		"-\2/\2\61\2\63\2\65\2\67\29\2;\2=\2?\2A\2C\2E\2G\5I\6K\7M\bO\tQ\nS\13"+
+		"U\fW\rY\16[\17]\20_\21a\22c\23e\24g\25i\26k\27m\30o\31q\32s\33u\34w\35"+
+		"y\36{\37} \177!\u0081\"\u0083#\u0085$\u0087%\u0089&\u008b\'\u008d(\u008f"+
+		")\u0091*\u0093+\u0095,\u0097-\u0099.\u009b/\u009d\60\u009f\61\u00a1\62"+
+		"\u00a3\63\u00a5\64\u00a7\65\u00a9\66\u00ab\67\u00ad8\u00af9\u00b1:\u00b3"+
+		";\u00b5<\u00b7=\u00b9>\u00bb?\u00bd@\u00bfA\u00c1B\u00c3C\u00c5D\u00c7"+
+		"E\u00c9F\u00cbG\u00cdH\u00cfI\u00d1J\u00d3K\u00d5L\u00d7M\u00d9N\u00db"+
+		"O\u00ddP\u00dfQ\u00e1R\u00e3S\u00e5T\u00e7U\u00e9V\u00ebW\u00edX\u00ef"+
+		"Y\u00f1\2\u00f3\2\u00f5\2\u00f7Z\u00f9\2\u00fb\2\u00fd\2\u00ff\2\u0101"+
+		"\2\u0103[\u0105\2\u0107\2\u0109\\\u010b]\u010d^\u010f_\u0111`\u0113\2"+
+		"\u0115\2\u0117a\u0119b\u011bc\u011dd\u011fe\u0121f\u0123g\u0125h\u0127"+
+		"i\u0129j\u012bk\u012dl\u012fm\u0131n\u0133o\u0135p\u0137q\u0139r\u013b"+
+		"s\u013dt\u013fu\5\2\3\4*\3\2C\\\3\2c|\3\2\62;\3\2\63;\3\2\62\63\4\2CC"+
 		"cc\4\2DDdd\4\2EEee\4\2FFff\4\2GGgg\4\2HHhh\4\2IIii\4\2JJjj\4\2KKkk\4\2"+
 		"LLll\4\2MMmm\4\2NNnn\4\2OOoo\4\2PPpp\4\2QQqq\4\2RRrr\4\2SSss\4\2TTtt\4"+
 		"\2UUuu\4\2VVvv\4\2WWww\4\2XXxx\4\2YYyy\4\2ZZzz\4\2[[{{\4\2\\\\||\4\2-"+

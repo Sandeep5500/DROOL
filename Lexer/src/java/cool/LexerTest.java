@@ -19,58 +19,122 @@ public class LexerTest {
 
 	static String[] TOKENS = //{"ERROR", "TYPEID", "OBJECTID", "BOOL_CONST", "INT_CONST", "STR_CONST", "'('", "')'", "':'", "'@'", "';'", "','", "'+'", "'-'", "'*'", "'/'", "'~'", "'<'", "'='", "'{'", "'}'", "'.'", "DARROW", "LE", "ASSIGN", "CLASS", "ELSE", "FI", "IF", "IN", "INHERITS", "LET", "LOOP", "POOL", "THEN", "WHILE", "CASE", "ESAC", "OF", "NEW", "ISVOID", "NOT"
 	//};
-	{"Literal","LeftParen","RightParen","LeftBrace","RightBrace","LeftBracket","RightBracket","Or","Star","And","Plus","Minus","Tildae","Not","Div","Mod","RightShift","LeftShift","Less","Greater","LessEqual","GreaterEqual","Equal","NotEqual","Caret","AndAnd","OrOr","Assign","StarAssign","DivAssign","ModAssign","PlusAssign","MinusAssign","AndAssign","XorAssign","OrAssign","PlusPlus","MinusMinus","Dot","Arrow","Sizeof","Hashtag","Addc","Addr","Delr","Questionmark","Inv","Trans","Vsizeof","Esizeof","Val=51","Push","Pull","If","Else","Switch","While","For","Case","Default","Comma","Colon","Semi","Ellipsis","SingleQuote","Class","Void","Bool","Int","Float","String","Graph","Edge","Matrix","Vertex","Long","Unsigned","Delete","Operator","Return","Const","False_","True_","Identifier","IntegerLiteral","DecimalLiteral","BinaryLiteral","Integersuffix","FloatingLiteral","StringLiteral","BooleanLiteral","VertexLiteral","Whitespace","Newline","BlockComment","LineComment"
-,"'('"
-,"')'" 
-,"'{'" 
-,"'}'" 
-,"'['" 
-,"']'" 
-,"'|'" 
-,"'*'" 
-,"'&'" 
-,"'+'" 
-,"'-'" 
-,"'~'" 
-,"'!'" 
-,"'/'" 
-,"'%'" 
-,"'->>'" 
-,"'<<-'" 
-,"'<'" 
-,"'>'" 
-,"'<='" 
-,"'>='" 
-,"'=='" 
-,"'!='" 
-,"'^'"
-,"'&&'" 
-,"'||'"
-,"'='" 
-,"'*='" 
-,"'/='" 
-,"'%='" 
-,"'+='" 
-,"'-='" 
-,"'&='" 
-,"'^='" 
-,"'|='" 
-,"'++'" 
-,"'--'" 
-,"'.'"
-,"'->'"
-,"'#'" 
-,"'?'" 
-,"'<<'" 
-,"'>>'" 
-,"','" 
-,"':'" 
-,"';'" 
-,"'...'" 
-,"'\''"
-,"'false'"
-,"'true'" 
-	};
+{"ERROR",
+"Literal",
+"LeftParen",
+"RightParen",
+"LeftBrace",
+"RightBrace",
+"LeftBracket",
+"RightBracket",
+"Or",
+"Star",
+"And",
+"Plus",
+"Minus",
+"Tilda",
+"Not",
+"Div",
+"Mod",
+"Less",
+"Greater",
+"LessEqual",
+"GreaterEqual",
+"Equal",
+"NotEqual",
+"Caret",
+"AndAnd",
+"OrOr",
+"Assign",
+"StarAssign",
+"DivAssign",
+"ModAssign",
+"PlusAssign",
+"MinusAssign",
+"AndAssign",
+"XorAssign",
+"OrAssign",
+"PlusPlus",
+"MinusMinus",
+"Dot",
+"Arrow",
+"Sizeof",
+"Hashtag",
+"Addc",
+"Addr",
+"Delr",
+"Questionmark",
+"Inv",
+"Trans",
+"Vsizeof",
+"Esizeof",
+"Val",
+"RightShift",
+"LeftShift",
+"If",
+"Else",
+"Switch",
+"While",
+"For",
+"Case",
+"Default",
+"Comma",
+"Colon",
+"Semi",
+"Ellipsis",
+"SingleQuote",
+"DoubleQuote",
+"Class",
+"Void",
+"Bool",
+"Int",
+"Float",
+"String",
+"Graph",
+"Edge",
+"Matrix",
+"Vertex",
+"Long",
+"Unsigned",
+"Delete",
+"Operator",
+"Return",
+"Const",
+"False_",
+"True_",
+"Identifier",
+"IntegerLiteral",
+"DecimalLiteral",
+"Integersuffix",
+"FloatingLiteral",
+"StringLiteral",
+"BooleanLiteral",
+"VertexLiteral",
+"Newline",
+"WHITESPACE",
+"ESC",
+"UNTERM_STR",
+"NULL_STR",
+"ESC_NULL_STR",
+"EOF_BCKSLSH_STR",
+"EOF_STR",
+"EOF_COMMENT_0",
+"OPEN_COMMENT",
+"SINGLE_LINE_COMMENT",
+"MULTI_LINE_COMMENT",
+"EOF_COMMENT_1",
+"EOF_COMMENT_2",
+"IN_NEST_MLC_0",
+"CLOSE_MLC_0",
+"CONTENT_MLC_0",
+"EOF_COMMENT_3",
+"EOF_COMMENT_4",
+"EOF_COMMENT_5",
+"IN_NEST_MLC_1",
+"CLOSE_MLC_1",
+"CONTENT_MLC_1",
+"OTHER=115"
+};
 
 	static int VALUED_INDEX_LIMIT = 6;
 
@@ -130,8 +194,8 @@ public class LexerTest {
 		String name = filename.substring(filename.lastIndexOf('/') + 1);
 		System.out.println("#name \"" + name + "\"");
 
-		final int BOOL_CONST_INDEX = Arrays.asList(TOKENS).indexOf("BOOL_CONST");
-		final int STR_CONST_INDEX = Arrays.asList(TOKENS).indexOf("STR_CONST");
+		final int BOOL_CONST_INDEX = Arrays.asList(TOKENS).indexOf("Bool");
+		final int STR_CONST_INDEX = Arrays.asList(TOKENS).indexOf("String");
 		final int ERROR_INDEX = Arrays.asList(TOKENS).indexOf("ERROR");
 
 		//Print tokens

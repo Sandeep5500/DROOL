@@ -1,5 +1,8 @@
 lexer grammar DroolLexer;
 
+tokens{
+	ERROR
+}
 
 @members{
 
