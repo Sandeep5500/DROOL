@@ -49,7 +49,7 @@ expressionList: initializerList;
 unaryExpression:
   postfixExpression
   | (PlusPlus | MinusMinus | unaryOperator | Sizeof) unaryExpression
-  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Transpose) LeftParen dataType RightParen;
+  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Trans) LeftParen dataType RightParen;
  // | newExpression
   //| deleteExpression;
 

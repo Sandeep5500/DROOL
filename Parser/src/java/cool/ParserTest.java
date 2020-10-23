@@ -66,6 +66,7 @@ public class ParserTest {
 "Questionmark",
 "Inv",
 "Trans",
+"Det",
 "Vsizeof",
 "Esizeof",
 "Val",

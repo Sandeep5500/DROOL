@@ -170,6 +170,7 @@ Delr: D E L R;
 Questionmark: '?';
 Inv: I N V;
 Trans: T R A N S;
+Det: D E T;
 Vsizeof: V S I Z E O F;
 Esizeof: E S I Z E O F;
 Val: V A L;

@@ -66,6 +66,7 @@ public class LexerTest {
 "Questionmark",
 "Inv",
 "Trans",
+"Det",
 "Vsizeof",
 "Esizeof",
 "Val",

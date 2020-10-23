@@ -27,19 +27,19 @@ public class DroolParser extends Parser {
 		Assign=27, StarAssign=28, DivAssign=29, ModAssign=30, PlusAssign=31, MinusAssign=32, 
 		AndAssign=33, XorAssign=34, OrAssign=35, PlusPlus=36, MinusMinus=37, Dot=38, 
 		Arrow=39, Sizeof=40, Hashtag=41, Addc=42, Addr=43, Delr=44, Questionmark=45, 
-		Inv=46, Trans=47, Vsizeof=48, Esizeof=49, Val=50, RightShift=51, LeftShift=52, 
-		If=53, Else=54, Switch=55, While=56, For=57, Case=58, Default=59, Comma=60, 
-		Colon=61, Semi=62, Ellipsis=63, SingleQuote=64, DoubleQuote=65, Class=66, 
-		Void=67, Bool=68, Int=69, Float=70, String=71, Graph=72, Edge=73, Matrix=74, 
-		Vertex=75, Long=76, Unsigned=77, Delete=78, Operator=79, Return=80, Const=81, 
-		False_=82, True_=83, Identifier=84, IntegerLiteral=85, DecimalLiteral=86, 
-		Integersuffix=87, FloatingLiteral=88, StringLiteral=89, BooleanLiteral=90, 
-		VertexLiteral=91, Newline=92, WHITESPACE=93, ESC=94, UNTERM_STR=95, NULL_STR=96, 
-		ESC_NULL_STR=97, EOF_BCKSLSH_STR=98, EOF_STR=99, EOF_COMMENT_0=100, OPEN_COMMENT=101, 
-		SINGLE_LINE_COMMENT=102, MULTI_LINE_COMMENT=103, EOF_COMMENT_1=104, EOF_COMMENT_2=105, 
-		IN_NEST_MLC_0=106, CLOSE_MLC_0=107, CONTENT_MLC_0=108, EOF_COMMENT_3=109, 
-		EOF_COMMENT_4=110, EOF_COMMENT_5=111, IN_NEST_MLC_1=112, CLOSE_MLC_1=113, 
-		CONTENT_MLC_1=114, OTHER=115, Det=116, Transpose=117;
+		Inv=46, Trans=47, Det=48, Vsizeof=49, Esizeof=50, Val=51, RightShift=52, 
+		LeftShift=53, If=54, Else=55, Switch=56, While=57, For=58, Case=59, Default=60, 
+		Comma=61, Colon=62, Semi=63, Ellipsis=64, SingleQuote=65, DoubleQuote=66, 
+		Class=67, Void=68, Bool=69, Int=70, Float=71, String=72, Graph=73, Edge=74, 
+		Matrix=75, Vertex=76, Long=77, Unsigned=78, Delete=79, Operator=80, Return=81, 
+		Const=82, False_=83, True_=84, Identifier=85, IntegerLiteral=86, DecimalLiteral=87, 
+		Integersuffix=88, FloatingLiteral=89, StringLiteral=90, BooleanLiteral=91, 
+		VertexLiteral=92, Newline=93, WHITESPACE=94, ESC=95, UNTERM_STR=96, NULL_STR=97, 
+		ESC_NULL_STR=98, EOF_BCKSLSH_STR=99, EOF_STR=100, EOF_COMMENT_0=101, OPEN_COMMENT=102, 
+		SINGLE_LINE_COMMENT=103, MULTI_LINE_COMMENT=104, EOF_COMMENT_1=105, EOF_COMMENT_2=106, 
+		IN_NEST_MLC_0=107, CLOSE_MLC_0=108, CONTENT_MLC_0=109, EOF_COMMENT_3=110, 
+		EOF_COMMENT_4=111, EOF_COMMENT_5=112, IN_NEST_MLC_1=113, CLOSE_MLC_1=114, 
+		CONTENT_MLC_1=115, OTHER=116;
 	public static final int
 		RULE_translationUnit = 0, RULE_primaryExpression = 1, RULE_postfixExpression = 2, 
 		RULE_expressionList = 3, RULE_unaryExpression = 4, RULE_unaryOperator = 5, 
@@ -93,10 +93,10 @@ public class DroolParser extends Parser {
 			"'>='", "'=='", "'!='", "'^'", "'&&'", "'||'", "'='", "'*='", "'/='", 
 			"'%='", "'+='", "'-='", "'&='", "'^='", "'|='", "'++'", "'--'", "'.'", 
 			"'->'", null, "'#'", null, null, null, "'?'", null, null, null, null, 
-			null, "'>>'", "'<<'", null, null, null, null, null, null, null, "','", 
-			"':'", "';'", "'...'", "'''", "'\"'", null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, null, "'false'", 
-			"'true'"
+			null, null, "'>>'", "'<<'", null, null, null, null, null, null, null, 
+			"','", "':'", "';'", "'...'", "'''", "'\"'", null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			"'false'", "'true'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -108,19 +108,19 @@ public class DroolParser extends Parser {
 			"Equal", "NotEqual", "Caret", "AndAnd", "OrOr", "Assign", "StarAssign", 
 			"DivAssign", "ModAssign", "PlusAssign", "MinusAssign", "AndAssign", "XorAssign", 
 			"OrAssign", "PlusPlus", "MinusMinus", "Dot", "Arrow", "Sizeof", "Hashtag", 
-			"Addc", "Addr", "Delr", "Questionmark", "Inv", "Trans", "Vsizeof", "Esizeof", 
-			"Val", "RightShift", "LeftShift", "If", "Else", "Switch", "While", "For", 
-			"Case", "Default", "Comma", "Colon", "Semi", "Ellipsis", "SingleQuote", 
-			"DoubleQuote", "Class", "Void", "Bool", "Int", "Float", "String", "Graph", 
-			"Edge", "Matrix", "Vertex", "Long", "Unsigned", "Delete", "Operator", 
-			"Return", "Const", "False_", "True_", "Identifier", "IntegerLiteral", 
+			"Addc", "Addr", "Delr", "Questionmark", "Inv", "Trans", "Det", "Vsizeof", 
+			"Esizeof", "Val", "RightShift", "LeftShift", "If", "Else", "Switch", 
+			"While", "For", "Case", "Default", "Comma", "Colon", "Semi", "Ellipsis", 
+			"SingleQuote", "DoubleQuote", "Class", "Void", "Bool", "Int", "Float", 
+			"String", "Graph", "Edge", "Matrix", "Vertex", "Long", "Unsigned", "Delete", 
+			"Operator", "Return", "Const", "False_", "True_", "Identifier", "IntegerLiteral", 
 			"DecimalLiteral", "Integersuffix", "FloatingLiteral", "StringLiteral", 
 			"BooleanLiteral", "VertexLiteral", "Newline", "WHITESPACE", "ESC", "UNTERM_STR", 
 			"NULL_STR", "ESC_NULL_STR", "EOF_BCKSLSH_STR", "EOF_STR", "EOF_COMMENT_0", 
 			"OPEN_COMMENT", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", "EOF_COMMENT_1", 
 			"EOF_COMMENT_2", "IN_NEST_MLC_0", "CLOSE_MLC_0", "CONTENT_MLC_0", "EOF_COMMENT_3", 
 			"EOF_COMMENT_4", "EOF_COMMENT_5", "IN_NEST_MLC_1", "CLOSE_MLC_1", "CONTENT_MLC_1", 
-			"OTHER", "Det", "Transpose"
+			"OTHER"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -207,7 +207,7 @@ public class DroolParser extends Parser {
 			setState(131);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 62)) & ~0x3f) == 0 && ((1L << (_la - 62)) & ((1L << (Semi - 62)) | (1L << (Void - 62)) | (1L << (Bool - 62)) | (1L << (Int - 62)) | (1L << (Float - 62)) | (1L << (String - 62)) | (1L << (Graph - 62)) | (1L << (Edge - 62)) | (1L << (Matrix - 62)) | (1L << (Vertex - 62)) | (1L << (Identifier - 62)))) != 0)) {
+			if (((((_la - 63)) & ~0x3f) == 0 && ((1L << (_la - 63)) & ((1L << (Semi - 63)) | (1L << (Void - 63)) | (1L << (Bool - 63)) | (1L << (Int - 63)) | (1L << (Float - 63)) | (1L << (String - 63)) | (1L << (Graph - 63)) | (1L << (Edge - 63)) | (1L << (Matrix - 63)) | (1L << (Vertex - 63)) | (1L << (Identifier - 63)))) != 0)) {
 				{
 				setState(130);
 				declarationseq();
@@ -356,7 +356,7 @@ public class DroolParser extends Parser {
 						setState(149);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 							{
 							setState(148);
 							expressionList();
@@ -479,7 +479,7 @@ public class DroolParser extends Parser {
 		public TerminalNode Val() { return getToken(DroolParser.Val, 0); }
 		public TerminalNode Inv() { return getToken(DroolParser.Inv, 0); }
 		public TerminalNode Det() { return getToken(DroolParser.Det, 0); }
-		public TerminalNode Transpose() { return getToken(DroolParser.Transpose, 0); }
+		public TerminalNode Trans() { return getToken(DroolParser.Trans, 0); }
 		public UnaryExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -549,7 +549,7 @@ public class DroolParser extends Parser {
 				{
 				setState(172);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Sizeof) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Det || _la==Transpose) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Sizeof) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -657,12 +657,12 @@ public class DroolParser extends Parser {
 			case MinusMinus:
 			case Sizeof:
 			case Inv:
+			case Trans:
+			case Det:
 			case Vsizeof:
 			case Esizeof:
 			case Val:
 			case Identifier:
-			case Det:
-			case Transpose:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(181);
@@ -1814,7 +1814,7 @@ public class DroolParser extends Parser {
 			setState(319);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 				{
 				setState(318);
 				expression();
@@ -1860,7 +1860,7 @@ public class DroolParser extends Parser {
 			setState(325);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val) | (1L << If) | (1L << Switch) | (1L << While) | (1L << For) | (1L << Case) | (1L << Default) | (1L << Semi))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)) | (1L << (Det - 67)) | (1L << (Transpose - 67)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val) | (1L << If) | (1L << Switch) | (1L << While) | (1L << For) | (1L << Case) | (1L << Default) | (1L << Semi))) != 0) || ((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (Void - 68)) | (1L << (Bool - 68)) | (1L << (Int - 68)) | (1L << (Float - 68)) | (1L << (String - 68)) | (1L << (Graph - 68)) | (1L << (Edge - 68)) | (1L << (Matrix - 68)) | (1L << (Vertex - 68)) | (1L << (Identifier - 68)))) != 0)) {
 				{
 				setState(324);
 				statementSeq();
@@ -1915,7 +1915,7 @@ public class DroolParser extends Parser {
 				setState(332); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val) | (1L << If) | (1L << Switch) | (1L << While) | (1L << For) | (1L << Case) | (1L << Default) | (1L << Semi))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)) | (1L << (Det - 67)) | (1L << (Transpose - 67)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val) | (1L << If) | (1L << Switch) | (1L << While) | (1L << For) | (1L << Case) | (1L << Default) | (1L << Semi))) != 0) || ((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (Void - 68)) | (1L << (Bool - 68)) | (1L << (Int - 68)) | (1L << (Float - 68)) | (1L << (String - 68)) | (1L << (Graph - 68)) | (1L << (Edge - 68)) | (1L << (Matrix - 68)) | (1L << (Vertex - 68)) | (1L << (Identifier - 68)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2173,7 +2173,7 @@ public class DroolParser extends Parser {
 				setState(377);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 					{
 					setState(376);
 					condition();
@@ -2185,7 +2185,7 @@ public class DroolParser extends Parser {
 				setState(381);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 					{
 					setState(380);
 					expression();
@@ -2325,7 +2325,7 @@ public class DroolParser extends Parser {
 				setState(397); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 62)) & ~0x3f) == 0 && ((1L << (_la - 62)) & ((1L << (Semi - 62)) | (1L << (Void - 62)) | (1L << (Bool - 62)) | (1L << (Int - 62)) | (1L << (Float - 62)) | (1L << (String - 62)) | (1L << (Graph - 62)) | (1L << (Edge - 62)) | (1L << (Matrix - 62)) | (1L << (Vertex - 62)) | (1L << (Identifier - 62)))) != 0) );
+			} while ( ((((_la - 63)) & ~0x3f) == 0 && ((1L << (_la - 63)) & ((1L << (Semi - 63)) | (1L << (Void - 63)) | (1L << (Bool - 63)) | (1L << (Int - 63)) | (1L << (Float - 63)) | (1L << (String - 63)) | (1L << (Graph - 63)) | (1L << (Edge - 63)) | (1L << (Matrix - 63)) | (1L << (Vertex - 63)) | (1L << (Identifier - 63)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2445,7 +2445,7 @@ public class DroolParser extends Parser {
 				setState(407);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)))) != 0)) {
+				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (Void - 68)) | (1L << (Bool - 68)) | (1L << (Int - 68)) | (1L << (Float - 68)) | (1L << (String - 68)) | (1L << (Graph - 68)) | (1L << (Edge - 68)) | (1L << (Matrix - 68)) | (1L << (Vertex - 68)) | (1L << (Identifier - 68)))) != 0)) {
 					{
 					setState(406);
 					initDeclaratorList();
@@ -2734,7 +2734,7 @@ public class DroolParser extends Parser {
 				setState(444);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 					{
 					setState(443);
 					constantExpression();
@@ -2910,7 +2910,7 @@ public class DroolParser extends Parser {
 			setState(466);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)))) != 0)) {
+			if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (Void - 68)) | (1L << (Bool - 68)) | (1L << (Int - 68)) | (1L << (Float - 68)) | (1L << (String - 68)) | (1L << (Graph - 68)) | (1L << (Edge - 68)) | (1L << (Matrix - 68)) | (1L << (Vertex - 68)) | (1L << (Identifier - 68)))) != 0)) {
 				{
 				setState(465);
 				initDeclarator();
@@ -3185,12 +3185,12 @@ public class DroolParser extends Parser {
 			case Sizeof:
 			case Hashtag:
 			case Inv:
+			case Trans:
+			case Det:
 			case Vsizeof:
 			case Esizeof:
 			case Val:
 			case Identifier:
-			case Det:
-			case Transpose:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(493);
@@ -3301,7 +3301,7 @@ public class DroolParser extends Parser {
 			setState(510);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 				{
 				setState(506);
 				initializerList();
@@ -3391,7 +3391,7 @@ public class DroolParser extends Parser {
 			setState(519);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 62)) & ~0x3f) == 0 && ((1L << (_la - 62)) & ((1L << (Semi - 62)) | (1L << (Void - 62)) | (1L << (Bool - 62)) | (1L << (Int - 62)) | (1L << (Float - 62)) | (1L << (String - 62)) | (1L << (Graph - 62)) | (1L << (Edge - 62)) | (1L << (Matrix - 62)) | (1L << (Vertex - 62)) | (1L << (Identifier - 62)))) != 0)) {
+			if (((((_la - 63)) & ~0x3f) == 0 && ((1L << (_la - 63)) & ((1L << (Semi - 63)) | (1L << (Void - 63)) | (1L << (Bool - 63)) | (1L << (Int - 63)) | (1L << (Float - 63)) | (1L << (String - 63)) | (1L << (Graph - 63)) | (1L << (Edge - 63)) | (1L << (Matrix - 63)) | (1L << (Vertex - 63)) | (1L << (Identifier - 63)))) != 0)) {
 				{
 				setState(518);
 				memberSpecification();
@@ -3494,7 +3494,7 @@ public class DroolParser extends Parser {
 				setState(531); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 62)) & ~0x3f) == 0 && ((1L << (_la - 62)) & ((1L << (Semi - 62)) | (1L << (Void - 62)) | (1L << (Bool - 62)) | (1L << (Int - 62)) | (1L << (Float - 62)) | (1L << (String - 62)) | (1L << (Graph - 62)) | (1L << (Edge - 62)) | (1L << (Matrix - 62)) | (1L << (Vertex - 62)) | (1L << (Identifier - 62)))) != 0) );
+			} while ( ((((_la - 63)) & ~0x3f) == 0 && ((1L << (_la - 63)) & ((1L << (Semi - 63)) | (1L << (Void - 63)) | (1L << (Bool - 63)) | (1L << (Int - 63)) | (1L << (Float - 63)) | (1L << (String - 63)) | (1L << (Graph - 63)) | (1L << (Edge - 63)) | (1L << (Matrix - 63)) | (1L << (Vertex - 63)) | (1L << (Identifier - 63)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -3536,7 +3536,7 @@ public class DroolParser extends Parser {
 				setState(534);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)))) != 0)) {
+				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (Void - 68)) | (1L << (Bool - 68)) | (1L << (Int - 68)) | (1L << (Float - 68)) | (1L << (String - 68)) | (1L << (Graph - 68)) | (1L << (Edge - 68)) | (1L << (Matrix - 68)) | (1L << (Vertex - 68)) | (1L << (Identifier - 68)))) != 0)) {
 					{
 					setState(533);
 					memberDeclaratorList();
@@ -3884,7 +3884,7 @@ public class DroolParser extends Parser {
 				setState(583);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Trans) | (1L << Det) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Identifier) {
 					{
 					setState(582);
 					expressionList();
@@ -3982,7 +3982,7 @@ public class DroolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3w\u0254\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3v\u0254\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -4027,93 +4027,93 @@ public class DroolParser extends Parser {
 		"\n@\3@\3@\3@\5@\u0240\n@\7@\u0242\n@\f@\16@\u0245\13@\3A\3A\3A\5A\u024a"+
 		"\nA\3A\3A\5A\u024e\nA\3B\3B\5B\u0252\nB\3B\2\3\6C\2\4\6\b\n\f\16\20\22"+
 		"\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfhjlnp"+
-		"rtvxz|~\u0080\u0082\2\16\3\2()\3\2&\'\6\2**\60\60\62\64vw\3\2\13\21\3"+
-		"\2,-\4\2\f\f\22\23\3\2\16\17\3\2\65\66\3\2\24\27\3\2\30\31\3\2\35%\4\2"+
-		"==PP\2\u026b\2\u0085\3\2\2\2\4\u008f\3\2\2\2\6\u0091\3\2\2\2\b\u00a4\3"+
-		"\2\2\2\n\u00b3\3\2\2\2\f\u00b5\3\2\2\2\16\u00be\3\2\2\2\20\u00c0\3\2\2"+
-		"\2\22\u00c5\3\2\2\2\24\u00ca\3\2\2\2\26\u00d2\3\2\2\2\30\u00da\3\2\2\2"+
-		"\32\u00e3\3\2\2\2\34\u00e5\3\2\2\2\36\u00ed\3\2\2\2 \u00f5\3\2\2\2\"\u00fd"+
-		"\3\2\2\2$\u0105\3\2\2\2&\u010d\3\2\2\2(\u0115\3\2\2\2*\u0122\3\2\2\2,"+
-		"\u0124\3\2\2\2.\u0126\3\2\2\2\60\u012e\3\2\2\2\62\u0136\3\2\2\2\64\u013b"+
-		"\3\2\2\2\66\u0141\3\2\2\28\u0145\3\2\2\2:\u014c\3\2\2\2<\u0166\3\2\2\2"+
-		">\u016f\3\2\2\2@\u0184\3\2\2\2B\u0188\3\2\2\2D\u018a\3\2\2\2F\u018d\3"+
-		"\2\2\2H\u0193\3\2\2\2J\u0195\3\2\2\2L\u019f\3\2\2\2N\u01ab\3\2\2\2P\u01ad"+
-		"\3\2\2\2R\u01b5\3\2\2\2T\u01ba\3\2\2\2V\u01c3\3\2\2\2X\u01c9\3\2\2\2Z"+
-		"\u01cb\3\2\2\2\\\u01d4\3\2\2\2^\u01d6\3\2\2\2`\u01e1\3\2\2\2b\u01e8\3"+
-		"\2\2\2d\u01ed\3\2\2\2f\u01f1\3\2\2\2h\u01f3\3\2\2\2j\u01fb\3\2\2\2l\u0204"+
-		"\3\2\2\2n\u0206\3\2\2\2p\u020d\3\2\2\2r\u0213\3\2\2\2t\u021c\3\2\2\2v"+
-		"\u021e\3\2\2\2x\u0226\3\2\2\2z\u022d\3\2\2\2|\u0230\3\2\2\2~\u0238\3\2"+
-		"\2\2\u0080\u0246\3\2\2\2\u0082\u0251\3\2\2\2\u0084\u0086\5F$\2\u0085\u0084"+
-		"\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\7\2\2\3\u0088"+
-		"\3\3\2\2\2\u0089\u0090\7\4\2\2\u008a\u008b\7\5\2\2\u008b\u008c\5.\30\2"+
-		"\u008c\u008d\7\6\2\2\u008d\u0090\3\2\2\2\u008e\u0090\7V\2\2\u008f\u0089"+
-		"\3\2\2\2\u008f\u008a\3\2\2\2\u008f\u008e\3\2\2\2\u0090\5\3\2\2\2\u0091"+
-		"\u0092\b\4\1\2\u0092\u0093\5\4\3\2\u0093\u00a1\3\2\2\2\u0094\u0095\f\5"+
-		"\2\2\u0095\u0097\7\5\2\2\u0096\u0098\5\b\5\2\u0097\u0096\3\2\2\2\u0097"+
-		"\u0098\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u00a0\7\6\2\2\u009a\u009b\f\4"+
-		"\2\2\u009b\u009c\t\2\2\2\u009c\u00a0\7V\2\2\u009d\u009e\f\3\2\2\u009e"+
-		"\u00a0\t\3\2\2\u009f\u0094\3\2\2\2\u009f\u009a\3\2\2\2\u009f\u009d\3\2"+
-		"\2\2\u00a0\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2"+
-		"\7\3\2\2\2\u00a3\u00a1\3\2\2\2\u00a4\u00a5\5h\65\2\u00a5\t\3\2\2\2\u00a6"+
-		"\u00b4\5\6\4\2\u00a7\u00ac\7&\2\2\u00a8\u00ac\7\'\2\2\u00a9\u00ac\5\f"+
-		"\7\2\u00aa\u00ac\7*\2\2\u00ab\u00a7\3\2\2\2\u00ab\u00a8\3\2\2\2\u00ab"+
-		"\u00a9\3\2\2\2\u00ab\u00aa\3\2\2\2\u00ac\u00ad\3\2\2\2\u00ad\u00b4\5\n"+
-		"\6\2\u00ae\u00af\t\4\2\2\u00af\u00b0\7\5\2\2\u00b0\u00b1\5N(\2\u00b1\u00b2"+
-		"\7\6\2\2\u00b2\u00b4\3\2\2\2\u00b3\u00a6\3\2\2\2\u00b3\u00ab\3\2\2\2\u00b3"+
-		"\u00ae\3\2\2\2\u00b4\13\3\2\2\2\u00b5\u00b6\t\5\2\2\u00b6\r\3\2\2\2\u00b7"+
-		"\u00ba\5\n\6\2\u00b8\u00b9\7+\2\2\u00b9\u00bb\5\n\6\2\u00ba\u00b8\3\2"+
-		"\2\2\u00ba\u00bb\3\2\2\2\u00bb\u00bf\3\2\2\2\u00bc\u00bd\7+\2\2\u00bd"+
-		"\u00bf\5\n\6\2\u00be\u00b7\3\2\2\2\u00be\u00bc\3\2\2\2\u00bf\17\3\2\2"+
-		"\2\u00c0\u00c3\5\16\b\2\u00c1\u00c2\t\6\2\2\u00c2\u00c4\5\16\b\2\u00c3"+
-		"\u00c1\3\2\2\2\u00c3\u00c4\3\2\2\2\u00c4\21\3\2\2\2\u00c5\u00c8\5\20\t"+
-		"\2\u00c6\u00c7\7/\2\2\u00c7\u00c9\5\20\t\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9"+
-		"\3\2\2\2\u00c9\23\3\2\2\2\u00ca\u00cf\5\22\n\2\u00cb\u00cc\t\7\2\2\u00cc"+
-		"\u00ce\5\22\n\2\u00cd\u00cb\3\2\2\2\u00ce\u00d1\3\2\2\2\u00cf\u00cd\3"+
-		"\2\2\2\u00cf\u00d0\3\2\2\2\u00d0\25\3\2\2\2\u00d1\u00cf\3\2\2\2\u00d2"+
-		"\u00d7\5\24\13\2\u00d3\u00d4\t\b\2\2\u00d4\u00d6\5\24\13\2\u00d5\u00d3"+
-		"\3\2\2\2\u00d6\u00d9\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d7\u00d8\3\2\2\2\u00d8"+
-		"\27\3\2\2\2\u00d9\u00d7\3\2\2\2\u00da\u00e0\5\26\f\2\u00db\u00dc\5\32"+
-		"\16\2\u00dc\u00dd\5\26\f\2\u00dd\u00df\3\2\2\2\u00de\u00db\3\2\2\2\u00df"+
-		"\u00e2\3\2\2\2\u00e0\u00de\3\2\2\2\u00e0\u00e1\3\2\2\2\u00e1\31\3\2\2"+
-		"\2\u00e2\u00e0\3\2\2\2\u00e3\u00e4\t\t\2\2\u00e4\33\3\2\2\2\u00e5\u00ea"+
-		"\5\30\r\2\u00e6\u00e7\t\n\2\2\u00e7\u00e9\5\30\r\2\u00e8\u00e6\3\2\2\2"+
-		"\u00e9\u00ec\3\2\2\2\u00ea\u00e8\3\2\2\2\u00ea\u00eb\3\2\2\2\u00eb\35"+
-		"\3\2\2\2\u00ec\u00ea\3\2\2\2\u00ed\u00f2\5\34\17\2\u00ee\u00ef\t\13\2"+
-		"\2\u00ef\u00f1\5\34\17\2\u00f0\u00ee\3\2\2\2\u00f1\u00f4\3\2\2\2\u00f2"+
-		"\u00f0\3\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\37\3\2\2\2\u00f4\u00f2\3\2\2"+
-		"\2\u00f5\u00fa\5\36\20\2\u00f6\u00f7\7\r\2\2\u00f7\u00f9\5\36\20\2\u00f8"+
-		"\u00f6\3\2\2\2\u00f9\u00fc\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fa\u00fb\3\2"+
-		"\2\2\u00fb!\3\2\2\2\u00fc\u00fa\3\2\2\2\u00fd\u0102\5 \21\2\u00fe\u00ff"+
-		"\7\32\2\2\u00ff\u0101\5 \21\2\u0100\u00fe\3\2\2\2\u0101\u0104\3\2\2\2"+
-		"\u0102\u0100\3\2\2\2\u0102\u0103\3\2\2\2\u0103#\3\2\2\2\u0104\u0102\3"+
-		"\2\2\2\u0105\u010a\5\"\22\2\u0106\u0107\7\13\2\2\u0107\u0109\5\"\22\2"+
-		"\u0108\u0106\3\2\2\2\u0109\u010c\3\2\2\2\u010a\u0108\3\2\2\2\u010a\u010b"+
-		"\3\2\2\2\u010b%\3\2\2\2\u010c\u010a\3\2\2\2\u010d\u0112\5$\23\2\u010e"+
-		"\u010f\7\33\2\2\u010f\u0111\5$\23\2\u0110\u010e\3\2\2\2\u0111\u0114\3"+
-		"\2\2\2\u0112\u0110\3\2\2\2\u0112\u0113\3\2\2\2\u0113\'\3\2\2\2\u0114\u0112"+
-		"\3\2\2\2\u0115\u011a\5&\24\2\u0116\u0117\7\34\2\2\u0117\u0119\5&\24\2"+
-		"\u0118\u0116\3\2\2\2\u0119\u011c\3\2\2\2\u011a\u0118\3\2\2\2\u011a\u011b"+
-		"\3\2\2\2\u011b)\3\2\2\2\u011c\u011a\3\2\2\2\u011d\u0123\5(\25\2\u011e"+
-		"\u011f\5(\25\2\u011f\u0120\5,\27\2\u0120\u0121\5f\64\2\u0121\u0123\3\2"+
-		"\2\2\u0122\u011d\3\2\2\2\u0122\u011e\3\2\2\2\u0123+\3\2\2\2\u0124\u0125"+
-		"\t\f\2\2\u0125-\3\2\2\2\u0126\u012b\5*\26\2\u0127\u0128\7>\2\2\u0128\u012a"+
-		"\5*\26\2\u0129\u0127\3\2\2\2\u012a\u012d\3\2\2\2\u012b\u0129\3\2\2\2\u012b"+
-		"\u012c\3\2\2\2\u012c/\3\2\2\2\u012d\u012b\3\2\2\2\u012e\u012f\5(\25\2"+
-		"\u012f\61\3\2\2\2\u0130\u0137\5\64\33\2\u0131\u0137\5\66\34\2\u0132\u0137"+
-		"\58\35\2\u0133\u0137\5<\37\2\u0134\u0137\5@!\2\u0135\u0137\5D#\2\u0136"+
-		"\u0130\3\2\2\2\u0136\u0131\3\2\2\2\u0136\u0132\3\2\2\2\u0136\u0133\3\2"+
-		"\2\2\u0136\u0134\3\2\2\2\u0136\u0135\3\2\2\2\u0137\63\3\2\2\2\u0138\u0139"+
-		"\7<\2\2\u0139\u013c\5\60\31\2\u013a\u013c\7=\2\2\u013b\u0138\3\2\2\2\u013b"+
-		"\u013a\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u013e\7?\2\2\u013e\u013f\5\62"+
-		"\32\2\u013f\65\3\2\2\2\u0140\u0142\5.\30\2\u0141\u0140\3\2\2\2\u0141\u0142"+
-		"\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u0144\7@\2\2\u0144\67\3\2\2\2\u0145"+
+		"rtvxz|~\u0080\u0082\2\16\3\2()\3\2&\'\4\2**\60\65\3\2\13\21\3\2,-\4\2"+
+		"\f\f\22\23\3\2\16\17\3\2\66\67\3\2\24\27\3\2\30\31\3\2\35%\4\2>>QQ\2\u026b"+
+		"\2\u0085\3\2\2\2\4\u008f\3\2\2\2\6\u0091\3\2\2\2\b\u00a4\3\2\2\2\n\u00b3"+
+		"\3\2\2\2\f\u00b5\3\2\2\2\16\u00be\3\2\2\2\20\u00c0\3\2\2\2\22\u00c5\3"+
+		"\2\2\2\24\u00ca\3\2\2\2\26\u00d2\3\2\2\2\30\u00da\3\2\2\2\32\u00e3\3\2"+
+		"\2\2\34\u00e5\3\2\2\2\36\u00ed\3\2\2\2 \u00f5\3\2\2\2\"\u00fd\3\2\2\2"+
+		"$\u0105\3\2\2\2&\u010d\3\2\2\2(\u0115\3\2\2\2*\u0122\3\2\2\2,\u0124\3"+
+		"\2\2\2.\u0126\3\2\2\2\60\u012e\3\2\2\2\62\u0136\3\2\2\2\64\u013b\3\2\2"+
+		"\2\66\u0141\3\2\2\28\u0145\3\2\2\2:\u014c\3\2\2\2<\u0166\3\2\2\2>\u016f"+
+		"\3\2\2\2@\u0184\3\2\2\2B\u0188\3\2\2\2D\u018a\3\2\2\2F\u018d\3\2\2\2H"+
+		"\u0193\3\2\2\2J\u0195\3\2\2\2L\u019f\3\2\2\2N\u01ab\3\2\2\2P\u01ad\3\2"+
+		"\2\2R\u01b5\3\2\2\2T\u01ba\3\2\2\2V\u01c3\3\2\2\2X\u01c9\3\2\2\2Z\u01cb"+
+		"\3\2\2\2\\\u01d4\3\2\2\2^\u01d6\3\2\2\2`\u01e1\3\2\2\2b\u01e8\3\2\2\2"+
+		"d\u01ed\3\2\2\2f\u01f1\3\2\2\2h\u01f3\3\2\2\2j\u01fb\3\2\2\2l\u0204\3"+
+		"\2\2\2n\u0206\3\2\2\2p\u020d\3\2\2\2r\u0213\3\2\2\2t\u021c\3\2\2\2v\u021e"+
+		"\3\2\2\2x\u0226\3\2\2\2z\u022d\3\2\2\2|\u0230\3\2\2\2~\u0238\3\2\2\2\u0080"+
+		"\u0246\3\2\2\2\u0082\u0251\3\2\2\2\u0084\u0086\5F$\2\u0085\u0084\3\2\2"+
+		"\2\u0085\u0086\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\7\2\2\3\u0088\3"+
+		"\3\2\2\2\u0089\u0090\7\4\2\2\u008a\u008b\7\5\2\2\u008b\u008c\5.\30\2\u008c"+
+		"\u008d\7\6\2\2\u008d\u0090\3\2\2\2\u008e\u0090\7W\2\2\u008f\u0089\3\2"+
+		"\2\2\u008f\u008a\3\2\2\2\u008f\u008e\3\2\2\2\u0090\5\3\2\2\2\u0091\u0092"+
+		"\b\4\1\2\u0092\u0093\5\4\3\2\u0093\u00a1\3\2\2\2\u0094\u0095\f\5\2\2\u0095"+
+		"\u0097\7\5\2\2\u0096\u0098\5\b\5\2\u0097\u0096\3\2\2\2\u0097\u0098\3\2"+
+		"\2\2\u0098\u0099\3\2\2\2\u0099\u00a0\7\6\2\2\u009a\u009b\f\4\2\2\u009b"+
+		"\u009c\t\2\2\2\u009c\u00a0\7W\2\2\u009d\u009e\f\3\2\2\u009e\u00a0\t\3"+
+		"\2\2\u009f\u0094\3\2\2\2\u009f\u009a\3\2\2\2\u009f\u009d\3\2\2\2\u00a0"+
+		"\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\7\3\2\2\2"+
+		"\u00a3\u00a1\3\2\2\2\u00a4\u00a5\5h\65\2\u00a5\t\3\2\2\2\u00a6\u00b4\5"+
+		"\6\4\2\u00a7\u00ac\7&\2\2\u00a8\u00ac\7\'\2\2\u00a9\u00ac\5\f\7\2\u00aa"+
+		"\u00ac\7*\2\2\u00ab\u00a7\3\2\2\2\u00ab\u00a8\3\2\2\2\u00ab\u00a9\3\2"+
+		"\2\2\u00ab\u00aa\3\2\2\2\u00ac\u00ad\3\2\2\2\u00ad\u00b4\5\n\6\2\u00ae"+
+		"\u00af\t\4\2\2\u00af\u00b0\7\5\2\2\u00b0\u00b1\5N(\2\u00b1\u00b2\7\6\2"+
+		"\2\u00b2\u00b4\3\2\2\2\u00b3\u00a6\3\2\2\2\u00b3\u00ab\3\2\2\2\u00b3\u00ae"+
+		"\3\2\2\2\u00b4\13\3\2\2\2\u00b5\u00b6\t\5\2\2\u00b6\r\3\2\2\2\u00b7\u00ba"+
+		"\5\n\6\2\u00b8\u00b9\7+\2\2\u00b9\u00bb\5\n\6\2\u00ba\u00b8\3\2\2\2\u00ba"+
+		"\u00bb\3\2\2\2\u00bb\u00bf\3\2\2\2\u00bc\u00bd\7+\2\2\u00bd\u00bf\5\n"+
+		"\6\2\u00be\u00b7\3\2\2\2\u00be\u00bc\3\2\2\2\u00bf\17\3\2\2\2\u00c0\u00c3"+
+		"\5\16\b\2\u00c1\u00c2\t\6\2\2\u00c2\u00c4\5\16\b\2\u00c3\u00c1\3\2\2\2"+
+		"\u00c3\u00c4\3\2\2\2\u00c4\21\3\2\2\2\u00c5\u00c8\5\20\t\2\u00c6\u00c7"+
+		"\7/\2\2\u00c7\u00c9\5\20\t\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9"+
+		"\23\3\2\2\2\u00ca\u00cf\5\22\n\2\u00cb\u00cc\t\7\2\2\u00cc\u00ce\5\22"+
+		"\n\2\u00cd\u00cb\3\2\2\2\u00ce\u00d1\3\2\2\2\u00cf\u00cd\3\2\2\2\u00cf"+
+		"\u00d0\3\2\2\2\u00d0\25\3\2\2\2\u00d1\u00cf\3\2\2\2\u00d2\u00d7\5\24\13"+
+		"\2\u00d3\u00d4\t\b\2\2\u00d4\u00d6\5\24\13\2\u00d5\u00d3\3\2\2\2\u00d6"+
+		"\u00d9\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d7\u00d8\3\2\2\2\u00d8\27\3\2\2"+
+		"\2\u00d9\u00d7\3\2\2\2\u00da\u00e0\5\26\f\2\u00db\u00dc\5\32\16\2\u00dc"+
+		"\u00dd\5\26\f\2\u00dd\u00df\3\2\2\2\u00de\u00db\3\2\2\2\u00df\u00e2\3"+
+		"\2\2\2\u00e0\u00de\3\2\2\2\u00e0\u00e1\3\2\2\2\u00e1\31\3\2\2\2\u00e2"+
+		"\u00e0\3\2\2\2\u00e3\u00e4\t\t\2\2\u00e4\33\3\2\2\2\u00e5\u00ea\5\30\r"+
+		"\2\u00e6\u00e7\t\n\2\2\u00e7\u00e9\5\30\r\2\u00e8\u00e6\3\2\2\2\u00e9"+
+		"\u00ec\3\2\2\2\u00ea\u00e8\3\2\2\2\u00ea\u00eb\3\2\2\2\u00eb\35\3\2\2"+
+		"\2\u00ec\u00ea\3\2\2\2\u00ed\u00f2\5\34\17\2\u00ee\u00ef\t\13\2\2\u00ef"+
+		"\u00f1\5\34\17\2\u00f0\u00ee\3\2\2\2\u00f1\u00f4\3\2\2\2\u00f2\u00f0\3"+
+		"\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\37\3\2\2\2\u00f4\u00f2\3\2\2\2\u00f5"+
+		"\u00fa\5\36\20\2\u00f6\u00f7\7\r\2\2\u00f7\u00f9\5\36\20\2\u00f8\u00f6"+
+		"\3\2\2\2\u00f9\u00fc\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fa\u00fb\3\2\2\2\u00fb"+
+		"!\3\2\2\2\u00fc\u00fa\3\2\2\2\u00fd\u0102\5 \21\2\u00fe\u00ff\7\32\2\2"+
+		"\u00ff\u0101\5 \21\2\u0100\u00fe\3\2\2\2\u0101\u0104\3\2\2\2\u0102\u0100"+
+		"\3\2\2\2\u0102\u0103\3\2\2\2\u0103#\3\2\2\2\u0104\u0102\3\2\2\2\u0105"+
+		"\u010a\5\"\22\2\u0106\u0107\7\13\2\2\u0107\u0109\5\"\22\2\u0108\u0106"+
+		"\3\2\2\2\u0109\u010c\3\2\2\2\u010a\u0108\3\2\2\2\u010a\u010b\3\2\2\2\u010b"+
+		"%\3\2\2\2\u010c\u010a\3\2\2\2\u010d\u0112\5$\23\2\u010e\u010f\7\33\2\2"+
+		"\u010f\u0111\5$\23\2\u0110\u010e\3\2\2\2\u0111\u0114\3\2\2\2\u0112\u0110"+
+		"\3\2\2\2\u0112\u0113\3\2\2\2\u0113\'\3\2\2\2\u0114\u0112\3\2\2\2\u0115"+
+		"\u011a\5&\24\2\u0116\u0117\7\34\2\2\u0117\u0119\5&\24\2\u0118\u0116\3"+
+		"\2\2\2\u0119\u011c\3\2\2\2\u011a\u0118\3\2\2\2\u011a\u011b\3\2\2\2\u011b"+
+		")\3\2\2\2\u011c\u011a\3\2\2\2\u011d\u0123\5(\25\2\u011e\u011f\5(\25\2"+
+		"\u011f\u0120\5,\27\2\u0120\u0121\5f\64\2\u0121\u0123\3\2\2\2\u0122\u011d"+
+		"\3\2\2\2\u0122\u011e\3\2\2\2\u0123+\3\2\2\2\u0124\u0125\t\f\2\2\u0125"+
+		"-\3\2\2\2\u0126\u012b\5*\26\2\u0127\u0128\7?\2\2\u0128\u012a\5*\26\2\u0129"+
+		"\u0127\3\2\2\2\u012a\u012d\3\2\2\2\u012b\u0129\3\2\2\2\u012b\u012c\3\2"+
+		"\2\2\u012c/\3\2\2\2\u012d\u012b\3\2\2\2\u012e\u012f\5(\25\2\u012f\61\3"+
+		"\2\2\2\u0130\u0137\5\64\33\2\u0131\u0137\5\66\34\2\u0132\u0137\58\35\2"+
+		"\u0133\u0137\5<\37\2\u0134\u0137\5@!\2\u0135\u0137\5D#\2\u0136\u0130\3"+
+		"\2\2\2\u0136\u0131\3\2\2\2\u0136\u0132\3\2\2\2\u0136\u0133\3\2\2\2\u0136"+
+		"\u0134\3\2\2\2\u0136\u0135\3\2\2\2\u0137\63\3\2\2\2\u0138\u0139\7=\2\2"+
+		"\u0139\u013c\5\60\31\2\u013a\u013c\7>\2\2\u013b\u0138\3\2\2\2\u013b\u013a"+
+		"\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u013e\7@\2\2\u013e\u013f\5\62\32\2"+
+		"\u013f\65\3\2\2\2\u0140\u0142\5.\30\2\u0141\u0140\3\2\2\2\u0141\u0142"+
+		"\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u0144\7A\2\2\u0144\67\3\2\2\2\u0145"+
 		"\u0147\7\7\2\2\u0146\u0148\5:\36\2\u0147\u0146\3\2\2\2\u0147\u0148\3\2"+
 		"\2\2\u0148\u0149\3\2\2\2\u0149\u014a\7\b\2\2\u014a9\3\2\2\2\u014b\u014d"+
 		"\5\62\32\2\u014c\u014b\3\2\2\2\u014d\u014e\3\2\2\2\u014e\u014c\3\2\2\2"+
-		"\u014e\u014f\3\2\2\2\u014f;\3\2\2\2\u0150\u0151\7\67\2\2\u0151\u0152\7"+
-		"\5\2\2\u0152\u0153\5> \2\u0153\u0154\7\6\2\2\u0154\u0157\5\62\32\2\u0155"+
-		"\u0156\78\2\2\u0156\u0158\5\62\32\2\u0157\u0155\3\2\2\2\u0157\u0158\3"+
-		"\2\2\2\u0158\u0167\3\2\2\2\u0159\u015a\79\2\2\u015a\u015b\7\5\2\2\u015b"+
+		"\u014e\u014f\3\2\2\2\u014f;\3\2\2\2\u0150\u0151\78\2\2\u0151\u0152\7\5"+
+		"\2\2\u0152\u0153\5> \2\u0153\u0154\7\6\2\2\u0154\u0157\5\62\32\2\u0155"+
+		"\u0156\79\2\2\u0156\u0158\5\62\32\2\u0157\u0155\3\2\2\2\u0157\u0158\3"+
+		"\2\2\2\u0158\u0167\3\2\2\2\u0159\u015a\7:\2\2\u015a\u015b\7\5\2\2\u015b"+
 		"\u015c\5> \2\u015c\u015d\7\6\2\2\u015d\u0161\7\7\2\2\u015e\u0160\5\64"+
 		"\33\2\u015f\u015e\3\2\2\2\u0160\u0163\3\2\2\2\u0161\u015f\3\2\2\2\u0161"+
 		"\u0162\3\2\2\2\u0162\u0164\3\2\2\2\u0163\u0161\3\2\2\2\u0164\u0165\7\b"+
@@ -4121,10 +4121,10 @@ public class DroolParser extends Parser {
 		"=\3\2\2\2\u0168\u0170\5.\30\2\u0169\u016d\5T+\2\u016a\u016b\7\35\2\2\u016b"+
 		"\u016e\5f\64\2\u016c\u016e\5j\66\2\u016d\u016a\3\2\2\2\u016d\u016c\3\2"+
 		"\2\2\u016e\u0170\3\2\2\2\u016f\u0168\3\2\2\2\u016f\u0169\3\2\2\2\u0170"+
-		"?\3\2\2\2\u0171\u0172\7:\2\2\u0172\u0173\7\5\2\2\u0173\u0174\5> \2\u0174"+
+		"?\3\2\2\2\u0171\u0172\7;\2\2\u0172\u0173\7\5\2\2\u0173\u0174\5> \2\u0174"+
 		"\u0175\7\6\2\2\u0175\u0176\5\62\32\2\u0176\u0185\3\2\2\2\u0177\u0178\7"+
-		";\2\2\u0178\u0179\7\5\2\2\u0179\u017b\5B\"\2\u017a\u017c\5> \2\u017b\u017a"+
-		"\3\2\2\2\u017b\u017c\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017f\7@\2\2\u017e"+
+		"<\2\2\u0178\u0179\7\5\2\2\u0179\u017b\5B\"\2\u017a\u017c\5> \2\u017b\u017a"+
+		"\3\2\2\2\u017b\u017c\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017f\7A\2\2\u017e"+
 		"\u0180\5.\30\2\u017f\u017e\3\2\2\2\u017f\u0180\3\2\2\2\u0180\u0181\3\2"+
 		"\2\2\u0181\u0182\7\6\2\2\u0182\u0183\5\62\32\2\u0183\u0185\3\2\2\2\u0184"+
 		"\u0171\3\2\2\2\u0184\u0177\3\2\2\2\u0185A\3\2\2\2\u0186\u0189\5\66\34"+
@@ -4132,69 +4132,69 @@ public class DroolParser extends Parser {
 		"\2\2\2\u018a\u018b\5J&\2\u018bE\3\2\2\2\u018c\u018e\5H%\2\u018d\u018c"+
 		"\3\2\2\2\u018e\u018f\3\2\2\2\u018f\u018d\3\2\2\2\u018f\u0190\3\2\2\2\u0190"+
 		"G\3\2\2\2\u0191\u0194\5J&\2\u0192\u0194\5^\60\2\u0193\u0191\3\2\2\2\u0193"+
-		"\u0192\3\2\2\2\u0194I\3\2\2\2\u0195\u0196\5L\'\2\u0196\u0197\7@\2\2\u0197"+
+		"\u0192\3\2\2\2\u0194I\3\2\2\2\u0195\u0196\5L\'\2\u0196\u0197\7A\2\2\u0197"+
 		"K\3\2\2\2\u0198\u019a\5P)\2\u0199\u0198\3\2\2\2\u0199\u019a\3\2\2\2\u019a"+
-		"\u019b\3\2\2\2\u019b\u01a0\7@\2\2\u019c\u019d\5P)\2\u019d\u019e\7@\2\2"+
+		"\u019b\3\2\2\2\u019b\u01a0\7A\2\2\u019c\u019d\5P)\2\u019d\u019e\7A\2\2"+
 		"\u019e\u01a0\3\2\2\2\u019f\u0199\3\2\2\2\u019f\u019c\3\2\2\2\u01a0M\3"+
-		"\2\2\2\u01a1\u01ac\7F\2\2\u01a2\u01ac\7G\2\2\u01a3\u01ac\7H\2\2\u01a4"+
-		"\u01ac\7E\2\2\u01a5\u01ac\7I\2\2\u01a6\u01ac\7J\2\2\u01a7\u01ac\7K\2\2"+
-		"\u01a8\u01ac\7L\2\2\u01a9\u01ac\7M\2\2\u01aa\u01ac\5l\67\2\u01ab\u01a1"+
+		"\2\2\2\u01a1\u01ac\7G\2\2\u01a2\u01ac\7H\2\2\u01a3\u01ac\7I\2\2\u01a4"+
+		"\u01ac\7F\2\2\u01a5\u01ac\7J\2\2\u01a6\u01ac\7K\2\2\u01a7\u01ac\7L\2\2"+
+		"\u01a8\u01ac\7M\2\2\u01a9\u01ac\7N\2\2\u01aa\u01ac\5l\67\2\u01ab\u01a1"+
 		"\3\2\2\2\u01ab\u01a2\3\2\2\2\u01ab\u01a3\3\2\2\2\u01ab\u01a4\3\2\2\2\u01ab"+
 		"\u01a5\3\2\2\2\u01ab\u01a6\3\2\2\2\u01ab\u01a7\3\2\2\2\u01ab\u01a8\3\2"+
 		"\2\2\u01ab\u01a9\3\2\2\2\u01ab\u01aa\3\2\2\2\u01acO\3\2\2\2\u01ad\u01b2"+
-		"\5R*\2\u01ae\u01af\7>\2\2\u01af\u01b1\5R*\2\u01b0\u01ae\3\2\2\2\u01b1"+
+		"\5R*\2\u01ae\u01af\7?\2\2\u01af\u01b1\5R*\2\u01b0\u01ae\3\2\2\2\u01b1"+
 		"\u01b4\3\2\2\2\u01b2\u01b0\3\2\2\2\u01b2\u01b3\3\2\2\2\u01b3Q\3\2\2\2"+
 		"\u01b4\u01b2\3\2\2\2\u01b5\u01b6\5N(\2\u01b6\u01b8\5T+\2\u01b7\u01b9\5"+
 		"b\62\2\u01b8\u01b7\3\2\2\2\u01b8\u01b9\3\2\2\2\u01b9S\3\2\2\2\u01ba\u01c1"+
-		"\7V\2\2\u01bb\u01c2\5V,\2\u01bc\u01be\7\t\2\2\u01bd\u01bf\5\60\31\2\u01be"+
+		"\7W\2\2\u01bb\u01c2\5V,\2\u01bc\u01be\7\t\2\2\u01bd\u01bf\5\60\31\2\u01be"+
 		"\u01bd\3\2\2\2\u01be\u01bf\3\2\2\2\u01bf\u01c0\3\2\2\2\u01c0\u01c2\7\n"+
 		"\2\2\u01c1\u01bb\3\2\2\2\u01c1\u01bc\3\2\2\2\u01c1\u01c2\3\2\2\2\u01c2"+
 		"U\3\2\2\2\u01c3\u01c5\7\5\2\2\u01c4\u01c6\5X-\2\u01c5\u01c4\3\2\2\2\u01c5"+
 		"\u01c6\3\2\2\2\u01c6\u01c7\3\2\2\2\u01c7\u01c8\7\6\2\2\u01c8W\3\2\2\2"+
-		"\u01c9\u01ca\5Z.\2\u01caY\3\2\2\2\u01cb\u01d0\5\\/\2\u01cc\u01cd\7>\2"+
+		"\u01c9\u01ca\5Z.\2\u01caY\3\2\2\2\u01cb\u01d0\5\\/\2\u01cc\u01cd\7?\2"+
 		"\2\u01cd\u01cf\5\\/\2\u01ce\u01cc\3\2\2\2\u01cf\u01d2\3\2\2\2\u01d0\u01ce"+
 		"\3\2\2\2\u01d0\u01d1\3\2\2\2\u01d1[\3\2\2\2\u01d2\u01d0\3\2\2\2\u01d3"+
 		"\u01d5\5R*\2\u01d4\u01d3\3\2\2\2\u01d4\u01d5\3\2\2\2\u01d5]\3\2\2\2\u01d6"+
-		"\u01d7\5N(\2\u01d7\u01d8\7V\2\2\u01d8\u01d9\7\5\2\2\u01d9\u01da\5X-\2"+
+		"\u01d7\5N(\2\u01d7\u01d8\7W\2\2\u01d8\u01d9\7\5\2\2\u01d9\u01da\5X-\2"+
 		"\u01da\u01db\7\6\2\2\u01db\u01dc\5`\61\2\u01dc_\3\2\2\2\u01dd\u01e2\5"+
-		"8\35\2\u01de\u01df\7\35\2\2\u01df\u01e0\t\r\2\2\u01e0\u01e2\7@\2\2\u01e1"+
+		"8\35\2\u01de\u01df\7\35\2\2\u01df\u01e0\t\r\2\2\u01e0\u01e2\7A\2\2\u01e1"+
 		"\u01dd\3\2\2\2\u01e1\u01de\3\2\2\2\u01e2a\3\2\2\2\u01e3\u01e9\5d\63\2"+
 		"\u01e4\u01e5\7\5\2\2\u01e5\u01e6\5\b\5\2\u01e6\u01e7\7\6\2\2\u01e7\u01e9"+
 		"\3\2\2\2\u01e8\u01e3\3\2\2\2\u01e8\u01e4\3\2\2\2\u01e9c\3\2\2\2\u01ea"+
 		"\u01eb\7\35\2\2\u01eb\u01ee\5f\64\2\u01ec\u01ee\5j\66\2\u01ed\u01ea\3"+
 		"\2\2\2\u01ed\u01ec\3\2\2\2\u01eee\3\2\2\2\u01ef\u01f2\5*\26\2\u01f0\u01f2"+
 		"\5j\66\2\u01f1\u01ef\3\2\2\2\u01f1\u01f0\3\2\2\2\u01f2g\3\2\2\2\u01f3"+
-		"\u01f8\5f\64\2\u01f4\u01f5\7>\2\2\u01f5\u01f7\5f\64\2\u01f6\u01f4\3\2"+
+		"\u01f8\5f\64\2\u01f4\u01f5\7?\2\2\u01f5\u01f7\5f\64\2\u01f6\u01f4\3\2"+
 		"\2\2\u01f7\u01fa\3\2\2\2\u01f8\u01f6\3\2\2\2\u01f8\u01f9\3\2\2\2\u01f9"+
 		"i\3\2\2\2\u01fa\u01f8\3\2\2\2\u01fb\u0200\7\7\2\2\u01fc\u01fe\5h\65\2"+
-		"\u01fd\u01ff\7>\2\2\u01fe\u01fd\3\2\2\2\u01fe\u01ff\3\2\2\2\u01ff\u0201"+
+		"\u01fd\u01ff\7?\2\2\u01fe\u01fd\3\2\2\2\u01fe\u01ff\3\2\2\2\u01ff\u0201"+
 		"\3\2\2\2\u0200\u01fc\3\2\2\2\u0200\u0201\3\2\2\2\u0201\u0202\3\2\2\2\u0202"+
-		"\u0203\7\b\2\2\u0203k\3\2\2\2\u0204\u0205\7V\2\2\u0205m\3\2\2\2\u0206"+
+		"\u0203\7\b\2\2\u0203k\3\2\2\2\u0204\u0205\7W\2\2\u0205m\3\2\2\2\u0206"+
 		"\u0207\5p9\2\u0207\u0209\7\7\2\2\u0208\u020a\5r:\2\u0209\u0208\3\2\2\2"+
 		"\u0209\u020a\3\2\2\2\u020a\u020b\3\2\2\2\u020b\u020c\7\b\2\2\u020co\3"+
-		"\2\2\2\u020d\u020e\7D\2\2\u020e\u0210\5l\67\2\u020f\u0211\5z>\2\u0210"+
+		"\2\2\2\u020d\u020e\7E\2\2\u020e\u0210\5l\67\2\u020f\u0211\5z>\2\u0210"+
 		"\u020f\3\2\2\2\u0210\u0211\3\2\2\2\u0211q\3\2\2\2\u0212\u0214\5t;\2\u0213"+
 		"\u0212\3\2\2\2\u0214\u0215\3\2\2\2\u0215\u0213\3\2\2\2\u0215\u0216\3\2"+
 		"\2\2\u0216s\3\2\2\2\u0217\u0219\5v<\2\u0218\u0217\3\2\2\2\u0218\u0219"+
-		"\3\2\2\2\u0219\u021a\3\2\2\2\u021a\u021d\7@\2\2\u021b\u021d\5^\60\2\u021c"+
+		"\3\2\2\2\u0219\u021a\3\2\2\2\u021a\u021d\7A\2\2\u021b\u021d\5^\60\2\u021c"+
 		"\u0218\3\2\2\2\u021c\u021b\3\2\2\2\u021du\3\2\2\2\u021e\u0223\5x=\2\u021f"+
-		"\u0220\7>\2\2\u0220\u0222\5x=\2\u0221\u021f\3\2\2\2\u0222\u0225\3\2\2"+
+		"\u0220\7?\2\2\u0220\u0222\5x=\2\u0221\u021f\3\2\2\2\u0222\u0225\3\2\2"+
 		"\2\u0223\u0221\3\2\2\2\u0223\u0224\3\2\2\2\u0224w\3\2\2\2\u0225\u0223"+
 		"\3\2\2\2\u0226\u022b\5R*\2\u0227\u022c\3\2\2\2\u0228\u022a\5d\63\2\u0229"+
 		"\u0228\3\2\2\2\u0229\u022a\3\2\2\2\u022a\u022c\3\2\2\2\u022b\u0227\3\2"+
-		"\2\2\u022b\u0229\3\2\2\2\u022cy\3\2\2\2\u022d\u022e\7?\2\2\u022e\u022f"+
-		"\5|?\2\u022f{\3\2\2\2\u0230\u0235\5l\67\2\u0231\u0232\7>\2\2\u0232\u0234"+
+		"\2\2\u022b\u0229\3\2\2\2\u022cy\3\2\2\2\u022d\u022e\7@\2\2\u022e\u022f"+
+		"\5|?\2\u022f{\3\2\2\2\u0230\u0235\5l\67\2\u0231\u0232\7?\2\2\u0232\u0234"+
 		"\5l\67\2\u0233\u0231\3\2\2\2\u0234\u0237\3\2\2\2\u0235\u0233\3\2\2\2\u0235"+
 		"\u0236\3\2\2\2\u0236}\3\2\2\2\u0237\u0235\3\2\2\2\u0238\u023a\5\u0080"+
-		"A\2\u0239\u023b\7A\2\2\u023a\u0239\3\2\2\2\u023a\u023b\3\2\2\2\u023b\u0243"+
-		"\3\2\2\2\u023c\u023d\7>\2\2\u023d\u023f\5\u0080A\2\u023e\u0240\7A\2\2"+
+		"A\2\u0239\u023b\7B\2\2\u023a\u0239\3\2\2\2\u023a\u023b\3\2\2\2\u023b\u0243"+
+		"\3\2\2\2\u023c\u023d\7?\2\2\u023d\u023f\5\u0080A\2\u023e\u0240\7B\2\2"+
 		"\u023f\u023e\3\2\2\2\u023f\u0240\3\2\2\2\u0240\u0242\3\2\2\2\u0241\u023c"+
 		"\3\2\2\2\u0242\u0245\3\2\2\2\u0243\u0241\3\2\2\2\u0243\u0244\3\2\2\2\u0244"+
 		"\177\3\2\2\2\u0245\u0243\3\2\2\2\u0246\u024d\5\u0082B\2\u0247\u0249\7"+
 		"\5\2\2\u0248\u024a\5\b\5\2\u0249\u0248\3\2\2\2\u0249\u024a\3\2\2\2\u024a"+
 		"\u024b\3\2\2\2\u024b\u024e\7\6\2\2\u024c\u024e\5j\66\2\u024d\u0247\3\2"+
 		"\2\2\u024d\u024c\3\2\2\2\u024e\u0081\3\2\2\2\u024f\u0252\5l\67\2\u0250"+
-		"\u0252\7V\2\2\u0251\u024f\3\2\2\2\u0251\u0250\3\2\2\2\u0252\u0083\3\2"+
+		"\u0252\7W\2\2\u0251\u024f\3\2\2\2\u0251\u0250\3\2\2\2\u0252\u0083\3\2"+
 		"\2\2I\u0085\u008f\u0097\u009f\u00a1\u00ab\u00b3\u00ba\u00be\u00c3\u00c8"+
 		"\u00cf\u00d7\u00e0\u00ea\u00f2\u00fa\u0102\u010a\u0112\u011a\u0122\u012b"+
 		"\u0136\u013b\u0141\u0147\u014e\u0157\u0161\u0166\u016d\u016f\u017b\u017f"+
