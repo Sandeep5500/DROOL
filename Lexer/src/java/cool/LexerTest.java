@@ -133,7 +133,7 @@ public class LexerTest {
 "IN_NEST_MLC_1",
 "CLOSE_MLC_1",
 "CONTENT_MLC_1",
-"OTHER=115"
+"OTHER"
 };
 
 	static int VALUED_INDEX_LIMIT = 6;
