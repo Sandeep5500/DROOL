@@ -188,7 +188,6 @@ Default: D E F A U L T;
 Comma: ',';
 Colon: ':';
 Semi: ';';
-Ellipsis: '...';
 SingleQuote: '\'';
 DoubleQuote: '"';
 
@@ -205,7 +204,8 @@ Vertex: V E R T E X;
 Long: L O N G;
 Unsigned: U N S I G N E D;
 Delete: D E L E T E;
-Operator: O P E R A T O R;
+Continue: C O N T I N U E;
+Break: B R E A K;
 Return: R E T U R N;
 
 Const: C O N S T;
