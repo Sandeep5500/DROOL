@@ -4,6 +4,25 @@ options {
 }
 /*Basic concepts*/
 
+@header{
+	import cool.AST;
+	import java.util.List;
+}
+
+@members{
+	String filename;
+	public void setFilename(String f){
+		filename = f;
+	}
+
+/*
+	DO NOT EDIT THE FILE ABOVE THIS LINE
+	Add member functions, variables below.
+*/
+
+}
+
+
 translationUnit: declarationseq? EOF;
 /*Expressions*/
 
@@ -34,7 +53,7 @@ unaryExpression:
  // | newExpression
   //| deleteExpression;
 
-unaryOperator: Or | Star | And | Plus | Tilde | Minus | Not;
+unaryOperator: Or | Star | And | Plus | Tildae | Minus | Not;
 
 /*newExpression:
   Doublecolon? New (
@@ -336,7 +355,7 @@ parameterDeclaration:
    (initDeclarator)?;
 
 functionDefinition:
-  dataType Identifier Lparen parameterDeclarationClause Rparen functionBody;
+  dataType Identifier LeftParen parameterDeclarationClause RightParen functionBody;
 
 functionBody:
   compoundStatement

@@ -1,5 +1,4 @@
-// Generated from DroolParser.g4 by ANTLR 4.5
-package cool;
+// Generated from /home/manya/Desktop/COMPILERS2/DROOL/Parser/src/grammar/DroolParser.g4 by ANTLR 4.8
 
 	import cool.AST;
 	import java.util.List;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class DroolParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.5", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -64,58 +63,67 @@ public class DroolParser extends Parser {
 		RULE_memberdeclaration = 57, RULE_memberDeclaratorList = 58, RULE_memberDeclarator = 59, 
 		RULE_baseClause = 60, RULE_baseSpecifierList = 61, RULE_memInitializerList = 62, 
 		RULE_memInitializer = 63, RULE_meminitializerid = 64;
-	public static final String[] ruleNames = {
-		"translationUnit", "primaryExpression", "postfixExpression", "expressionList", 
-		"unaryExpression", "unaryOperator", "countExpression", "addrcExpression", 
-		"questionExpression", "multiplicativeExpression", "additiveExpression", 
-		"shiftExpression", "shiftOperator", "relationalExpression", "equalityExpression", 
-		"andExpression", "exclusiveOrExpression", "inclusiveOrExpression", "logicalAndExpression", 
-		"logicalOrExpression", "assignmentExpression", "assignmentOperator", "expression", 
-		"constantExpression", "statement", "caseStatement", "expressionStatement", 
-		"compoundStatement", "statementSeq", "selectionStatement", "condition", 
-		"iterationStatement", "forInitStatement", "declarationStatement", "declarationseq", 
-		"declaration", "blockDeclaration", "simpleDeclaration", "dataType", "initDeclaratorList", 
-		"initDeclarator", "declarator", "parametersAndQualifiers", "parameterDeclarationClause", 
-		"parameterDeclarationList", "parameterDeclaration", "functionDefinition", 
-		"functionBody", "initializer", "braceOrEqualInitializer", "initializerClause", 
-		"initializerList", "bracedInitList", "className", "classSpecifier", "classHead", 
-		"memberSpecification", "memberdeclaration", "memberDeclaratorList", "memberDeclarator", 
-		"baseClause", "baseSpecifierList", "memInitializerList", "memInitializer", 
-		"meminitializerid"
-	};
+	private static String[] makeRuleNames() {
+		return new String[] {
+			"translationUnit", "primaryExpression", "postfixExpression", "expressionList", 
+			"unaryExpression", "unaryOperator", "countExpression", "addrcExpression", 
+			"questionExpression", "multiplicativeExpression", "additiveExpression", 
+			"shiftExpression", "shiftOperator", "relationalExpression", "equalityExpression", 
+			"andExpression", "exclusiveOrExpression", "inclusiveOrExpression", "logicalAndExpression", 
+			"logicalOrExpression", "assignmentExpression", "assignmentOperator", 
+			"expression", "constantExpression", "statement", "caseStatement", "expressionStatement", 
+			"compoundStatement", "statementSeq", "selectionStatement", "condition", 
+			"iterationStatement", "forInitStatement", "declarationStatement", "declarationseq", 
+			"declaration", "blockDeclaration", "simpleDeclaration", "dataType", "initDeclaratorList", 
+			"initDeclarator", "declarator", "parametersAndQualifiers", "parameterDeclarationClause", 
+			"parameterDeclarationList", "parameterDeclaration", "functionDefinition", 
+			"functionBody", "initializer", "braceOrEqualInitializer", "initializerClause", 
+			"initializerList", "bracedInitList", "className", "classSpecifier", "classHead", 
+			"memberSpecification", "memberdeclaration", "memberDeclaratorList", "memberDeclarator", 
+			"baseClause", "baseSpecifierList", "memInitializerList", "memInitializer", 
+			"meminitializerid"
+		};
+	}
+	public static final String[] ruleNames = makeRuleNames();
 
-	private static final String[] _LITERAL_NAMES = {
-		null, null, null, "'('", "')'", "'{'", "'}'", "'['", "']'", "'|'", "'*'", 
-		"'&'", "'+'", "'-'", "'~'", "'!'", "'/'", "'%'", "'<'", "'>'", "'<='", 
-		"'>='", "'=='", "'!='", "'^'", "'&&'", "'||'", "'='", "'*='", "'/='", 
-		"'%='", "'+='", "'-='", "'&='", "'^='", "'|='", "'++'", "'--'", "'.'", 
-		"'->'", null, "'#'", null, null, null, "'?'", null, null, null, null, 
-		null, "'>>'", "'<<'", null, null, null, null, null, null, null, "','", 
-		"':'", "';'", "'...'", "'''", "'\"'", null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, null, "'false'", 
-		"'true'"
-	};
-	private static final String[] _SYMBOLIC_NAMES = {
-		null, "ERROR", "Literal", "LeftParen", "RightParen", "LeftBrace", "RightBrace", 
-		"LeftBracket", "RightBracket", "Or", "Star", "And", "Plus", "Minus", "Tildae", 
-		"Not", "Div", "Mod", "Less", "Greater", "LessEqual", "GreaterEqual", "Equal", 
-		"NotEqual", "Caret", "AndAnd", "OrOr", "Assign", "StarAssign", "DivAssign", 
-		"ModAssign", "PlusAssign", "MinusAssign", "AndAssign", "XorAssign", "OrAssign", 
-		"PlusPlus", "MinusMinus", "Dot", "Arrow", "Sizeof", "Hashtag", "Addc", 
-		"Addr", "Delr", "Questionmark", "Inv", "Trans", "Vsizeof", "Esizeof", 
-		"Val", "RightShift", "LeftShift", "If", "Else", "Switch", "While", "For", 
-		"Case", "Default", "Comma", "Colon", "Semi", "Ellipsis", "SingleQuote", 
-		"DoubleQuote", "Class", "Void", "Bool", "Int", "Float", "String", "Graph", 
-		"Edge", "Matrix", "Vertex", "Long", "Unsigned", "Delete", "Operator", 
-		"Return", "Const", "False_", "True_", "Identifier", "IntegerLiteral", 
-		"DecimalLiteral", "Integersuffix", "FloatingLiteral", "StringLiteral", 
-		"BooleanLiteral", "VertexLiteral", "Newline", "WHITESPACE", "ESC", "UNTERM_STR", 
-		"NULL_STR", "ESC_NULL_STR", "EOF_BCKSLSH_STR", "EOF_STR", "EOF_COMMENT_0", 
-		"OPEN_COMMENT", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", "EOF_COMMENT_1", 
-		"EOF_COMMENT_2", "IN_NEST_MLC_0", "CLOSE_MLC_0", "CONTENT_MLC_0", "EOF_COMMENT_3", 
-		"EOF_COMMENT_4", "EOF_COMMENT_5", "IN_NEST_MLC_1", "CLOSE_MLC_1", "CONTENT_MLC_1", 
-		"OTHER", "Det", "Transpose"
-	};
+	private static String[] makeLiteralNames() {
+		return new String[] {
+			null, null, null, "'('", "')'", "'{'", "'}'", "'['", "']'", "'|'", "'*'", 
+			"'&'", "'+'", "'-'", "'~'", "'!'", "'/'", "'%'", "'<'", "'>'", "'<='", 
+			"'>='", "'=='", "'!='", "'^'", "'&&'", "'||'", "'='", "'*='", "'/='", 
+			"'%='", "'+='", "'-='", "'&='", "'^='", "'|='", "'++'", "'--'", "'.'", 
+			"'->'", null, "'#'", null, null, null, "'?'", null, null, null, null, 
+			null, "'>>'", "'<<'", null, null, null, null, null, null, null, "','", 
+			"':'", "';'", "'...'", "'''", "'\"'", null, null, null, null, null, null, 
+			null, null, null, null, null, null, null, null, null, null, "'false'", 
+			"'true'"
+		};
+	}
+	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	private static String[] makeSymbolicNames() {
+		return new String[] {
+			null, "ERROR", "Literal", "LeftParen", "RightParen", "LeftBrace", "RightBrace", 
+			"LeftBracket", "RightBracket", "Or", "Star", "And", "Plus", "Minus", 
+			"Tildae", "Not", "Div", "Mod", "Less", "Greater", "LessEqual", "GreaterEqual", 
+			"Equal", "NotEqual", "Caret", "AndAnd", "OrOr", "Assign", "StarAssign", 
+			"DivAssign", "ModAssign", "PlusAssign", "MinusAssign", "AndAssign", "XorAssign", 
+			"OrAssign", "PlusPlus", "MinusMinus", "Dot", "Arrow", "Sizeof", "Hashtag", 
+			"Addc", "Addr", "Delr", "Questionmark", "Inv", "Trans", "Vsizeof", "Esizeof", 
+			"Val", "RightShift", "LeftShift", "If", "Else", "Switch", "While", "For", 
+			"Case", "Default", "Comma", "Colon", "Semi", "Ellipsis", "SingleQuote", 
+			"DoubleQuote", "Class", "Void", "Bool", "Int", "Float", "String", "Graph", 
+			"Edge", "Matrix", "Vertex", "Long", "Unsigned", "Delete", "Operator", 
+			"Return", "Const", "False_", "True_", "Identifier", "IntegerLiteral", 
+			"DecimalLiteral", "Integersuffix", "FloatingLiteral", "StringLiteral", 
+			"BooleanLiteral", "VertexLiteral", "Newline", "WHITESPACE", "ESC", "UNTERM_STR", 
+			"NULL_STR", "ESC_NULL_STR", "EOF_BCKSLSH_STR", "EOF_STR", "EOF_COMMENT_0", 
+			"OPEN_COMMENT", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", "EOF_COMMENT_1", 
+			"EOF_COMMENT_2", "IN_NEST_MLC_0", "CLOSE_MLC_0", "CONTENT_MLC_0", "EOF_COMMENT_3", 
+			"EOF_COMMENT_4", "EOF_COMMENT_5", "IN_NEST_MLC_1", "CLOSE_MLC_1", "CONTENT_MLC_1", 
+			"OTHER", "Det", "Transpose"
+		};
+	}
+	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -177,6 +185,7 @@ public class DroolParser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
+
 	public static class TranslationUnitContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(DroolParser.EOF, 0); }
 		public DeclarationseqContext declarationseq() {
@@ -186,11 +195,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_translationUnit; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitTranslationUnit(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TranslationUnitContext translationUnit() throws RecognitionException {
@@ -201,6 +205,7 @@ public class DroolParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(131);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 62)) & ~0x3f) == 0 && ((1L << (_la - 62)) & ((1L << (Semi - 62)) | (1L << (Void - 62)) | (1L << (Bool - 62)) | (1L << (Int - 62)) | (1L << (Float - 62)) | (1L << (String - 62)) | (1L << (Graph - 62)) | (1L << (Edge - 62)) | (1L << (Matrix - 62)) | (1L << (Vertex - 62)) | (1L << (Identifier - 62)))) != 0)) {
 				{
@@ -236,11 +241,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_primaryExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitPrimaryExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PrimaryExpressionContext primaryExpression() throws RecognitionException {
@@ -248,6 +248,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 2, RULE_primaryExpression);
 		try {
 			setState(141);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Literal:
 				enterOuterAlt(_localctx, 1);
@@ -310,11 +311,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_postfixExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitPostfixExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PostfixExpressionContext postfixExpression() throws RecognitionException {
@@ -347,6 +343,7 @@ public class DroolParser extends Parser {
 					_prevctx = _localctx;
 					{
 					setState(157);
+					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 					case 1:
 						{
@@ -357,6 +354,7 @@ public class DroolParser extends Parser {
 						setState(147);
 						match(LeftParen);
 						setState(149);
+						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 							{
@@ -379,7 +377,10 @@ public class DroolParser extends Parser {
 						_la = _input.LA(1);
 						if ( !(_la==Dot || _la==Arrow) ) {
 						_errHandler.recoverInline(this);
-						} else {
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
 							consume();
 						}
 						setState(154);
@@ -396,7 +397,10 @@ public class DroolParser extends Parser {
 						_la = _input.LA(1);
 						if ( !(_la==PlusPlus || _la==MinusMinus) ) {
 						_errHandler.recoverInline(this);
-						} else {
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
 							consume();
 						}
 						}
@@ -429,11 +433,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressionList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExpressionList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExpressionListContext expressionList() throws RecognitionException {
@@ -485,11 +484,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_unaryExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitUnaryExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final UnaryExpressionContext unaryExpression() throws RecognitionException {
@@ -498,6 +492,7 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(177);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -510,6 +505,7 @@ public class DroolParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(169);
+				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case PlusPlus:
 					{
@@ -555,7 +551,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Sizeof) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || _la==Det || _la==Transpose) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(173);
@@ -591,11 +590,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_unaryOperator; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitUnaryOperator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final UnaryOperatorContext unaryOperator() throws RecognitionException {
@@ -609,7 +603,10 @@ public class DroolParser extends Parser {
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not))) != 0)) ) {
 			_errHandler.recoverInline(this);
-			} else {
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
 				consume();
 			}
 			}
@@ -637,11 +634,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_countExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCountExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CountExpressionContext countExpression() throws RecognitionException {
@@ -650,6 +642,7 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(188);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Literal:
 			case LeftParen:
@@ -675,6 +668,7 @@ public class DroolParser extends Parser {
 				setState(181);
 				unaryExpression();
 				setState(184);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==Hashtag) {
 					{
@@ -724,11 +718,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_addrcExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAddrcExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AddrcExpressionContext addrcExpression() throws RecognitionException {
@@ -741,6 +730,7 @@ public class DroolParser extends Parser {
 			setState(190);
 			countExpression();
 			setState(193);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==Addc || _la==Addr) {
 				{
@@ -748,7 +738,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !(_la==Addc || _la==Addr) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(192);
@@ -781,11 +774,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_questionExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitQuestionExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final QuestionExpressionContext questionExpression() throws RecognitionException {
@@ -798,6 +786,7 @@ public class DroolParser extends Parser {
 			setState(195);
 			addrcExpression();
 			setState(198);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==Questionmark) {
 				{
@@ -844,11 +833,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_multiplicativeExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMultiplicativeExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MultiplicativeExpressionContext multiplicativeExpression() throws RecognitionException {
@@ -870,7 +854,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Star) | (1L << Div) | (1L << Mod))) != 0)) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(202);
@@ -913,11 +900,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_additiveExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAdditiveExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AdditiveExpressionContext additiveExpression() throws RecognitionException {
@@ -939,7 +921,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !(_la==Plus || _la==Minus) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(210);
@@ -980,11 +965,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_shiftExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitShiftExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ShiftExpressionContext shiftExpression() throws RecognitionException {
@@ -1032,11 +1012,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_shiftOperator; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitShiftOperator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ShiftOperatorContext shiftOperator() throws RecognitionException {
@@ -1050,7 +1025,10 @@ public class DroolParser extends Parser {
 			_la = _input.LA(1);
 			if ( !(_la==RightShift || _la==LeftShift) ) {
 			_errHandler.recoverInline(this);
-			} else {
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
 				consume();
 			}
 			}
@@ -1093,11 +1071,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_relationalExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitRelationalExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final RelationalExpressionContext relationalExpression() throws RecognitionException {
@@ -1119,7 +1092,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Less) | (1L << Greater) | (1L << LessEqual) | (1L << GreaterEqual))) != 0)) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(229);
@@ -1162,11 +1138,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_equalityExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitEqualityExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final EqualityExpressionContext equalityExpression() throws RecognitionException {
@@ -1188,7 +1159,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !(_la==Equal || _la==NotEqual) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(237);
@@ -1227,11 +1201,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_andExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAndExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AndExpressionContext andExpression() throws RecognitionException {
@@ -1287,11 +1256,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_exclusiveOrExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExclusiveOrExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExclusiveOrExpressionContext exclusiveOrExpression() throws RecognitionException {
@@ -1347,11 +1311,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_inclusiveOrExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInclusiveOrExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InclusiveOrExpressionContext inclusiveOrExpression() throws RecognitionException {
@@ -1407,11 +1366,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_logicalAndExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitLogicalAndExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final LogicalAndExpressionContext logicalAndExpression() throws RecognitionException {
@@ -1467,11 +1421,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_logicalOrExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitLogicalOrExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final LogicalOrExpressionContext logicalOrExpression() throws RecognitionException {
@@ -1526,11 +1475,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assignmentExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAssignmentExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AssignmentExpressionContext assignmentExpression() throws RecognitionException {
@@ -1538,6 +1482,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 40, RULE_assignmentExpression);
 		try {
 			setState(288);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -1584,11 +1529,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assignmentOperator; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAssignmentOperator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AssignmentOperatorContext assignmentOperator() throws RecognitionException {
@@ -1602,7 +1542,10 @@ public class DroolParser extends Parser {
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Assign) | (1L << StarAssign) | (1L << DivAssign) | (1L << ModAssign) | (1L << PlusAssign) | (1L << MinusAssign) | (1L << AndAssign) | (1L << XorAssign) | (1L << OrAssign))) != 0)) ) {
 			_errHandler.recoverInline(this);
-			} else {
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
 				consume();
 			}
 			}
@@ -1633,11 +1576,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -1686,11 +1624,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_constantExpression; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitConstantExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ConstantExpressionContext constantExpression() throws RecognitionException {
@@ -1737,11 +1670,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -1749,6 +1677,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 48, RULE_statement);
 		try {
 			setState(308);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -1819,11 +1748,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_caseStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCaseStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CaseStatementContext caseStatement() throws RecognitionException {
@@ -1833,6 +1757,7 @@ public class DroolParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(313);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Case:
 				{
@@ -1877,11 +1802,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expressionStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExpressionStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExpressionStatementContext expressionStatement() throws RecognitionException {
@@ -1892,6 +1812,7 @@ public class DroolParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(319);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 				{
@@ -1925,11 +1846,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_compoundStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCompoundStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CompoundStatementContext compoundStatement() throws RecognitionException {
@@ -1942,6 +1858,7 @@ public class DroolParser extends Parser {
 			setState(323);
 			match(LeftBrace);
 			setState(325);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val) | (1L << If) | (1L << Switch) | (1L << While) | (1L << For) | (1L << Case) | (1L << Default) | (1L << Semi))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)) | (1L << (Det - 67)) | (1L << (Transpose - 67)))) != 0)) {
 				{
@@ -1976,11 +1893,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statementSeq; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitStatementSeq(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StatementSeqContext statementSeq() throws RecognitionException {
@@ -2044,11 +1956,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_selectionStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitSelectionStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SelectionStatementContext selectionStatement() throws RecognitionException {
@@ -2057,6 +1964,7 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(356);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case If:
 				enterOuterAlt(_localctx, 1);
@@ -2072,6 +1980,7 @@ public class DroolParser extends Parser {
 				setState(338);
 				statement();
 				setState(341);
+				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 				case 1:
 					{
@@ -2148,11 +2057,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_condition; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCondition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ConditionContext condition() throws RecognitionException {
@@ -2160,6 +2064,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 60, RULE_condition);
 		try {
 			setState(365);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -2174,6 +2079,7 @@ public class DroolParser extends Parser {
 				setState(359);
 				declarator();
 				setState(363);
+				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case Assign:
 					{
@@ -2229,11 +2135,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_iterationStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitIterationStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final IterationStatementContext iterationStatement() throws RecognitionException {
@@ -2242,6 +2143,7 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(386);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case While:
 				enterOuterAlt(_localctx, 1);
@@ -2269,6 +2171,7 @@ public class DroolParser extends Parser {
 				setState(375);
 				forInitStatement();
 				setState(377);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 					{
@@ -2280,6 +2183,7 @@ public class DroolParser extends Parser {
 				setState(379);
 				match(Semi);
 				setState(381);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 					{
@@ -2321,11 +2225,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_forInitStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitForInitStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ForInitStatementContext forInitStatement() throws RecognitionException {
@@ -2333,6 +2232,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 64, RULE_forInitStatement);
 		try {
 			setState(390);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,36,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -2369,11 +2269,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declarationStatement; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclarationStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclarationStatementContext declarationStatement() throws RecognitionException {
@@ -2408,11 +2303,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declarationseq; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclarationseq(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclarationseqContext declarationseq() throws RecognitionException {
@@ -2460,11 +2350,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declaration; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclarationContext declaration() throws RecognitionException {
@@ -2472,6 +2357,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 70, RULE_declaration);
 		try {
 			setState(401);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,38,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -2509,11 +2395,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_blockDeclaration; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBlockDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BlockDeclarationContext blockDeclaration() throws RecognitionException {
@@ -2548,11 +2429,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_simpleDeclaration; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitSimpleDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SimpleDeclarationContext simpleDeclaration() throws RecognitionException {
@@ -2561,11 +2437,13 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(413);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,40,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(407);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)))) != 0)) {
 					{
@@ -2617,11 +2495,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_dataType; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDataType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DataTypeContext dataType() throws RecognitionException {
@@ -2629,6 +2502,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 76, RULE_dataType);
 		try {
 			setState(425);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Bool:
 				enterOuterAlt(_localctx, 1);
@@ -2730,11 +2604,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_initDeclaratorList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitDeclaratorList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitDeclaratorListContext initDeclaratorList() throws RecognitionException {
@@ -2789,11 +2658,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_initDeclarator; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitDeclarator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitDeclaratorContext initDeclarator() throws RecognitionException {
@@ -2807,6 +2671,7 @@ public class DroolParser extends Parser {
 			setState(436);
 			declarator();
 			setState(438);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,43,_ctx) ) {
 			case 1:
 				{
@@ -2842,11 +2707,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declarator; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclarator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclaratorContext declarator() throws RecognitionException {
@@ -2859,6 +2719,7 @@ public class DroolParser extends Parser {
 			setState(440);
 			match(Identifier);
 			setState(447);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,45,_ctx) ) {
 			case 1:
 				{
@@ -2871,6 +2732,7 @@ public class DroolParser extends Parser {
 				setState(442);
 				match(LeftBracket);
 				setState(444);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 					{
@@ -2907,11 +2769,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_parametersAndQualifiers; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParametersAndQualifiers(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ParametersAndQualifiersContext parametersAndQualifiers() throws RecognitionException {
@@ -2923,6 +2780,7 @@ public class DroolParser extends Parser {
 			setState(449);
 			match(LeftParen);
 			setState(451);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,46,_ctx) ) {
 			case 1:
 				{
@@ -2954,11 +2812,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_parameterDeclarationClause; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParameterDeclarationClause(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ParameterDeclarationClauseContext parameterDeclarationClause() throws RecognitionException {
@@ -2997,11 +2850,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_parameterDeclarationList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParameterDeclarationList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ParameterDeclarationListContext parameterDeclarationList() throws RecognitionException {
@@ -3050,11 +2898,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_parameterDeclaration; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParameterDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ParameterDeclarationContext parameterDeclaration() throws RecognitionException {
@@ -3065,6 +2908,7 @@ public class DroolParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(466);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)))) != 0)) {
 				{
@@ -3103,11 +2947,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_functionDefinition; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitFunctionDefinition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionDefinitionContext functionDefinition() throws RecognitionException {
@@ -3153,11 +2992,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_functionBody; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitFunctionBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionBodyContext functionBody() throws RecognitionException {
@@ -3166,6 +3000,7 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(479);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LeftBrace:
 				enterOuterAlt(_localctx, 1);
@@ -3183,7 +3018,10 @@ public class DroolParser extends Parser {
 				_la = _input.LA(1);
 				if ( !(_la==Default || _la==Delete) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				setState(478);
@@ -3218,11 +3056,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_initializer; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitializer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitializerContext initializer() throws RecognitionException {
@@ -3230,6 +3063,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 96, RULE_initializer);
 		try {
 			setState(486);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LeftBrace:
 			case Assign:
@@ -3277,11 +3111,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_braceOrEqualInitializer; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBraceOrEqualInitializer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BraceOrEqualInitializerContext braceOrEqualInitializer() throws RecognitionException {
@@ -3289,6 +3118,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 98, RULE_braceOrEqualInitializer);
 		try {
 			setState(491);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Assign:
 				enterOuterAlt(_localctx, 1);
@@ -3332,11 +3162,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_initializerClause; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitializerClause(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitializerClauseContext initializerClause() throws RecognitionException {
@@ -3344,6 +3169,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 100, RULE_initializerClause);
 		try {
 			setState(495);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Literal:
 			case LeftParen:
@@ -3408,11 +3234,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_initializerList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitializerList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitializerListContext initializerList() throws RecognitionException {
@@ -3466,11 +3287,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_bracedInitList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBracedInitList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BracedInitListContext bracedInitList() throws RecognitionException {
@@ -3483,12 +3299,14 @@ public class DroolParser extends Parser {
 			setState(505);
 			match(LeftBrace);
 			setState(510);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 				{
 				setState(506);
 				initializerList();
 				setState(508);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==Comma) {
 					{
@@ -3521,11 +3339,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_className; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitClassName(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassNameContext className() throws RecognitionException {
@@ -3562,11 +3375,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classSpecifier; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitClassSpecifier(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassSpecifierContext classSpecifier() throws RecognitionException {
@@ -3581,6 +3389,7 @@ public class DroolParser extends Parser {
 			setState(517);
 			match(LeftBrace);
 			setState(519);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 62)) & ~0x3f) == 0 && ((1L << (_la - 62)) & ((1L << (Semi - 62)) | (1L << (Void - 62)) | (1L << (Bool - 62)) | (1L << (Int - 62)) | (1L << (Float - 62)) | (1L << (String - 62)) | (1L << (Graph - 62)) | (1L << (Edge - 62)) | (1L << (Matrix - 62)) | (1L << (Vertex - 62)) | (1L << (Identifier - 62)))) != 0)) {
 				{
@@ -3616,11 +3425,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_classHead; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitClassHead(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassHeadContext classHead() throws RecognitionException {
@@ -3635,6 +3439,7 @@ public class DroolParser extends Parser {
 			setState(524);
 			className();
 			setState(526);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==Colon) {
 				{
@@ -3667,11 +3472,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_memberSpecification; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberSpecification(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemberSpecificationContext memberSpecification() throws RecognitionException {
@@ -3720,11 +3520,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_memberdeclaration; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberdeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemberdeclarationContext memberdeclaration() throws RecognitionException {
@@ -3733,11 +3528,13 @@ public class DroolParser extends Parser {
 		int _la;
 		try {
 			setState(538);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,60,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(534);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (Void - 67)) | (1L << (Bool - 67)) | (1L << (Int - 67)) | (1L << (Float - 67)) | (1L << (String - 67)) | (1L << (Graph - 67)) | (1L << (Edge - 67)) | (1L << (Matrix - 67)) | (1L << (Vertex - 67)) | (1L << (Identifier - 67)))) != 0)) {
 					{
@@ -3785,11 +3582,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_memberDeclaratorList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberDeclaratorList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemberDeclaratorListContext memberDeclaratorList() throws RecognitionException {
@@ -3841,11 +3633,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_memberDeclarator; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberDeclarator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemberDeclaratorContext memberDeclarator() throws RecognitionException {
@@ -3858,6 +3645,7 @@ public class DroolParser extends Parser {
 			setState(548);
 			initDeclarator();
 			setState(553);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,63,_ctx) ) {
 			case 1:
 				{
@@ -3866,6 +3654,7 @@ public class DroolParser extends Parser {
 			case 2:
 				{
 				setState(551);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==LeftBrace || _la==Assign) {
 					{
@@ -3899,11 +3688,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_baseClause; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBaseClause(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BaseClauseContext baseClause() throws RecognitionException {
@@ -3944,11 +3728,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_baseSpecifierList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBaseSpecifierList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BaseSpecifierListContext baseSpecifierList() throws RecognitionException {
@@ -4008,11 +3787,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_memInitializerList; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemInitializerList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemInitializerListContext memInitializerList() throws RecognitionException {
@@ -4025,6 +3799,7 @@ public class DroolParser extends Parser {
 			setState(566);
 			memInitializer();
 			setState(568);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==Ellipsis) {
 				{
@@ -4044,6 +3819,7 @@ public class DroolParser extends Parser {
 				setState(571);
 				memInitializer();
 				setState(573);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==Ellipsis) {
 					{
@@ -4087,11 +3863,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_memInitializer; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemInitializer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemInitializerContext memInitializer() throws RecognitionException {
@@ -4104,12 +3875,14 @@ public class DroolParser extends Parser {
 			setState(580);
 			meminitializerid();
 			setState(587);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LeftParen:
 				{
 				setState(581);
 				match(LeftParen);
 				setState(583);
+				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Literal) | (1L << LeftParen) | (1L << LeftBrace) | (1L << Or) | (1L << Star) | (1L << And) | (1L << Plus) | (1L << Minus) | (1L << Tildae) | (1L << Not) | (1L << PlusPlus) | (1L << MinusMinus) | (1L << Sizeof) | (1L << Hashtag) | (1L << Inv) | (1L << Vsizeof) | (1L << Esizeof) | (1L << Val))) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & ((1L << (Identifier - 84)) | (1L << (Det - 84)) | (1L << (Transpose - 84)))) != 0)) {
 					{
@@ -4153,11 +3926,6 @@ public class DroolParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_meminitializerid; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMeminitializerid(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MeminitializeridContext meminitializerid() throws RecognitionException {
@@ -4165,6 +3933,7 @@ public class DroolParser extends Parser {
 		enterRule(_localctx, 128, RULE_meminitializerid);
 		try {
 			setState(591);
+			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,70,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
@@ -4213,7 +3982,7 @@ public class DroolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3w\u0254\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3w\u0254\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -4260,10 +4029,10 @@ public class DroolParser extends Parser {
 		"\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfhjlnp"+
 		"rtvxz|~\u0080\u0082\2\16\3\2()\3\2&\'\6\2**\60\60\62\64vw\3\2\13\21\3"+
 		"\2,-\4\2\f\f\22\23\3\2\16\17\3\2\65\66\3\2\24\27\3\2\30\31\3\2\35%\4\2"+
-		"==PP\u026b\2\u0085\3\2\2\2\4\u008f\3\2\2\2\6\u0091\3\2\2\2\b\u00a4\3\2"+
-		"\2\2\n\u00b3\3\2\2\2\f\u00b5\3\2\2\2\16\u00be\3\2\2\2\20\u00c0\3\2\2\2"+
-		"\22\u00c5\3\2\2\2\24\u00ca\3\2\2\2\26\u00d2\3\2\2\2\30\u00da\3\2\2\2\32"+
-		"\u00e3\3\2\2\2\34\u00e5\3\2\2\2\36\u00ed\3\2\2\2 \u00f5\3\2\2\2\"\u00fd"+
+		"==PP\2\u026b\2\u0085\3\2\2\2\4\u008f\3\2\2\2\6\u0091\3\2\2\2\b\u00a4\3"+
+		"\2\2\2\n\u00b3\3\2\2\2\f\u00b5\3\2\2\2\16\u00be\3\2\2\2\20\u00c0\3\2\2"+
+		"\2\22\u00c5\3\2\2\2\24\u00ca\3\2\2\2\26\u00d2\3\2\2\2\30\u00da\3\2\2\2"+
+		"\32\u00e3\3\2\2\2\34\u00e5\3\2\2\2\36\u00ed\3\2\2\2 \u00f5\3\2\2\2\"\u00fd"+
 		"\3\2\2\2$\u0105\3\2\2\2&\u010d\3\2\2\2(\u0115\3\2\2\2*\u0122\3\2\2\2,"+
 		"\u0124\3\2\2\2.\u0126\3\2\2\2\60\u012e\3\2\2\2\62\u0136\3\2\2\2\64\u013b"+
 		"\3\2\2\2\66\u0141\3\2\2\28\u0145\3\2\2\2:\u014c\3\2\2\2<\u0166\3\2\2\2"+
