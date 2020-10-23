@@ -1,5 +1,77 @@
 lexer grammar DroolLexer;
 
+
+@members{
+
+	/*
+		ADDED MY MEMBER VARIABLES AND METHODS HERE
+	*/
+
+	/**
+	* Function to report errors.
+	* Using this function whenever my lexer encounters any erroneous input
+	*/
+	public void reportError(String errorString){
+		setText(errorString);
+		setType(ERROR);
+	}
+
+	public void invalidToken() { 
+		Token t = _factory.create(_tokenFactorySourcePair, _type, _text, _channel, _tokenStartCharIndex, getCharIndex()-1, _tokenStartLine, _tokenStartCharPositionInLine);
+		String text = t.getText();
+		reportError(text);
+	}
+
+	public void processString() {
+		Token t = _factory.create(_tokenFactorySourcePair, _type, _text, _channel, _tokenStartCharIndex, getCharIndex()-1, _tokenStartLine, _tokenStartCharPositionInLine);
+		String text = t.getText();
+
+		//write your code to test strings here
+
+		if(text.length()-2 > 1024) {
+			reportError("String constant too long"); // Checking if the length of string exceeds 1024 characters without quotes
+		} else {
+			text = text.substring(1, text.length()-1); // Removing the quotes
+			String newText = "";
+			for(int i=0; i < text.length(); i++) {
+				if (text.charAt(i)=='\\') {
+					switch(text.charAt(i+1)) {
+						case 'n':
+						newText+= '\n';
+						break;
+						case 'f':
+						newText+= '\f';
+						break;
+						case 'r':
+						newText+= '\r';
+						break;
+						case 't':
+						newText+= '\t';
+						break;
+						case 'v':
+						newText+= '\u000b'; // Unicode for vertical tab
+						break;
+						case '\\':
+						newText+= '\\';
+						break;
+						default:
+						newText+= (text.charAt(i+1));						
+					}
+					i++;					
+				} else {
+					newText+= (text.charAt(i));
+				}
+			}
+			text = newText;
+			setText(text);	
+		}
+		return;
+	}
+}
+
+
+
+
 Literal:
 	IntegerLiteral
 	| FloatingLiteral
@@ -196,7 +268,7 @@ BooleanLiteral:
 
 VertexLiteral: SingleQuote Identifier SingleQuote Comma (StringLiteral)?;
 
-Whitespace: [ \t]+ -> skip;
+// Whitespace: [ \t]+ -> skip;
 Newline: ('\r' '\n'? | '\n') -> skip;
 
 WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
@@ -217,8 +289,6 @@ OPEN_COMMENT: '*)' {reportError("Unmatched *)");};
 SINGLE_LINE_COMMENT: '//' .*? ('\n'|(EOF)) -> skip; //Using non-greedy lexer subrule to consume all input until a new line is encountered	
 MULTI_LINE_COMMENT: '(*' -> pushMode(IN_MLC), skip; // If a multi line comment opener, "(*" is encountered we enter IN_MLC mode while skipping characters in the comment
 
-// The character token doesn't match with any rule
-OTHER: . {invalidToken();};
 
 // Using modes for managing nested multiline comments and errors due to EOF in them
 mode IN_MLC;
@@ -238,3 +308,5 @@ CONTENT_MLC_1: . -> skip;
 
 BlockComment: '/*' .*? '*/' -> skip;
 LineComment: '//' ~ [\r\n]* -> skip;
+
+OTHER: . {invalidToken();};
