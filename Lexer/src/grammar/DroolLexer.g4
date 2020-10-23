@@ -9,7 +9,7 @@ Literal:
 
 fragment UCL: [A-Z];
 fragment LCL: [a-z];
-fragment NONDIGIT: [UCL | LCL| _];
+fragment NONDIGIT: (UCL | LCL | '_');
 fragment DIGIT: [0-9];
 fragment NONZERODIGIT: [1-9];
 fragment BINARYDIGIT: [01];
@@ -140,7 +140,7 @@ True_: 'true';
 Identifier:
 	NONDIGIT (NONDIGIT | DIGIT)*;
 
-IntegerLiteral: DecimalLiteral Integersuffix?
+IntegerLiteral: DecimalLiteral Integersuffix?;
 
 DecimalLiteral: NONZERODIGIT ('\''? DIGIT)*;
 
@@ -198,5 +198,43 @@ VertexLiteral: SingleQuote Identifier SingleQuote Comma (StringLiteral)?;
 
 Whitespace: [ \t]+ -> skip;
 Newline: ('\r' '\n'? | '\n') -> skip;
+
+WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
+ESC: ('\\'~('\u0000')); // Escape characters are allowed except for null character
+fragment STR_INVALID_NEG: ~('\n'|'\u0000'|'\\'|'"'); // String cannot contain unescaped newline, null, only backslash, or unescaped quotes
+fragment STR_VALID: (ESC | STR_INVALID_NEG)*;
+
+// Errors
+UNTERM_STR: '"' STR_VALID '\n' {reportError("Unterminated string constant");};
+NULL_STR: '"' STR_VALID '\u0000' (ESC | ~('\n'|'\\'|'"'))* ('"'|'\n'| (EOF)) {reportError("String contains null character");};
+ESC_NULL_STR: '"' STR_VALID '\\\u0000' (ESC | ~('\n'|'\\'|'"'))* ('"'|'\n'| (EOF)) {reportError("String contains escaped null character");};
+EOF_BCKSLSH_STR: '"' STR_VALID '\\' (EOF) {reportError("backslash at end of file");}; 
+EOF_STR: '"' STR_VALID (EOF) {reportError("EOF in string constant");};
+EOF_COMMENT_0: '(*' (EOF) {reportError("EOF in comment");}; // (EOF) represents end of file representation, EOF in comment at 0th level of nesting, immediately after comment open, ie. (*(EOF)
+OPEN_COMMENT: '*)' {reportError("Unmatched *)");};	
+
+
+SINGLE_LINE_COMMENT: '//' .*? ('\n'|(EOF)) -> skip; //Using non-greedy lexer subrule to consume all input until a new line is encountered	
+MULTI_LINE_COMMENT: '(*' -> pushMode(IN_MLC), skip; // If a multi line comment opener, "(*" is encountered we enter IN_MLC mode while skipping characters in the comment
+
+// The character token doesn't match with any rule
+OTHER: . {invalidToken();};
+
+// Using modes for managing nested multiline comments and errors due to EOF in them
+mode IN_MLC;
+EOF_COMMENT_1: . (EOF) {reportError("EOF in comment");}; // EOF in comment with some characters at 0th level of nesting, eg. (*hello(EOF)
+EOF_COMMENT_2: '(*' (EOF) {reportError("EOF in comment");}; // eg. (*hello(*(EOF)
+IN_NEST_MLC_0: '(*' -> pushMode(NESTED_MLC), skip;
+CLOSE_MLC_0: '*)' -> popMode, skip;
+CONTENT_MLC_0: . -> skip;
+
+mode NESTED_MLC;
+EOF_COMMENT_3: . (EOF) {reportError("EOF in comment");}; // eg. (*hello(*hi(EOF)
+EOF_COMMENT_4: '(*' (EOF) {reportError("EOF in comment");}; // eg. (*hello(*hi(*(EOF)
+EOF_COMMENT_5: '*)' (EOF) {reportError("EOF in comment");}; // eg. (*hello(*hi*)(EOF)
+IN_NEST_MLC_1: '(*' -> pushMode(NESTED_MLC), skip;
+CLOSE_MLC_1: '*)' -> popMode, skip;
+CONTENT_MLC_1: . -> skip;
+
 BlockComment: '/*' .*? '*/' -> skip;
 LineComment: '//' ~ [\r\n]* -> skip;
