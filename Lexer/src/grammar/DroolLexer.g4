@@ -306,7 +306,7 @@ IN_NEST_MLC_1: '(*' -> pushMode(NESTED_MLC), skip;
 CLOSE_MLC_1: '*)' -> popMode, skip;
 CONTENT_MLC_1: . -> skip;
 
-BlockComment: '/*' .*? '*/' -> skip;
-LineComment: '//' ~ [\r\n]* -> skip;
+// BlockComment: '/*' .*? '*/' -> skip;
+// LineComment: '//' ~ [\r\n]* -> skip;
 
 OTHER: . {invalidToken();};
