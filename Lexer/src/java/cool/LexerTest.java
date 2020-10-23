@@ -194,8 +194,8 @@ public class LexerTest {
 		String name = filename.substring(filename.lastIndexOf('/') + 1);
 		System.out.println("#name \"" + name + "\"");
 
-		final int BOOL_CONST_INDEX = Arrays.asList(TOKENS).indexOf("Bool");
-		final int STR_CONST_INDEX = Arrays.asList(TOKENS).indexOf("String");
+		final int BOOL_CONST_INDEX = Arrays.asList(TOKENS).indexOf("BooleanLiteral");
+		final int STR_CONST_INDEX = Arrays.asList(TOKENS).indexOf("StringLiteral");
 		final int ERROR_INDEX = Arrays.asList(TOKENS).indexOf("ERROR");
 
 		//Print tokens
