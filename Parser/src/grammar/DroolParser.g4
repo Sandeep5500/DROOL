@@ -182,8 +182,7 @@ blockDeclaration:
   simpleDeclaration Semi;
   
 simpleDeclaration:
-  initDeclaratorList? Semi
-  | initDeclaratorList Semi;
+  initDeclaratorList?;
 
 dataType:
    Bool
