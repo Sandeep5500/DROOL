@@ -167,6 +167,7 @@ Hashtag: '#';
 Addc: A D D C;
 Addr: A D D R;
 Delr: D E L R;
+Delc: D E L C; 
 Questionmark: '?';
 Inv: I N V;
 Trans: T R A N S;
@@ -218,7 +219,7 @@ Identifier:
 
 IntegerLiteral: DecimalLiteral Integersuffix?;
 
-DecimalLiteral: DIGIT (DIGIT)*;
+DecimalLiteral: NONZERODIGIT ('\''? DIGIT)*;
 
 Integersuffix:
 	Unsignedsuffix Longsuffix?
@@ -270,7 +271,7 @@ BooleanLiteral:
 	False_ 
 	| True_;
 
-VertexLiteral: SingleQuote Identifier SingleQuote Comma (StringLiteral)?;
+VertexLiteral: SingleQuote Identifier SingleQuote WHITESPACE?(Comma WHITESPACE? StringLiteral)?;
 
 // Whitespace: [ \t]+ -> skip;
 Newline: ('\r' '\n'? | '\n') -> skip;
