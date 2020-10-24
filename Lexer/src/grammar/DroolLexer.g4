@@ -218,7 +218,7 @@ Identifier:
 
 IntegerLiteral: DecimalLiteral Integersuffix?;
 
-DecimalLiteral: NONZERODIGIT ('\''? DIGIT)*;
+DecimalLiteral: DIGIT (DIGIT)*;
 
 Integersuffix:
 	Unsignedsuffix Longsuffix?
