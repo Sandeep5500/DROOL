@@ -5,7 +5,6 @@ options {
 /*Basic concepts*/
 
 @header{
-
 	import java.util.List;
 }
 
@@ -29,13 +28,13 @@ program: declarationseq? EOF;
 primaryExpression:
   Literal
   | LeftParen expression RightParen
-  | Identifier;
+  | Identifier (LeftBracket constantExpression? RightBracket (LeftBracket constantExpression? RightBracket)?)?;
 
 postfixExpression:
   primaryExpression
   | postfixExpression LeftParen expressionList? RightParen
   | postfixExpression (Dot|Arrow) Identifier
-  | postfixExpression (PlusPlus | MinusMinus);
+  | postfixExpression (PlusPlus | MinusMinus| Delr | Delc );
 
   
 expressionList: initializerList;
@@ -43,10 +42,10 @@ expressionList: initializerList;
 
 unaryExpression:
   postfixExpression
-  | (PlusPlus | MinusMinus | unaryOperator | Sizeof) unaryExpression
-  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Trans) LeftParen dataType RightParen;
+  | (PlusPlus | MinusMinus | unaryOperator) unaryExpression
+  | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Trans) LeftParen Identifier RightParen;
 
-unaryOperator: Or | Star | And | Plus | Tildae | Minus | Not;
+unaryOperator: Or | Star | And | Plus | Tildae | Minus | Not ;
 
 countExpression:
   unaryExpression (Hashtag unaryExpression)?
@@ -176,7 +175,8 @@ declarationseq: declaration+;
 
 declaration:
   blockDeclaration
-  | functionDefinition;
+  | functionDefinition
+  | classSpecifier;
 
 blockDeclaration:
   simpleDeclaration Semi;
@@ -196,13 +196,13 @@ dataType:
   | Vertex
   | className;
 
-initDeclaratorList: initDeclarator (Comma initDeclarator)*;
+initDeclaratorList: dataType initDeclarator (Comma initDeclarator)*;
 
-initDeclarator: dataType declarator initializer?;
+initDeclarator: declarator initializer?;
 
 declarator:
   Identifier (parametersAndQualifiers
-  | LeftBracket constantExpression? RightBracket)? ;
+  | LeftBracket constantExpression? RightBracket (LeftBracket constantExpression? RightBracket)?)? ;
 
 parametersAndQualifiers:
   LeftParen parameterDeclarationClause? RightParen;
@@ -215,7 +215,7 @@ parameterDeclarationList:
   parameterDeclaration (Comma parameterDeclaration)*;
 
 parameterDeclaration:
-   (initDeclarator)?;
+   (dataType(declarator initializer?)?)?;
 
 functionDefinition:
   dataType Identifier LeftParen parameterDeclarationClause RightParen functionBody;
@@ -245,7 +245,7 @@ bracedInitList: LeftBrace (initializerList Comma?)? RightBrace;
 className: Identifier;
 
 classSpecifier:
-  classHead LeftBrace memberSpecification? RightBrace;
+  classHead LeftBrace memberSpecification? RightBrace Semi;
 
 classHead:
   Class className baseClause?;
@@ -259,7 +259,7 @@ memberdeclaration:
   | functionDefinition;
 
 memberDeclaratorList:
-  memberDeclarator (Comma memberDeclarator)*;
+  dataType memberDeclarator (Comma memberDeclarator)*;
 
 memberDeclarator:
   initDeclarator (
