@@ -5,7 +5,7 @@ options {
 /*Basic concepts*/
 
 @header{
-	import cool.AST;
+
 	import java.util.List;
 }
 
