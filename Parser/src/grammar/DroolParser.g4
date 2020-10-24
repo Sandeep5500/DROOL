@@ -277,7 +277,7 @@ baseSpecifierList:
   className (Comma className )*;
 
 memInitializerList:
-  memInitializer Ellipsis? (Comma memInitializer Ellipsis?)*;
+  memInitializer (Comma memInitializer)*;
 
 memInitializer:
   meminitializerid (
