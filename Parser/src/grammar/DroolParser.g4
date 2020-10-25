@@ -30,6 +30,8 @@ primaryExpression:
   | LeftParen expression RightParen
   | Identifier (LeftBracket constantExpression? RightBracket (LeftBracket constantExpression? RightBracket)?)?;
 
+
+
 postfixExpression:
   primaryExpression
   | postfixExpression LeftParen expressionList? RightParen
@@ -117,6 +119,8 @@ expression: assignmentExpression (Comma assignmentExpression)*;
 
 constantExpression: logicalOrExpression;
 /*Statements*/
+inputStatement: Input LeftParen expressionList RightParen Semi;
+outputStatement: Output LeftParen expressionList RightParen Semi;
 
 statement:
   caseStatement
@@ -125,7 +129,9 @@ statement:
   | selectionStatement
   | iterationStatement
   | declarationStatement
-  | jumpStatement;
+  | jumpStatement
+  | inputStatement
+  | outputStatement;
   
 jumpStatement:
 	(
