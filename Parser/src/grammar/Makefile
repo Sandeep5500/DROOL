@@ -1,17 +1,19 @@
-ANTLR_JAR = /usr/local/lib/antlr-4.5-complete.jar
-ANTLR = java -jar $(ANTLR_JAR)
-ANTLR_OUT_DIR = ../java
-PACKAGE = cool
-ANTLR_FLAGS = -no-listener -visitor -package $(PACKAGE)
-LEXER = DroolLexer
-PARSER = DroolParser
+all: compile
 
-%: all
+compile:
+	java -jar /usr/local/lib/antlr-4.8-complete.jar DroolLexer.g4
+	javac DroolLexer*.java
+	java -jar /usr/local/lib/antlr-4.8-complete.jar DroolParser.g4
+	javac Drool*.java
 
-all:
-	$(ANTLR) $(ANTLR_FLAGS) -o $(ANTLR_OUT_DIR)/$(PACKAGE)/ -lib $(ANTLR_OUT_DIR)/$(PACKAGE)/ $(PARSER).g4
+debug: compile
+	java org.antlr.v4.runtime.misc.TestRig  Erlang forms -gui -encoding utf8
+
+check: compile
+	./check.sh test/
 
 clean:
-	rm -rf ../java/$(PACKAGE)/*.class
-	rm -rf ../java/$(PACKAGE)/$(PARSER)*.java
-	rm -rf ../java/$(PACKAGE)/$(PARSER)*.tokens
+	rm -f *.class
+
+distclean: clean
+	rm -f *.java *.tokens
