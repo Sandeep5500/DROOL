@@ -192,6 +192,8 @@ Semi: ';';
 SingleQuote: '\'';
 DoubleQuote: '"';
 
+Input: I N P U T;
+Output: O U T P U T;
 Class: C L A S S;
 Void: V O I D;
 Bool: B O O L;
