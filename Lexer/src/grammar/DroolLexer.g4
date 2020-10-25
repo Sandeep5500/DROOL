@@ -247,7 +247,7 @@ fragment SIGN: [+-];
 fragment Digitsequence: DIGIT ('\''? DIGIT)*;
 fragment Floatingsuffix: [flFL];
 
-StringLiteral: DoubleQuote Schar* DoubleQuote;
+// StringLiteral: DoubleQuote Schar* DoubleQuote;
 
 // Error handling what do I have no clue
 	
@@ -291,6 +291,8 @@ EOF_BCKSLSH_STR: '"' STR_VALID '\\' (EOF) {reportError("backslash at end of file
 EOF_STR: '"' STR_VALID (EOF) {reportError("EOF in string constant");};
 EOF_COMMENT_0: '(*' (EOF) {reportError("EOF in comment");}; // (EOF) represents end of file representation, EOF in comment at 0th level of nesting, immediately after comment open, ie. (*(EOF)
 OPEN_COMMENT: '*)' {reportError("Unmatched *)");};	
+
+StringLiteral: '"' STR_VALID '"' { processString(); };
 
 
 SINGLE_LINE_COMMENT: '//' .*? ('\n'|(EOF)) -> skip; //Using non-greedy lexer subrule to consume all input until a new line is encountered	
