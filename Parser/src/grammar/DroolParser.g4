@@ -125,7 +125,12 @@ statement:
   | selectionStatement
   | iterationStatement
   | declarationStatement
-  | jumpStatement;
+  | jumpStatement
+  | inputStatement
+  | outputStatement;
+
+inputStatement: Input LeftParen expressionList RightParen Semi;
+outputStatement: Output LeftParen expressionList RightParen Semi;
   
 jumpStatement:
 	(
