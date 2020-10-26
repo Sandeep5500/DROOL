@@ -1,0 +1,9 @@
+# error on incrementing global variable globaly
+int x = 10;
+x += 2;
+int main()
+{
+	output(x, "\n");
+	x -= 2;
+	output(x, "\n");
+}

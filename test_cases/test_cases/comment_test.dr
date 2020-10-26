@@ -1,0 +1,12 @@
+# comment test
+// single line comment
+
+(*Multiline
+comment*)
+
+(*nested (*comment*)*)
+
+
+# comment errors
+(*comment (* missing clossing, leads to EOF in comment *)
+
