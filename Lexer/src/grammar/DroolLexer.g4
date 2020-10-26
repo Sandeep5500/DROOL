@@ -212,8 +212,8 @@ Break: B R E A K;
 Return: R E T U R N;
 
 Const: C O N S T;
-False_: 'false';
-True_: 'true';
+// False_: 'false';
+// True_: 'true';
 
 
 Identifier:
@@ -268,17 +268,18 @@ fragment Schar:
 	~["\\\r\n]
 	| Escapesequence;
 
+WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
+Newline: ('\r' '\n'? | '\n') -> skip;
+
 
 BooleanLiteral: 
-	False_ 
-	| True_;
+	F A L S E
+	| T R U E;
 
 VertexLiteral: SingleQuote Identifier SingleQuote WHITESPACE?(Comma WHITESPACE? StringLiteral)?;
 
 // Whitespace: [ \t]+ -> skip;
-Newline: ('\r' '\n'? | '\n') -> skip;
 
-WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
 ESC: ('\\'~('\u0000')); // Escape characters are allowed except for null character
 fragment STR_INVALID_NEG: ~('\n'|'\u0000'|'\\'|'"'); // String cannot contain unescaped newline, null, only backslash, or unescaped quotes
 fragment STR_VALID: (ESC | STR_INVALID_NEG)*;
