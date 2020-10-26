@@ -1,7 +1,7 @@
 # all: compile
 
 all: compile
-	java org.antlr.v4.gui.TestRig Drool program -gui $(f)
+	java org.antlr.v4.gui.TestRig Drool program -gui $.../../../$(f)
 
 compile:
 	java -jar /usr/local/lib/antlr-4.8-complete.jar DroolLexer.g4
