@@ -212,8 +212,8 @@ Input: I N P U T;
 Output: O U T P U T;
 
 Const: C O N S T;
-False_: 'false';
-True_: 'true';
+False_: F A L S E;
+True_: T R U E;
 
 
 Identifier:
@@ -247,7 +247,8 @@ fragment SIGN: [+-];
 fragment Digitsequence: DIGIT ('\''? DIGIT)*;
 fragment Floatingsuffix: [flFL];
 
-StringLiteral: DoubleQuote Schar* DoubleQuote;
+//StringLiteral: DoubleQuote Schar* DoubleQuote;
+StringLiteral: '"' STR_VALID '"' { processString(); };
 
 // Error handling what do I have no clue
 	
