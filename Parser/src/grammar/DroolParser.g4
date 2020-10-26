@@ -169,7 +169,7 @@ iterationStatement:
     forInitStatement condition? Semi expression?
   ) RightParen statement;
 
-forInitStatement: expressionStatement | simpleDeclaration;
+forInitStatement: expressionStatement | (simpleDeclaration Semi);
 
 
 
