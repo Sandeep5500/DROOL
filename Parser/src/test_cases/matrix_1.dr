@@ -1,0 +1,16 @@
+# matrices 1
+
+int main()
+{
+    Matrix m1[10][5];
+    
+    for (int i=0; i<10; i++)
+    {
+        for (int j=0; j<5; j++)
+        {
+            m1[i][j] = i+j;
+        }
+    }
+
+    output(m1);
+}
