@@ -20,245 +20,235 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitProgram(DroolParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#primaryExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#primaryExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimaryExpression(DroolParser.PrimaryExpressionContext ctx);
+	void enterPrimaryExpr(DroolParser.PrimaryExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#primaryExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#primaryExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimaryExpression(DroolParser.PrimaryExpressionContext ctx);
+	void exitPrimaryExpr(DroolParser.PrimaryExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#postfixExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#postfixExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterPostfixExpression(DroolParser.PostfixExpressionContext ctx);
+	void enterPostfixExpr(DroolParser.PostfixExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#postfixExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#postfixExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitPostfixExpression(DroolParser.PostfixExpressionContext ctx);
+	void exitPostfixExpr(DroolParser.PostfixExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#expressionList}.
+	 * Enter a parse tree produced by {@link DroolParser#exprList}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionList(DroolParser.ExpressionListContext ctx);
+	void enterExprList(DroolParser.ExprListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#expressionList}.
+	 * Exit a parse tree produced by {@link DroolParser#exprList}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionList(DroolParser.ExpressionListContext ctx);
+	void exitExprList(DroolParser.ExprListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#unaryExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#unaryExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryExpression(DroolParser.UnaryExpressionContext ctx);
+	void enterUnaryExpr(DroolParser.UnaryExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#unaryExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#unaryExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryExpression(DroolParser.UnaryExpressionContext ctx);
+	void exitUnaryExpr(DroolParser.UnaryExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#unaryOperator}.
+	 * Enter a parse tree produced by {@link DroolParser#unaryOpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryOperator(DroolParser.UnaryOperatorContext ctx);
+	void enterUnaryOpr(DroolParser.UnaryOprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#unaryOperator}.
+	 * Exit a parse tree produced by {@link DroolParser#unaryOpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryOperator(DroolParser.UnaryOperatorContext ctx);
+	void exitUnaryOpr(DroolParser.UnaryOprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#countExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#graphmemberExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterCountExpression(DroolParser.CountExpressionContext ctx);
+	void enterGraphmemberExpr(DroolParser.GraphmemberExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#countExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#graphmemberExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitCountExpression(DroolParser.CountExpressionContext ctx);
+	void exitGraphmemberExpr(DroolParser.GraphmemberExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#addrcExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#addrcExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAddrcExpression(DroolParser.AddrcExpressionContext ctx);
+	void enterAddrcExpr(DroolParser.AddrcExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#addrcExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#addrcExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAddrcExpression(DroolParser.AddrcExpressionContext ctx);
+	void exitAddrcExpr(DroolParser.AddrcExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#questionExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#questionExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterQuestionExpression(DroolParser.QuestionExpressionContext ctx);
+	void enterQuestionExpr(DroolParser.QuestionExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#questionExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#questionExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitQuestionExpression(DroolParser.QuestionExpressionContext ctx);
+	void exitQuestionExpr(DroolParser.QuestionExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#multiplicativeExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#multiplicationExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiplicativeExpression(DroolParser.MultiplicativeExpressionContext ctx);
+	void enterMultiplicationExpr(DroolParser.MultiplicationExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#multiplicativeExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#multiplicationExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiplicativeExpression(DroolParser.MultiplicativeExpressionContext ctx);
+	void exitMultiplicationExpr(DroolParser.MultiplicationExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#additiveExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#additiveExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAdditiveExpression(DroolParser.AdditiveExpressionContext ctx);
+	void enterAdditiveExpr(DroolParser.AdditiveExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#additiveExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#additiveExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAdditiveExpression(DroolParser.AdditiveExpressionContext ctx);
+	void exitAdditiveExpr(DroolParser.AdditiveExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#shiftExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#pushpullExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterShiftExpression(DroolParser.ShiftExpressionContext ctx);
+	void enterPushpullExpr(DroolParser.PushpullExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#shiftExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#pushpullExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitShiftExpression(DroolParser.ShiftExpressionContext ctx);
+	void exitPushpullExpr(DroolParser.PushpullExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#shiftOperator}.
+	 * Enter a parse tree produced by {@link DroolParser#pushpullOpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterShiftOperator(DroolParser.ShiftOperatorContext ctx);
+	void enterPushpullOpr(DroolParser.PushpullOprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#shiftOperator}.
+	 * Exit a parse tree produced by {@link DroolParser#pushpullOpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitShiftOperator(DroolParser.ShiftOperatorContext ctx);
+	void exitPushpullOpr(DroolParser.PushpullOprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#relationalExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#comparisonExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelationalExpression(DroolParser.RelationalExpressionContext ctx);
+	void enterComparisonExpr(DroolParser.ComparisonExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#relationalExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#comparisonExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelationalExpression(DroolParser.RelationalExpressionContext ctx);
+	void exitComparisonExpr(DroolParser.ComparisonExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#equalityExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#equalityExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterEqualityExpression(DroolParser.EqualityExpressionContext ctx);
+	void enterEqualityExpr(DroolParser.EqualityExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#equalityExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#equalityExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitEqualityExpression(DroolParser.EqualityExpressionContext ctx);
+	void exitEqualityExpr(DroolParser.EqualityExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#andExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#binAndExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAndExpression(DroolParser.AndExpressionContext ctx);
+	void enterBinAndExpr(DroolParser.BinAndExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#andExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#binAndExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAndExpression(DroolParser.AndExpressionContext ctx);
+	void exitBinAndExpr(DroolParser.BinAndExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#exclusiveOrExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#binXorExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExclusiveOrExpression(DroolParser.ExclusiveOrExpressionContext ctx);
+	void enterBinXorExpr(DroolParser.BinXorExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#exclusiveOrExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#binXorExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExclusiveOrExpression(DroolParser.ExclusiveOrExpressionContext ctx);
+	void exitBinXorExpr(DroolParser.BinXorExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#inclusiveOrExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#binOrExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterInclusiveOrExpression(DroolParser.InclusiveOrExpressionContext ctx);
+	void enterBinOrExpr(DroolParser.BinOrExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#inclusiveOrExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#binOrExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitInclusiveOrExpression(DroolParser.InclusiveOrExpressionContext ctx);
+	void exitBinOrExpr(DroolParser.BinOrExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#logicalAndExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#andExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogicalAndExpression(DroolParser.LogicalAndExpressionContext ctx);
+	void enterAndExpr(DroolParser.AndExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#logicalAndExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#andExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogicalAndExpression(DroolParser.LogicalAndExpressionContext ctx);
+	void exitAndExpr(DroolParser.AndExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#logicalOrExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#orExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogicalOrExpression(DroolParser.LogicalOrExpressionContext ctx);
+	void enterOrExpr(DroolParser.OrExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#logicalOrExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#orExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogicalOrExpression(DroolParser.LogicalOrExpressionContext ctx);
+	void exitOrExpr(DroolParser.OrExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#assignmentExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#assignExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignmentExpression(DroolParser.AssignmentExpressionContext ctx);
+	void enterAssignExpr(DroolParser.AssignExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#assignmentExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#assignExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignmentExpression(DroolParser.AssignmentExpressionContext ctx);
+	void exitAssignExpr(DroolParser.AssignExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#assignmentOperator}.
+	 * Enter a parse tree produced by {@link DroolParser#assignOpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignmentOperator(DroolParser.AssignmentOperatorContext ctx);
+	void enterAssignOpr(DroolParser.AssignOprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#assignmentOperator}.
+	 * Exit a parse tree produced by {@link DroolParser#assignOpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignmentOperator(DroolParser.AssignmentOperatorContext ctx);
+	void exitAssignOpr(DroolParser.AssignOprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#expression}.
+	 * Enter a parse tree produced by {@link DroolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(DroolParser.ExpressionContext ctx);
+	void enterExpr(DroolParser.ExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#expression}.
+	 * Exit a parse tree produced by {@link DroolParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(DroolParser.ExpressionContext ctx);
+	void exitExpr(DroolParser.ExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#constantExpression}.
+	 * Enter a parse tree produced by {@link DroolParser#constexpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterConstantExpression(DroolParser.ConstantExpressionContext ctx);
+	void enterConstexpr(DroolParser.ConstexprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#constantExpression}.
+	 * Exit a parse tree produced by {@link DroolParser#constexpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitConstantExpression(DroolParser.ConstantExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterStatement(DroolParser.StatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitStatement(DroolParser.StatementContext ctx);
+	void exitConstexpr(DroolParser.ConstexprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#inputStatement}.
 	 * @param ctx the parse tree
@@ -280,6 +270,16 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitOutputStatement(DroolParser.OutputStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link DroolParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatement(DroolParser.StatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DroolParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatement(DroolParser.StatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link DroolParser#jumpStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -300,15 +300,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitCaseStatement(DroolParser.CaseStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#expressionStatement}.
+	 * Enter a parse tree produced by {@link DroolParser#exprStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionStatement(DroolParser.ExpressionStatementContext ctx);
+	void enterExprStatement(DroolParser.ExprStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#expressionStatement}.
+	 * Exit a parse tree produced by {@link DroolParser#exprStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionStatement(DroolParser.ExpressionStatementContext ctx);
+	void exitExprStatement(DroolParser.ExprStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#compoundStatement}.
 	 * @param ctx the parse tree
@@ -330,15 +330,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitStatementSeq(DroolParser.StatementSeqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#selectionStatement}.
+	 * Enter a parse tree produced by {@link DroolParser#selectStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterSelectionStatement(DroolParser.SelectionStatementContext ctx);
+	void enterSelectStatement(DroolParser.SelectStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#selectionStatement}.
+	 * Exit a parse tree produced by {@link DroolParser#selectStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitSelectionStatement(DroolParser.SelectionStatementContext ctx);
+	void exitSelectStatement(DroolParser.SelectStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#condition}.
 	 * @param ctx the parse tree
@@ -350,15 +350,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitCondition(DroolParser.ConditionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#iterationStatement}.
+	 * Enter a parse tree produced by {@link DroolParser#iterStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterIterationStatement(DroolParser.IterationStatementContext ctx);
+	void enterIterStatement(DroolParser.IterStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#iterationStatement}.
+	 * Exit a parse tree produced by {@link DroolParser#iterStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitIterationStatement(DroolParser.IterationStatementContext ctx);
+	void exitIterStatement(DroolParser.IterStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#forInitStatement}.
 	 * @param ctx the parse tree
@@ -380,15 +380,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitDeclarationStatement(DroolParser.DeclarationStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#declarationseq}.
+	 * Enter a parse tree produced by {@link DroolParser#declarseq}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclarationseq(DroolParser.DeclarationseqContext ctx);
+	void enterDeclarseq(DroolParser.DeclarseqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#declarationseq}.
+	 * Exit a parse tree produced by {@link DroolParser#declarseq}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclarationseq(DroolParser.DeclarationseqContext ctx);
+	void exitDeclarseq(DroolParser.DeclarseqContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#declaration}.
 	 * @param ctx the parse tree
@@ -430,15 +430,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitDataType(DroolParser.DataTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#initDeclaratorList}.
+	 * Enter a parse tree produced by {@link DroolParser#initDeclaratorSeq}.
 	 * @param ctx the parse tree
 	 */
-	void enterInitDeclaratorList(DroolParser.InitDeclaratorListContext ctx);
+	void enterInitDeclaratorSeq(DroolParser.InitDeclaratorSeqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#initDeclaratorList}.
+	 * Exit a parse tree produced by {@link DroolParser#initDeclaratorSeq}.
 	 * @param ctx the parse tree
 	 */
-	void exitInitDeclaratorList(DroolParser.InitDeclaratorListContext ctx);
+	void exitInitDeclaratorSeq(DroolParser.InitDeclaratorSeqContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#initDeclarator}.
 	 * @param ctx the parse tree
@@ -460,35 +460,25 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitDeclarator(DroolParser.DeclaratorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#parametersAndQualifiers}.
+	 * Enter a parse tree produced by {@link DroolParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void enterParametersAndQualifiers(DroolParser.ParametersAndQualifiersContext ctx);
+	void enterParameters(DroolParser.ParametersContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#parametersAndQualifiers}.
+	 * Exit a parse tree produced by {@link DroolParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void exitParametersAndQualifiers(DroolParser.ParametersAndQualifiersContext ctx);
+	void exitParameters(DroolParser.ParametersContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#parameterDeclarationClause}.
+	 * Enter a parse tree produced by {@link DroolParser#parameterDeclarationSeq}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameterDeclarationClause(DroolParser.ParameterDeclarationClauseContext ctx);
+	void enterParameterDeclarationSeq(DroolParser.ParameterDeclarationSeqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#parameterDeclarationClause}.
+	 * Exit a parse tree produced by {@link DroolParser#parameterDeclarationSeq}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameterDeclarationClause(DroolParser.ParameterDeclarationClauseContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#parameterDeclarationList}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameterDeclarationList(DroolParser.ParameterDeclarationListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#parameterDeclarationList}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameterDeclarationList(DroolParser.ParameterDeclarationListContext ctx);
+	void exitParameterDeclarationSeq(DroolParser.ParameterDeclarationSeqContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#parameterDeclaration}.
 	 * @param ctx the parse tree
@@ -500,15 +490,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitParameterDeclaration(DroolParser.ParameterDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#functionDefinition}.
+	 * Enter a parse tree produced by {@link DroolParser#functionDefn}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionDefinition(DroolParser.FunctionDefinitionContext ctx);
+	void enterFunctionDefn(DroolParser.FunctionDefnContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#functionDefinition}.
+	 * Exit a parse tree produced by {@link DroolParser#functionDefn}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionDefinition(DroolParser.FunctionDefinitionContext ctx);
+	void exitFunctionDefn(DroolParser.FunctionDefnContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#functionBody}.
 	 * @param ctx the parse tree
@@ -540,35 +530,35 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitBraceOrEqualInitializer(DroolParser.BraceOrEqualInitializerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#initializerClause}.
+	 * Enter a parse tree produced by {@link DroolParser#initializationClause}.
 	 * @param ctx the parse tree
 	 */
-	void enterInitializerClause(DroolParser.InitializerClauseContext ctx);
+	void enterInitializationClause(DroolParser.InitializationClauseContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#initializerClause}.
+	 * Exit a parse tree produced by {@link DroolParser#initializationClause}.
 	 * @param ctx the parse tree
 	 */
-	void exitInitializerClause(DroolParser.InitializerClauseContext ctx);
+	void exitInitializationClause(DroolParser.InitializationClauseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#initializerList}.
+	 * Enter a parse tree produced by {@link DroolParser#bracedInitSeq}.
 	 * @param ctx the parse tree
 	 */
-	void enterInitializerList(DroolParser.InitializerListContext ctx);
+	void enterBracedInitSeq(DroolParser.BracedInitSeqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#initializerList}.
+	 * Exit a parse tree produced by {@link DroolParser#bracedInitSeq}.
 	 * @param ctx the parse tree
 	 */
-	void exitInitializerList(DroolParser.InitializerListContext ctx);
+	void exitBracedInitSeq(DroolParser.BracedInitSeqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#bracedInitList}.
+	 * Enter a parse tree produced by {@link DroolParser#initializationseq}.
 	 * @param ctx the parse tree
 	 */
-	void enterBracedInitList(DroolParser.BracedInitListContext ctx);
+	void enterInitializationseq(DroolParser.InitializationseqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#bracedInitList}.
+	 * Exit a parse tree produced by {@link DroolParser#initializationseq}.
 	 * @param ctx the parse tree
 	 */
-	void exitBracedInitList(DroolParser.BracedInitListContext ctx);
+	void exitInitializationseq(DroolParser.InitializationseqContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#className}.
 	 * @param ctx the parse tree
@@ -580,15 +570,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitClassName(DroolParser.ClassNameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#classSpecifier}.
+	 * Enter a parse tree produced by {@link DroolParser#classDefn}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassSpecifier(DroolParser.ClassSpecifierContext ctx);
+	void enterClassDefn(DroolParser.ClassDefnContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#classSpecifier}.
+	 * Exit a parse tree produced by {@link DroolParser#classDefn}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassSpecifier(DroolParser.ClassSpecifierContext ctx);
+	void exitClassDefn(DroolParser.ClassDefnContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#classHead}.
 	 * @param ctx the parse tree
@@ -600,15 +590,15 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitClassHead(DroolParser.ClassHeadContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#memberSpecification}.
+	 * Enter a parse tree produced by {@link DroolParser#memberlist}.
 	 * @param ctx the parse tree
 	 */
-	void enterMemberSpecification(DroolParser.MemberSpecificationContext ctx);
+	void enterMemberlist(DroolParser.MemberlistContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#memberSpecification}.
+	 * Exit a parse tree produced by {@link DroolParser#memberlist}.
 	 * @param ctx the parse tree
 	 */
-	void exitMemberSpecification(DroolParser.MemberSpecificationContext ctx);
+	void exitMemberlist(DroolParser.MemberlistContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#memberdeclaration}.
 	 * @param ctx the parse tree
@@ -640,53 +630,23 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitMemberDeclarator(DroolParser.MemberDeclaratorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#baseClause}.
+	 * Enter a parse tree produced by {@link DroolParser#inheritanceClause}.
 	 * @param ctx the parse tree
 	 */
-	void enterBaseClause(DroolParser.BaseClauseContext ctx);
+	void enterInheritanceClause(DroolParser.InheritanceClauseContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#baseClause}.
+	 * Exit a parse tree produced by {@link DroolParser#inheritanceClause}.
 	 * @param ctx the parse tree
 	 */
-	void exitBaseClause(DroolParser.BaseClauseContext ctx);
+	void exitInheritanceClause(DroolParser.InheritanceClauseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#baseSpecifierList}.
+	 * Enter a parse tree produced by {@link DroolParser#inheriterList}.
 	 * @param ctx the parse tree
 	 */
-	void enterBaseSpecifierList(DroolParser.BaseSpecifierListContext ctx);
+	void enterInheriterList(DroolParser.InheriterListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link DroolParser#baseSpecifierList}.
+	 * Exit a parse tree produced by {@link DroolParser#inheriterList}.
 	 * @param ctx the parse tree
 	 */
-	void exitBaseSpecifierList(DroolParser.BaseSpecifierListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#memInitializerList}.
-	 * @param ctx the parse tree
-	 */
-	void enterMemInitializerList(DroolParser.MemInitializerListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#memInitializerList}.
-	 * @param ctx the parse tree
-	 */
-	void exitMemInitializerList(DroolParser.MemInitializerListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#memInitializer}.
-	 * @param ctx the parse tree
-	 */
-	void enterMemInitializer(DroolParser.MemInitializerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#memInitializer}.
-	 * @param ctx the parse tree
-	 */
-	void exitMemInitializer(DroolParser.MemInitializerContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#meminitializerid}.
-	 * @param ctx the parse tree
-	 */
-	void enterMeminitializerid(DroolParser.MeminitializeridContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#meminitializerid}.
-	 * @param ctx the parse tree
-	 */
-	void exitMeminitializerid(DroolParser.MeminitializeridContext ctx);
+	void exitInheriterList(DroolParser.InheriterListContext ctx);
 }

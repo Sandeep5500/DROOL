@@ -1,0 +1,8 @@
+int main()
+{
+	int x = 9;
+	if(x == 10)  
+		output("x is 10");  
+	else
+		output("x is not 10");
+}

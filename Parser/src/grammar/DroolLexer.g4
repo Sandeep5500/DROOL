@@ -175,8 +175,8 @@ Det: D E T;
 Vsizeof: V S I Z E O F;
 Esizeof: E S I Z E O F;
 Val: V A L;
-RightShift: '>>';
-LeftShift: '<<';
+Pull: '>>';
+Push: '<<';
 
 If: I F;
 Else: E L S E;

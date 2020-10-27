@@ -1,8 +1,0 @@
-// missing ), }, ]
-
-int main()
-{
-	int x = 10;
-	output(x, "\n";   // missing )  
-	int arr[4;        // missing ]
-                      // missing }

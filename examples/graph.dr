@@ -1,0 +1,31 @@
+// function to print graph
+void printGraph (Graph G)
+{
+	vertex vlist[] = #G;
+	for(int i =0;i<vsizeof(G);i++)	
+	{
+		output(vlist[i]);	
+	}
+	
+	int i = 0;
+	edge elist[] = ##G;
+	for(int i = 0; i < esizeof(G);i++)
+	{
+		output("Edge", i, elist[i], "\n");
+	}
+}	
+int main()
+{
+// Vetices 
+Vertex v1 = "v1", v2 = "v2", v3 = "v3", v4 = "v4", v5 = "v5";
+
+Graph G;
+// Inserting Vertices into Graph G
+G << v1 << v2 << v3 << v4  << v5;
+
+// Inserting edges into graph G
+G << (v1, v2, 2) << (v1, v4, 6) << (v1, v5);
+
+// printing the graph vetices and edges
+printGraph(G);				
+}

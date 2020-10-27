@@ -1,4 +1,6 @@
 // assignment Operator
+int main()
+{
 Int c = 1;
 c += 10;
 c -= 5;
@@ -12,7 +14,7 @@ Int x = 1, y = 1;
 x ^= y;
 x |= y;
 y &= 0;
-
+}
 
 
 

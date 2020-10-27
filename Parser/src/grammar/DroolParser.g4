@@ -22,112 +22,115 @@ options {
 }
 
 
-program: declarationseq? EOF;
-/*Expressions*/
+program: declarseq? EOF;
 
-primaryExpression:
+
+/*Types of Exprs*/
+
+primaryExpr:
   Literal
-  | LeftParen expression RightParen
-  | Identifier (LeftBracket constantExpression? RightBracket (LeftBracket constantExpression? RightBracket)?)?;
+  | LeftParen expr RightParen
+  | Identifier (LeftBracket constexpr? RightBracket (LeftBracket constexpr? RightBracket)?)?;
 
 
 
-postfixExpression:
-  primaryExpression
-  | postfixExpression LeftParen expressionList? RightParen
-  | postfixExpression (Dot|Arrow) Identifier
-  | postfixExpression (PlusPlus | MinusMinus| Delr | Delc );
+postfixExpr:
+  primaryExpr
+  | postfixExpr LeftParen exprList? RightParen
+  | postfixExpr (Dot|Arrow) Identifier
+  | postfixExpr (PlusPlus | MinusMinus| Delr | Delc );
 
   
-expressionList: initializerList;
+exprList: initializationseq;
 
 
-unaryExpression:
-  postfixExpression
-  | (PlusPlus | MinusMinus | unaryOperator) unaryExpression
+unaryExpr:
+  postfixExpr
+  | unaryOpr unaryExpr
   | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Trans) LeftParen Identifier RightParen;
 
-unaryOperator: Or | Star | And | Plus | Tildae | Minus | Not ;
+unaryOpr: Or | Star | And | Plus | Tildae | Minus | Not | PlusPlus | MinusMinus  ;
 
-countExpression:
-  unaryExpression (Hashtag unaryExpression)?
-  | Hashtag unaryExpression;
+graphmemberExpr:
+  unaryExpr (Hashtag (Hashtag)? unaryExpr)?
+  | Hashtag (Hashtag)? unaryExpr;
 
-addrcExpression:
-  countExpression ((Addc | Addr) countExpression)?;
+addrcExpr:
+  graphmemberExpr ((Addc | Addr) graphmemberExpr)?;
 
-questionExpression:
-  addrcExpression (
-    Questionmark addrcExpression)?;
+questionExpr:
+  addrcExpr (
+    Questionmark addrcExpr)?;
 
-multiplicativeExpression:
-  questionExpression (
-    (Star | Div | Mod) questionExpression
+multiplicationExpr:
+  questionExpr (
+    (Star | Div | Mod) questionExpr
   )*;
 
-additiveExpression:
-  multiplicativeExpression (
-    (Plus | Minus) multiplicativeExpression
+additiveExpr:
+  multiplicationExpr (
+    (Plus | Minus) multiplicationExpr
   )*;
 
-shiftExpression: 
-  additiveExpression (shiftOperator additiveExpression)*;
+pushpullExpr: 
+  additiveExpr (pushpullOpr additiveExpr)*;
 
-shiftOperator: RightShift | LeftShift;
+pushpullOpr: Push | Pull;
 
-relationalExpression:
-  shiftExpression (
-    (Less | Greater | LessEqual | GreaterEqual) shiftExpression
+comparisonExpr:
+  pushpullExpr (
+    (Less | Greater | LessEqual | GreaterEqual) pushpullExpr
   )*;
 
-equalityExpression:
-  relationalExpression (
-    (Equal | NotEqual) relationalExpression
+equalityExpr:
+  comparisonExpr (
+    (Equal | NotEqual) comparisonExpr
   )*;
 
 
 
-andExpression: equalityExpression (And equalityExpression)*;
+binAndExpr: equalityExpr (And equalityExpr)*;
 
-exclusiveOrExpression: andExpression (Caret andExpression)*;
+binXorExpr: binAndExpr (Caret binAndExpr)*;
 
-inclusiveOrExpression:
-  exclusiveOrExpression (Or exclusiveOrExpression)*;
+binOrExpr:
+  binXorExpr (Or binXorExpr)*;
 
-logicalAndExpression:
-  inclusiveOrExpression (AndAnd inclusiveOrExpression)*;
+andExpr:
+  binOrExpr (AndAnd binOrExpr)*;
 
-logicalOrExpression:
-  logicalAndExpression (OrOr logicalAndExpression)*;
+orExpr:
+  andExpr (OrOr andExpr)*;
 
-assignmentExpression:
-  logicalOrExpression
-  | logicalOrExpression assignmentOperator initializerClause;
+assignExpr:
+  orExpr
+  | orExpr assignOpr initializationClause;
 
-assignmentOperator:
+assignOpr:
   Assign
-  | StarAssign
   | DivAssign
+  | StarAssign
   | ModAssign
-  | PlusAssign
   | MinusAssign
+  | PlusAssign
   | AndAssign
   | XorAssign
   | OrAssign;
 
-expression: assignmentExpression (Comma assignmentExpression)*;
+expr: assignExpr (Comma assignExpr)*;
 
-constantExpression: logicalOrExpression;
+constexpr: orExpr;
+
 /*Statements*/
-inputStatement: Input LeftParen expressionList RightParen Semi;
-outputStatement: Output LeftParen expressionList RightParen Semi;
+inputStatement: Input LeftParen exprList RightParen Semi;
+outputStatement: Output LeftParen exprList RightParen Semi;
 
 statement:
   caseStatement
-  |expressionStatement
+  |exprStatement
   | compoundStatement
-  | selectionStatement
-  | iterationStatement
+  | selectStatement
+  | iterStatement
   | declarationStatement
   | jumpStatement
   | inputStatement
@@ -137,158 +140,138 @@ jumpStatement:
 	(
 		Break
 		| Continue
-		| Return (expression | bracedInitList)?
+		| Return (expr | bracedInitSeq)?
 	) Semi;
 	
 caseStatement:
   (
-    Case constantExpression
+    Case constexpr
     | Default
   ) Colon statement;
 
-expressionStatement: expression? Semi;
+exprStatement: expr? Semi;
 
 compoundStatement: LeftBrace statementSeq? RightBrace;
 
 statementSeq: statement+;
 
-selectionStatement:
+selectStatement:
   If LeftParen condition RightParen statement (Else statement)?
   | Switch LeftParen condition RightParen LeftBrace (caseStatement)* RightBrace;
 
 condition:
-  expression
+  expr
   | declarator (
-    Assign initializerClause
-    | bracedInitList
+    Assign initializationClause
+    | bracedInitSeq
   );
 
-iterationStatement:
+iterStatement:
   While LeftParen condition RightParen statement
   | For LeftParen (
-    forInitStatement condition? Semi expression?
+    forInitStatement condition? Semi expr?
   ) RightParen statement;
 
-forInitStatement: expressionStatement | (simpleDeclaration Semi);
-
-
+forInitStatement: exprStatement | (simpleDeclaration Semi);
 
 
 declarationStatement: blockDeclaration;
 /*Declarations*/
 
-declarationseq: declaration+;
+declarseq: declaration+;
 
 declaration:
   blockDeclaration
-  | functionDefinition
-  | classSpecifier;
+  | functionDefn
+  | classDefn;
 
 blockDeclaration:
   simpleDeclaration Semi;
   
 simpleDeclaration:
-  initDeclaratorList?;
+  initDeclaratorSeq?;
 
 dataType:
-   Bool
+  Bool
+  | String
   | Int
   | Float
-  | Void
-  | String
-  | Graph
-  | Edge
   | Matrix
   | Vertex
+  | Graph
+  | Edge
+  | Void
   | className;
 
-initDeclaratorList: dataType initDeclarator (Comma initDeclarator)*;
+initDeclaratorSeq: dataType initDeclarator (Comma initDeclarator)*;
 
 initDeclarator: declarator initializer?;
 
 declarator:
-  Identifier (parametersAndQualifiers
-  | LeftBracket constantExpression? RightBracket (LeftBracket constantExpression? RightBracket)?)? ;
+  Identifier (parameters
+  | LeftBracket constexpr? RightBracket (LeftBracket constexpr? RightBracket)?)? ;
 
-parametersAndQualifiers:
-  LeftParen parameterDeclarationClause? RightParen;
+parameters:
+  LeftParen parameterDeclarationSeq? RightParen;
 
-
-parameterDeclarationClause:
-  parameterDeclarationList;
-
-parameterDeclarationList:
+parameterDeclarationSeq:
   parameterDeclaration (Comma parameterDeclaration)*;
 
 parameterDeclaration:
    (dataType(declarator initializer?)?)?;
 
-functionDefinition:
-  dataType Identifier LeftParen parameterDeclarationClause RightParen functionBody;
+functionDefn:
+  dataType Identifier LeftParen parameterDeclarationSeq RightParen functionBody;
 
 functionBody:
-  compoundStatement
-  | Assign (Default | Delete) Semi;
+  compoundStatement;
 
 initializer:
   braceOrEqualInitializer
-  | LeftParen expressionList RightParen;
+  | LeftParen exprList RightParen;
 
 braceOrEqualInitializer:
-  Assign initializerClause
-  | bracedInitList;
+  Assign initializationClause
+  | bracedInitSeq;
 
-initializerClause: assignmentExpression | bracedInitList;
+initializationClause: assignExpr | bracedInitSeq;
 
-initializerList:
-  initializerClause  (
-    Comma initializerClause 
-  )*;
 
-bracedInitList: LeftBrace (initializerList Comma?)? RightBrace;
-/*Classes*/
+bracedInitSeq: LeftBrace (initializationseq Comma?)? RightBrace;
+
+
+/*Class*/
+
+initializationseq:
+  initializationClause  ( Comma initializationClause )*;
 
 className: Identifier;
 
-classSpecifier:
-  classHead LeftBrace memberSpecification? RightBrace Semi;
+classDefn:
+  classHead LeftBrace memberlist? RightBrace Semi;
 
 classHead:
-  Class className baseClause?;
+  Class className inheritanceClause?;
 
 
-memberSpecification:
+memberlist:
   (memberdeclaration)+;
 
 memberdeclaration:
    memberDeclaratorList? Semi
-  | functionDefinition;
+  | functionDefn;
 
 memberDeclaratorList:
   dataType memberDeclarator (Comma memberDeclarator)*;
 
 memberDeclarator:
-  initDeclarator (
-    | braceOrEqualInitializer?
-  )
-  ;
+  initDeclarator braceOrEqualInitializer?;
 
 
-/*Derived classes*/
+inheritanceClause: Colon inheriterList;
 
-baseClause: Colon baseSpecifierList;
-
-baseSpecifierList:
+inheriterList:
   className (Comma className )*;
 
-memInitializerList:
-  memInitializer (Comma memInitializer)*;
 
-memInitializer:
-  meminitializerid (
-    LeftParen expressionList? RightParen
-    | bracedInitList
-  );
-
-meminitializerid: className|Identifier;
 

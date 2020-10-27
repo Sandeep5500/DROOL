@@ -30,289 +30,277 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimaryExpression(DroolParser.PrimaryExpressionContext ctx) { }
+	@Override public void enterPrimaryExpr(DroolParser.PrimaryExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrimaryExpression(DroolParser.PrimaryExpressionContext ctx) { }
+	@Override public void exitPrimaryExpr(DroolParser.PrimaryExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPostfixExpression(DroolParser.PostfixExpressionContext ctx) { }
+	@Override public void enterPostfixExpr(DroolParser.PostfixExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPostfixExpression(DroolParser.PostfixExpressionContext ctx) { }
+	@Override public void exitPostfixExpr(DroolParser.PostfixExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpressionList(DroolParser.ExpressionListContext ctx) { }
+	@Override public void enterExprList(DroolParser.ExprListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpressionList(DroolParser.ExpressionListContext ctx) { }
+	@Override public void exitExprList(DroolParser.ExprListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryExpression(DroolParser.UnaryExpressionContext ctx) { }
+	@Override public void enterUnaryExpr(DroolParser.UnaryExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnaryExpression(DroolParser.UnaryExpressionContext ctx) { }
+	@Override public void exitUnaryExpr(DroolParser.UnaryExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryOperator(DroolParser.UnaryOperatorContext ctx) { }
+	@Override public void enterUnaryOpr(DroolParser.UnaryOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnaryOperator(DroolParser.UnaryOperatorContext ctx) { }
+	@Override public void exitUnaryOpr(DroolParser.UnaryOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCountExpression(DroolParser.CountExpressionContext ctx) { }
+	@Override public void enterGraphmemberExpr(DroolParser.GraphmemberExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCountExpression(DroolParser.CountExpressionContext ctx) { }
+	@Override public void exitGraphmemberExpr(DroolParser.GraphmemberExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddrcExpression(DroolParser.AddrcExpressionContext ctx) { }
+	@Override public void enterAddrcExpr(DroolParser.AddrcExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddrcExpression(DroolParser.AddrcExpressionContext ctx) { }
+	@Override public void exitAddrcExpr(DroolParser.AddrcExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQuestionExpression(DroolParser.QuestionExpressionContext ctx) { }
+	@Override public void enterQuestionExpr(DroolParser.QuestionExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQuestionExpression(DroolParser.QuestionExpressionContext ctx) { }
+	@Override public void exitQuestionExpr(DroolParser.QuestionExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultiplicativeExpression(DroolParser.MultiplicativeExpressionContext ctx) { }
+	@Override public void enterMultiplicationExpr(DroolParser.MultiplicationExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultiplicativeExpression(DroolParser.MultiplicativeExpressionContext ctx) { }
+	@Override public void exitMultiplicationExpr(DroolParser.MultiplicationExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAdditiveExpression(DroolParser.AdditiveExpressionContext ctx) { }
+	@Override public void enterAdditiveExpr(DroolParser.AdditiveExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAdditiveExpression(DroolParser.AdditiveExpressionContext ctx) { }
+	@Override public void exitAdditiveExpr(DroolParser.AdditiveExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterShiftExpression(DroolParser.ShiftExpressionContext ctx) { }
+	@Override public void enterPushpullExpr(DroolParser.PushpullExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitShiftExpression(DroolParser.ShiftExpressionContext ctx) { }
+	@Override public void exitPushpullExpr(DroolParser.PushpullExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterShiftOperator(DroolParser.ShiftOperatorContext ctx) { }
+	@Override public void enterPushpullOpr(DroolParser.PushpullOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitShiftOperator(DroolParser.ShiftOperatorContext ctx) { }
+	@Override public void exitPushpullOpr(DroolParser.PushpullOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelationalExpression(DroolParser.RelationalExpressionContext ctx) { }
+	@Override public void enterComparisonExpr(DroolParser.ComparisonExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelationalExpression(DroolParser.RelationalExpressionContext ctx) { }
+	@Override public void exitComparisonExpr(DroolParser.ComparisonExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEqualityExpression(DroolParser.EqualityExpressionContext ctx) { }
+	@Override public void enterEqualityExpr(DroolParser.EqualityExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEqualityExpression(DroolParser.EqualityExpressionContext ctx) { }
+	@Override public void exitEqualityExpr(DroolParser.EqualityExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAndExpression(DroolParser.AndExpressionContext ctx) { }
+	@Override public void enterBinAndExpr(DroolParser.BinAndExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAndExpression(DroolParser.AndExpressionContext ctx) { }
+	@Override public void exitBinAndExpr(DroolParser.BinAndExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExclusiveOrExpression(DroolParser.ExclusiveOrExpressionContext ctx) { }
+	@Override public void enterBinXorExpr(DroolParser.BinXorExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExclusiveOrExpression(DroolParser.ExclusiveOrExpressionContext ctx) { }
+	@Override public void exitBinXorExpr(DroolParser.BinXorExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInclusiveOrExpression(DroolParser.InclusiveOrExpressionContext ctx) { }
+	@Override public void enterBinOrExpr(DroolParser.BinOrExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInclusiveOrExpression(DroolParser.InclusiveOrExpressionContext ctx) { }
+	@Override public void exitBinOrExpr(DroolParser.BinOrExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalAndExpression(DroolParser.LogicalAndExpressionContext ctx) { }
+	@Override public void enterAndExpr(DroolParser.AndExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalAndExpression(DroolParser.LogicalAndExpressionContext ctx) { }
+	@Override public void exitAndExpr(DroolParser.AndExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalOrExpression(DroolParser.LogicalOrExpressionContext ctx) { }
+	@Override public void enterOrExpr(DroolParser.OrExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalOrExpression(DroolParser.LogicalOrExpressionContext ctx) { }
+	@Override public void exitOrExpr(DroolParser.OrExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignmentExpression(DroolParser.AssignmentExpressionContext ctx) { }
+	@Override public void enterAssignExpr(DroolParser.AssignExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignmentExpression(DroolParser.AssignmentExpressionContext ctx) { }
+	@Override public void exitAssignExpr(DroolParser.AssignExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignmentOperator(DroolParser.AssignmentOperatorContext ctx) { }
+	@Override public void enterAssignOpr(DroolParser.AssignOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignmentOperator(DroolParser.AssignmentOperatorContext ctx) { }
+	@Override public void exitAssignOpr(DroolParser.AssignOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(DroolParser.ExpressionContext ctx) { }
+	@Override public void enterExpr(DroolParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(DroolParser.ExpressionContext ctx) { }
+	@Override public void exitExpr(DroolParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstantExpression(DroolParser.ConstantExpressionContext ctx) { }
+	@Override public void enterConstexpr(DroolParser.ConstexprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstantExpression(DroolParser.ConstantExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStatement(DroolParser.StatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStatement(DroolParser.StatementContext ctx) { }
+	@Override public void exitConstexpr(DroolParser.ConstexprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -342,6 +330,18 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStatement(DroolParser.StatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStatement(DroolParser.StatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterJumpStatement(DroolParser.JumpStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -366,13 +366,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpressionStatement(DroolParser.ExpressionStatementContext ctx) { }
+	@Override public void enterExprStatement(DroolParser.ExprStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpressionStatement(DroolParser.ExpressionStatementContext ctx) { }
+	@Override public void exitExprStatement(DroolParser.ExprStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -402,13 +402,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelectionStatement(DroolParser.SelectionStatementContext ctx) { }
+	@Override public void enterSelectStatement(DroolParser.SelectStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelectionStatement(DroolParser.SelectionStatementContext ctx) { }
+	@Override public void exitSelectStatement(DroolParser.SelectStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -426,13 +426,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIterationStatement(DroolParser.IterationStatementContext ctx) { }
+	@Override public void enterIterStatement(DroolParser.IterStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIterationStatement(DroolParser.IterationStatementContext ctx) { }
+	@Override public void exitIterStatement(DroolParser.IterStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -462,13 +462,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarationseq(DroolParser.DeclarationseqContext ctx) { }
+	@Override public void enterDeclarseq(DroolParser.DeclarseqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarationseq(DroolParser.DeclarationseqContext ctx) { }
+	@Override public void exitDeclarseq(DroolParser.DeclarseqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -522,13 +522,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInitDeclaratorList(DroolParser.InitDeclaratorListContext ctx) { }
+	@Override public void enterInitDeclaratorSeq(DroolParser.InitDeclaratorSeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInitDeclaratorList(DroolParser.InitDeclaratorListContext ctx) { }
+	@Override public void exitInitDeclaratorSeq(DroolParser.InitDeclaratorSeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -558,37 +558,25 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParametersAndQualifiers(DroolParser.ParametersAndQualifiersContext ctx) { }
+	@Override public void enterParameters(DroolParser.ParametersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParametersAndQualifiers(DroolParser.ParametersAndQualifiersContext ctx) { }
+	@Override public void exitParameters(DroolParser.ParametersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameterDeclarationClause(DroolParser.ParameterDeclarationClauseContext ctx) { }
+	@Override public void enterParameterDeclarationSeq(DroolParser.ParameterDeclarationSeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameterDeclarationClause(DroolParser.ParameterDeclarationClauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParameterDeclarationList(DroolParser.ParameterDeclarationListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParameterDeclarationList(DroolParser.ParameterDeclarationListContext ctx) { }
+	@Override public void exitParameterDeclarationSeq(DroolParser.ParameterDeclarationSeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -606,13 +594,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionDefinition(DroolParser.FunctionDefinitionContext ctx) { }
+	@Override public void enterFunctionDefn(DroolParser.FunctionDefnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionDefinition(DroolParser.FunctionDefinitionContext ctx) { }
+	@Override public void exitFunctionDefn(DroolParser.FunctionDefnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -654,37 +642,37 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInitializerClause(DroolParser.InitializerClauseContext ctx) { }
+	@Override public void enterInitializationClause(DroolParser.InitializationClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInitializerClause(DroolParser.InitializerClauseContext ctx) { }
+	@Override public void exitInitializationClause(DroolParser.InitializationClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInitializerList(DroolParser.InitializerListContext ctx) { }
+	@Override public void enterBracedInitSeq(DroolParser.BracedInitSeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInitializerList(DroolParser.InitializerListContext ctx) { }
+	@Override public void exitBracedInitSeq(DroolParser.BracedInitSeqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBracedInitList(DroolParser.BracedInitListContext ctx) { }
+	@Override public void enterInitializationseq(DroolParser.InitializationseqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBracedInitList(DroolParser.BracedInitListContext ctx) { }
+	@Override public void exitInitializationseq(DroolParser.InitializationseqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -702,13 +690,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassSpecifier(DroolParser.ClassSpecifierContext ctx) { }
+	@Override public void enterClassDefn(DroolParser.ClassDefnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassSpecifier(DroolParser.ClassSpecifierContext ctx) { }
+	@Override public void exitClassDefn(DroolParser.ClassDefnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -726,13 +714,13 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMemberSpecification(DroolParser.MemberSpecificationContext ctx) { }
+	@Override public void enterMemberlist(DroolParser.MemberlistContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMemberSpecification(DroolParser.MemberSpecificationContext ctx) { }
+	@Override public void exitMemberlist(DroolParser.MemberlistContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -774,61 +762,25 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBaseClause(DroolParser.BaseClauseContext ctx) { }
+	@Override public void enterInheritanceClause(DroolParser.InheritanceClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBaseClause(DroolParser.BaseClauseContext ctx) { }
+	@Override public void exitInheritanceClause(DroolParser.InheritanceClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBaseSpecifierList(DroolParser.BaseSpecifierListContext ctx) { }
+	@Override public void enterInheriterList(DroolParser.InheriterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBaseSpecifierList(DroolParser.BaseSpecifierListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMemInitializerList(DroolParser.MemInitializerListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMemInitializerList(DroolParser.MemInitializerListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMemInitializer(DroolParser.MemInitializerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMemInitializer(DroolParser.MemInitializerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMeminitializerid(DroolParser.MeminitializeridContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMeminitializerid(DroolParser.MeminitializeridContext ctx) { }
+	@Override public void exitInheriterList(DroolParser.InheriterListContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
