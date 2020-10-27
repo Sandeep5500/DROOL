@@ -4,7 +4,7 @@ Int a = 10, b = 20;
 // postfixExpression : postfixExpression (PlusPlus | MinusMinus)
 a++;
 b--;
-output(a, " ", b, "\n");      // output : 11 20
+output(a + " " + b + "\n");      // output : 11 20
 
 // bitwise logical Operator
 output(a | b);       // output : 27
