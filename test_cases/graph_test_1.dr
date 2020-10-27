@@ -7,34 +7,32 @@ G << v1, v2, v3;
 Edge e1 = (v1,v2), e2 = (v2, v3), e3 = (v2, v4);
 G << e1 << e2;
 
-// I don't know how we are printing.
-
 if (G ? v1)
 {
-    print (G + " contains " + v1)
+    output (G , " contains " , v1)
 }
 else
 {
-    print (G + " does not contains " + v1)
+    output (G , " does not contains " , v1)
 }
 
 if (G ? v4)
 {
-    print (G + " contains " + v4)
+    output (G , " contains " , v4)
 }
 else
 {
-    print (G + " does not contains " + v4)
+    output (G , " does not contains " , v4)
 }
 
 
 // What will output of an Edge type will look like
 if (G ? e2)
 {
-    print (G + " contains " + e2)       
+    output (G , " contains " , e2)       
 }
 else
 {
-    print (G + " does not contains " + e2)
+    output (G , " does not contains " , e2)
 }
     
