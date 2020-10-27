@@ -1,19 +1,20 @@
+# Not Errorneus
 Int a = 10, b = 20;
 
 // postfixExpression : postfixExpression (PlusPlus | MinusMinus)
 a++;
 b--;
-print(a + " " + b + "\n");      // output : 11 20
+output(a, " ", b, "\n");      // output : 11 20
 
 // bitwise logical Operator
-print(a | b);       // output : 27
-print("\n");
+output(a | b);       // output : 27
+output("\n");
 
-print(a & b);       // output : 3
-print("\n");
+output(a & b);       // output : 3
+output("\n");
 
-print(a ^ b);       // output : 24 
-print("\n");
+output(a ^ b);       // output : 24 
+output("\n");
 
-print(!a);          // output : 4
-print("\n")
+output(!a);          // output : 4
+output("\n")
