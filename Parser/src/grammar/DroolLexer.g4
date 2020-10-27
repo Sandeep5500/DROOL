@@ -164,6 +164,7 @@ Arrow: '->';
 
 Sizeof: S I Z E O F;
 Hashtag: '#';
+DoubleHashtag :'##';
 Addc: A D D C;
 Addr: A D D R;
 Delr: D E L R;

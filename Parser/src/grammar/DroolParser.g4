@@ -29,6 +29,7 @@ program: declarseq? EOF;
 
 primaryExpr:
   Literal
+  | (Identifer|(LeftParen Identifier Comma Identifier RightParen)) Questionmark Identifier
   | LeftParen expr RightParen
   | Identifier (LeftBracket constexpr? RightBracket (LeftBracket constexpr? RightBracket)?)?;
 
@@ -43,7 +44,6 @@ postfixExpr:
   
 exprList: initializationseq;
 
-
 unaryExpr:
   postfixExpr
   | unaryOpr unaryExpr
@@ -51,20 +51,13 @@ unaryExpr:
 
 unaryOpr: Or | Star | And | Plus | Tildae | Minus | Not | PlusPlus | MinusMinus  ;
 
-graphmemberExpr:
-  unaryExpr (Hashtag (Hashtag)? unaryExpr)?
-  | Hashtag (Hashtag)? unaryExpr;
 
 addrcExpr:
-  graphmemberExpr ((Addc | Addr) graphmemberExpr)?;
-
-questionExpr:
-  addrcExpr (
-    Questionmark addrcExpr)?;
+  unaryExpr ((Addc | Addr) unaryExpr)?;
 
 multiplicationExpr:
-  questionExpr (
-    (Star | Div | Mod) questionExpr
+  addrcExpr (
+    (Star | Div | Mod) addrcExpr
   )*;
 
 additiveExpr:
@@ -72,14 +65,9 @@ additiveExpr:
     (Plus | Minus) multiplicationExpr
   )*;
 
-pushpullExpr: 
-  additiveExpr (pushpullOpr additiveExpr)*;
-
-pushpullOpr: Push | Pull;
-
 comparisonExpr:
-  pushpullExpr (
-    (Less | Greater | LessEqual | GreaterEqual) pushpullExpr
+  additiveExpr (
+    (Less | Greater | LessEqual | GreaterEqual) additiveExpr
   )*;
 
 equalityExpr:
@@ -117,6 +105,18 @@ assignOpr:
   | XorAssign
   | OrAssign;
 
+
+graph:
+	(pushpullExpr|graphMemberArrayInit) Semi;
+
+pushpullExpr: 
+  	Identifier (pushpullOpr (Identifier | (LeftParen Identifier Comma Identifier (RightParen | Comma (Identifier| Literal) RightParen))))+;
+
+pushpullOpr: Push | Pull;
+
+graphMemberArrayInit:
+  dataType Identifier LeftBracket constexpr? RightBracket  Assign (Identifier)? (Hashtag|DoubleHashtag)Identifier;
+
 expr: assignExpr (Comma assignExpr)*;
 
 constexpr: orExpr;
@@ -134,7 +134,8 @@ statement:
   | declarationStatement
   | jumpStatement
   | inputStatement
-  | outputStatement;
+  | outputStatement
+  | graph;
   
 jumpStatement:
 	(
@@ -272,6 +273,5 @@ inheritanceClause: Colon inheriterList;
 
 inheriterList:
   className (Comma className )*;
-
 
 

@@ -90,18 +90,6 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGraphmemberExpr(DroolParser.GraphmemberExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGraphmemberExpr(DroolParser.GraphmemberExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAddrcExpr(DroolParser.AddrcExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -109,18 +97,6 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAddrcExpr(DroolParser.AddrcExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterQuestionExpr(DroolParser.QuestionExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitQuestionExpr(DroolParser.QuestionExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -145,30 +121,6 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAdditiveExpr(DroolParser.AdditiveExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPushpullExpr(DroolParser.PushpullExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPushpullExpr(DroolParser.PushpullExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPushpullOpr(DroolParser.PushpullOprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPushpullOpr(DroolParser.PushpullOprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -277,6 +229,54 @@ public class DroolParserBaseListener implements DroolParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignOpr(DroolParser.AssignOprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGraph(DroolParser.GraphContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGraph(DroolParser.GraphContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPushpullExpr(DroolParser.PushpullExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPushpullExpr(DroolParser.PushpullExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPushpullOpr(DroolParser.PushpullOprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPushpullOpr(DroolParser.PushpullOprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGraphMemberArrayInit(DroolParser.GraphMemberArrayInitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGraphMemberArrayInit(DroolParser.GraphMemberArrayInitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

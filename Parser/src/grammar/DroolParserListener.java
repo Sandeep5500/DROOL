@@ -70,16 +70,6 @@ public interface DroolParserListener extends ParseTreeListener {
 	 */
 	void exitUnaryOpr(DroolParser.UnaryOprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DroolParser#graphmemberExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterGraphmemberExpr(DroolParser.GraphmemberExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#graphmemberExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitGraphmemberExpr(DroolParser.GraphmemberExprContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DroolParser#addrcExpr}.
 	 * @param ctx the parse tree
 	 */
@@ -89,16 +79,6 @@ public interface DroolParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAddrcExpr(DroolParser.AddrcExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#questionExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterQuestionExpr(DroolParser.QuestionExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#questionExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitQuestionExpr(DroolParser.QuestionExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#multiplicationExpr}.
 	 * @param ctx the parse tree
@@ -119,26 +99,6 @@ public interface DroolParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAdditiveExpr(DroolParser.AdditiveExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#pushpullExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterPushpullExpr(DroolParser.PushpullExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#pushpullExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitPushpullExpr(DroolParser.PushpullExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DroolParser#pushpullOpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterPushpullOpr(DroolParser.PushpullOprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DroolParser#pushpullOpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitPushpullOpr(DroolParser.PushpullOprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#comparisonExpr}.
 	 * @param ctx the parse tree
@@ -229,6 +189,46 @@ public interface DroolParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignOpr(DroolParser.AssignOprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DroolParser#graph}.
+	 * @param ctx the parse tree
+	 */
+	void enterGraph(DroolParser.GraphContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DroolParser#graph}.
+	 * @param ctx the parse tree
+	 */
+	void exitGraph(DroolParser.GraphContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DroolParser#pushpullExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPushpullExpr(DroolParser.PushpullExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DroolParser#pushpullExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPushpullExpr(DroolParser.PushpullExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DroolParser#pushpullOpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPushpullOpr(DroolParser.PushpullOprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DroolParser#pushpullOpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPushpullOpr(DroolParser.PushpullOprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DroolParser#graphMemberArrayInit}.
+	 * @param ctx the parse tree
+	 */
+	void enterGraphMemberArrayInit(DroolParser.GraphMemberArrayInitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DroolParser#graphMemberArrayInit}.
+	 * @param ctx the parse tree
+	 */
+	void exitGraphMemberArrayInit(DroolParser.GraphMemberArrayInitContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DroolParser#expr}.
 	 * @param ctx the parse tree
