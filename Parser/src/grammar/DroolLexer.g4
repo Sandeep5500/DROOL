@@ -29,7 +29,6 @@ tokens{
 		Token t = _factory.create(_tokenFactorySourcePair, _type, _text, _channel, _tokenStartCharIndex, getCharIndex()-1, _tokenStartLine, _tokenStartCharPositionInLine);
 		String text = t.getText();
 
-		//write your code to test strings here
 
 		if(text.length()-2 > 1024) {
 			reportError("String constant too long"); // Checking if the length of string exceeds 1024 characters without quotes
@@ -178,6 +177,7 @@ Esizeof: E S I Z E O F;
 Val: V A L;
 Pull: '>>';
 Push: '<<';
+HyphenD : '-' D;
 
 If: I F;
 Else: E L S E;
@@ -248,10 +248,8 @@ fragment SIGN: [+-];
 fragment Digitsequence: DIGIT ('\''? DIGIT)*;
 fragment Floatingsuffix: [flFL];
 
-//StringLiteral: DoubleQuote Schar* DoubleQuote;
 StringLiteral: '"' STR_VALID '"' { processString(); };
 
-// Error handling what do I have no clue
 	
 fragment Escapesequence:
 	'\\\''
@@ -266,10 +264,6 @@ fragment Escapesequence:
 	| '\\t'
 	| '\\v';
 
-fragment Schar:
-	~["\\\r\n]
-	| Escapesequence;
-
 
 BooleanLiteral: 
 	False_ 
@@ -277,7 +271,7 @@ BooleanLiteral:
 
 VertexLiteral: SingleQuote Identifier SingleQuote WHITESPACE?(Comma WHITESPACE? StringLiteral)?;
 
-// Whitespace: [ \t]+ -> skip;
+
 Newline: ('\r' '\n'? | '\n') -> skip;
 
 WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
@@ -314,8 +308,5 @@ EOF_COMMENT_5: '*)' (EOF) {reportError("EOF in comment");}; // eg. (*hello(*hi*)
 IN_NEST_MLC_1: '(*' -> pushMode(NESTED_MLC), skip;
 CLOSE_MLC_1: '*)' -> popMode, skip;
 CONTENT_MLC_1: . -> skip;
-
-// BlockComment: '/*' .*? '*/' -> skip;
-// LineComment: '//' ~ [\r\n]* -> skip;
 
 OTHER: . {invalidToken();};
