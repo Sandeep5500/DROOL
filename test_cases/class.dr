@@ -1,0 +1,16 @@
+class M{
+	int c = 4;
+};
+class A : C{
+	int a = 5;
+	float b(int a, int b){
+		return a*b;}
+};
+int main(){
+	A obj;
+	int x;
+	float y;
+	x = A.a;
+	y = A.b(1, 2);
+	ouput(x, y);
+}

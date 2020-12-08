@@ -1,0 +1,8 @@
+// for loop error in line 6 
+
+int main()
+{
+    for (i=0 i<10; i++)
+        output(i, " ");
+    output("\n");
+}

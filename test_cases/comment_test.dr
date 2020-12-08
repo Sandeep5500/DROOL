@@ -1,0 +1,9 @@
+
+// single line comment
+int main()
+{
+(*Multiline
+comment*)
+
+(*nested (* comment *)*)
+}
