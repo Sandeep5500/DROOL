@@ -1,0 +1,10 @@
+// selection statement syntax error
+int x = 10;
+int main()
+{
+    // missing if clause
+	else  
+	{
+		output("x is not ", x, "\n");  
+	}
+}
