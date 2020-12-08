@@ -2,7 +2,7 @@ parser grammar DroolParser;
 options {
   tokenVocab = DroolLexer;
 }
-/*Basic concepts*/
+
 
 @header{
 	import java.util.List;
@@ -14,22 +14,17 @@ options {
 		filename = f;
 	}
 
-/*
-	DO NOT EDIT THE FILE ABOVE THIS LINE
-	Add member functions, variables below.
-*/
-
 }
 
 
 program: declarseq? EOF;
 
 
-/*Types of Exprs*/
+//Expressions
 
 primaryExpr:
   Literal
-  | (Identifer|(LeftParen Identifier Comma Identifier RightParen)) Questionmark Identifier
+  | (Identifier|(LeftParen Identifier Comma Identifier RightParen)) Questionmark Identifier
   | LeftParen expr RightParen
   | Identifier (LeftBracket constexpr? RightBracket (LeftBracket constexpr? RightBracket)?)?;
 
@@ -121,7 +116,7 @@ expr: assignExpr (Comma assignExpr)*;
 
 constexpr: orExpr;
 
-/*Statements*/
+//Statements
 inputStatement: Input LeftParen exprList RightParen Semi;
 outputStatement: Output LeftParen exprList RightParen Semi;
 
@@ -177,7 +172,8 @@ forInitStatement: exprStatement | (simpleDeclaration Semi);
 
 
 declarationStatement: blockDeclaration;
-/*Declarations*/
+
+//Declarations
 
 declarseq: declaration+;
 
@@ -229,7 +225,8 @@ functionBody:
 
 initializer:
   braceOrEqualInitializer
-  | LeftParen exprList RightParen;
+  | LeftParen exprList RightParen
+  | HyphenD;
 
 braceOrEqualInitializer:
   Assign initializationClause
@@ -241,7 +238,7 @@ initializationClause: assignExpr | bracedInitSeq;
 bracedInitSeq: LeftBrace (initializationseq Comma?)? RightBrace;
 
 
-/*Class*/
+//Classes
 
 initializationseq:
   initializationClause  ( Comma initializationClause )*;
@@ -273,5 +270,4 @@ inheritanceClause: Colon inheriterList;
 
 inheriterList:
   className (Comma className )*;
-
 
