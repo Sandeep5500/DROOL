@@ -29,7 +29,6 @@ tokens{
 		Token t = _factory.create(_tokenFactorySourcePair, _type, _text, _channel, _tokenStartCharIndex, getCharIndex()-1, _tokenStartLine, _tokenStartCharPositionInLine);
 		String text = t.getText();
 
-		//write your code to test strings here
 
 		if(text.length()-2 > 1024) {
 			reportError("String constant too long"); // Checking if the length of string exceeds 1024 characters without quotes
@@ -164,10 +163,11 @@ Arrow: '->';
 
 Sizeof: S I Z E O F;
 Hashtag: '#';
+DoubleHashtag :'##';
 Addc: A D D C;
 Addr: A D D R;
 Delr: D E L R;
-Delc: D E L C; 
+Delc: D E L C;
 Questionmark: '?';
 Inv: I N V;
 Trans: T R A N S;
@@ -175,8 +175,9 @@ Det: D E T;
 Vsizeof: V S I Z E O F;
 Esizeof: E S I Z E O F;
 Val: V A L;
-RightShift: '>>';
-LeftShift: '<<';
+Pull: '>>';
+Push: '<<';
+HyphenD : '-' D;
 
 If: I F;
 Else: E L S E;
@@ -192,8 +193,6 @@ Semi: ';';
 SingleQuote: '\'';
 DoubleQuote: '"';
 
-Input: I N P U T;
-Output: O U T P U T;
 Class: C L A S S;
 Void: V O I D;
 Bool: B O O L;
@@ -210,10 +209,12 @@ Delete: D E L E T E;
 Continue: C O N T I N U E;
 Break: B R E A K;
 Return: R E T U R N;
+Input: I N P U T;
+Output: O U T P U T;
 
 Const: C O N S T;
-// False_: 'false';
-// True_: 'true';
+False_: F A L S E;
+True_: T R U E;
 
 
 Identifier:
@@ -221,7 +222,7 @@ Identifier:
 
 IntegerLiteral: DecimalLiteral Integersuffix?;
 
-DecimalLiteral: NONZERODIGIT ('\''? DIGIT)*;
+DecimalLiteral: DIGIT (DIGIT)*;
 
 Integersuffix:
 	Unsignedsuffix Longsuffix?
@@ -247,9 +248,8 @@ fragment SIGN: [+-];
 fragment Digitsequence: DIGIT ('\''? DIGIT)*;
 fragment Floatingsuffix: [flFL];
 
-// StringLiteral: DoubleQuote Schar* DoubleQuote;
+StringLiteral: '"' STR_VALID '"' { processString(); };
 
-// Error handling what do I have no clue
 	
 fragment Escapesequence:
 	'\\\''
@@ -264,22 +264,17 @@ fragment Escapesequence:
 	| '\\t'
 	| '\\v';
 
-fragment Schar:
-	~["\\\r\n]
-	| Escapesequence;
-
-WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
-Newline: ('\r' '\n'? | '\n') -> skip;
-
 
 BooleanLiteral: 
-	F A L S E
-	| T R U E;
+	False_ 
+	| True_;
 
 VertexLiteral: SingleQuote Identifier SingleQuote WHITESPACE?(Comma WHITESPACE? StringLiteral)?;
 
-// Whitespace: [ \t]+ -> skip;
 
+Newline: ('\r' '\n'? | '\n') -> skip;
+
+WHITESPACE: [ \n\f\r\t\u000b]+ -> skip; // skip causes the lexer to discard the token.
 ESC: ('\\'~('\u0000')); // Escape characters are allowed except for null character
 fragment STR_INVALID_NEG: ~('\n'|'\u0000'|'\\'|'"'); // String cannot contain unescaped newline, null, only backslash, or unescaped quotes
 fragment STR_VALID: (ESC | STR_INVALID_NEG)*;
@@ -292,8 +287,6 @@ EOF_BCKSLSH_STR: '"' STR_VALID '\\' (EOF) {reportError("backslash at end of file
 EOF_STR: '"' STR_VALID (EOF) {reportError("EOF in string constant");};
 EOF_COMMENT_0: '(*' (EOF) {reportError("EOF in comment");}; // (EOF) represents end of file representation, EOF in comment at 0th level of nesting, immediately after comment open, ie. (*(EOF)
 OPEN_COMMENT: '*)' {reportError("Unmatched *)");};	
-
-StringLiteral: '"' STR_VALID '"' { processString(); };
 
 
 SINGLE_LINE_COMMENT: '//' .*? ('\n'|(EOF)) -> skip; //Using non-greedy lexer subrule to consume all input until a new line is encountered	
@@ -315,8 +308,5 @@ EOF_COMMENT_5: '*)' (EOF) {reportError("EOF in comment");}; // eg. (*hello(*hi*)
 IN_NEST_MLC_1: '(*' -> pushMode(NESTED_MLC), skip;
 CLOSE_MLC_1: '*)' -> popMode, skip;
 CONTENT_MLC_1: . -> skip;
-
-// BlockComment: '/*' .*? '*/' -> skip;
-// LineComment: '//' ~ [\r\n]* -> skip;
 
 OTHER: . {invalidToken();};
