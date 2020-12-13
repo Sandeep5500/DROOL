@@ -17,12 +17,12 @@ options {
 }
 
 
-program: declarseq? EOF;
+program: declarseq? EOF;                         //ProgramContext
 
 
 //Expressions
 
-primaryExpr:
+primaryExpr:                                    //PrimaryExprContext
   Literal
   | (Identifier|(LeftParen Identifier Comma Identifier RightParen)) Questionmark Identifier
   | LeftParen expr RightParen
@@ -30,66 +30,66 @@ primaryExpr:
 
 
 
-postfixExpr:
+postfixExpr:                                   //PostfixExprContext
   primaryExpr
   | postfixExpr LeftParen exprList? RightParen
   | postfixExpr (Dot|Arrow) Identifier
   | postfixExpr (PlusPlus | MinusMinus| Delr | Delc );
 
   
-exprList: initializationseq;
+exprList: initializationseq;                 // ExprListContext
 
-unaryExpr:
+unaryExpr:                                   //UnaryExprContext
   postfixExpr
   | unaryOpr unaryExpr
   | (Sizeof|Esizeof|Vsizeof|Val|Inv|Det|Trans) LeftParen Identifier RightParen;
 
-unaryOpr: Or | Star | And | Plus | Tildae | Minus | Not | PlusPlus | MinusMinus  ;
+unaryOpr: Or | Star | And | Plus | Tildae | Minus | Not | PlusPlus | MinusMinus  ;         //UnaryOprContext
 
 
-addrcExpr:
+addrcExpr:                                   //AddrcExprContext
   unaryExpr ((Addc | Addr) unaryExpr)?;
 
-multiplicationExpr:
+multiplicationExpr:                          //MultiplicationExprContext
   addrcExpr (
     (Star | Div | Mod) addrcExpr
   )*;
 
-additiveExpr:
+additiveExpr:                                //AdditiveExprContext
   multiplicationExpr (
     (Plus | Minus) multiplicationExpr
   )*;
 
-comparisonExpr:
+comparisonExpr:                              //ComparisonExprContext 
   additiveExpr (
     (Less | Greater | LessEqual | GreaterEqual) additiveExpr
   )*;
 
-equalityExpr:
+equalityExpr:                                //EqualityExprContext
   comparisonExpr (
     (Equal | NotEqual) comparisonExpr
   )*;
 
 
 
-binAndExpr: equalityExpr (And equalityExpr)*;
+binAndExpr: equalityExpr (And equalityExpr)*;          //BinAndExprContext
 
-binXorExpr: binAndExpr (Caret binAndExpr)*;
+binXorExpr: binAndExpr (Caret binAndExpr)*;            //BinXorExprContext
 
-binOrExpr:
+binOrExpr:                                             //BinOrExprContext
   binXorExpr (Or binXorExpr)*;
 
-andExpr:
+andExpr:                                              //AndExprContext
   binOrExpr (AndAnd binOrExpr)*;
 
-orExpr:
+orExpr:                                               //OrExprContext
   andExpr (OrOr andExpr)*;
 
-assignExpr:
+assignExpr:                                           //AssignExprContext
   orExpr
   | orExpr assignOpr initializationClause;
 
-assignOpr:
+assignOpr:                                            //AssignOprContext
   Assign
   | DivAssign
   | StarAssign
@@ -101,26 +101,26 @@ assignOpr:
   | OrAssign;
 
 
-graph:
+graph:                                              //GraphContext
 	(pushpullExpr|graphMemberArrayInit) Semi;
 
-pushpullExpr: 
+pushpullExpr:                                       //PushpullExprContext
   	Identifier (pushpullOpr (Identifier | (LeftParen Identifier Comma Identifier (RightParen | Comma (Identifier| Literal) RightParen))))+;
 
-pushpullOpr: Push | Pull;
+pushpullOpr: Push | Pull;                           //PushpullOprContext
 
-graphMemberArrayInit:
+graphMemberArrayInit:                               //GraphMemberArrayInitContext
   dataType Identifier LeftBracket constexpr? RightBracket  Assign (Identifier)? (Hashtag|DoubleHashtag)Identifier;
 
-expr: assignExpr (Comma assignExpr)*;
+expr: assignExpr (Comma assignExpr)*;               //ExprContext
 
-constexpr: orExpr;
+constexpr: orExpr;                                  //ConstexprContext
 
 //Statements
-inputStatement: Input LeftParen exprList RightParen Semi;
-outputStatement: Output LeftParen exprList RightParen Semi;
+inputStatement: Input LeftParen exprList RightParen Semi;            //InputStatementContext 
+outputStatement: Output LeftParen exprList RightParen Semi;          //OutputStatementContext
 
-statement:
+statement:                    //StatementContext
   caseStatement
   |exprStatement
   | compoundStatement
@@ -132,63 +132,63 @@ statement:
   | outputStatement
   | graph;
   
-jumpStatement:
+jumpStatement:              //JumpStatementContext
 	(
 		Break
 		| Continue
 		| Return (expr | bracedInitSeq)?
 	) Semi;
 	
-caseStatement:
+caseStatement:             //CaseStatementContext 
   (
     Case constexpr
     | Default
   ) Colon statement;
 
-exprStatement: expr? Semi;
+exprStatement: expr? Semi;       //ExprStatementContext
 
-compoundStatement: LeftBrace statementSeq? RightBrace;
+compoundStatement: LeftBrace statementSeq? RightBrace;      //CompoundStatementContext
 
-statementSeq: statement+;
+statementSeq: statement+;               //StatementSeqContext
 
-selectStatement:
+selectStatement:                        //SelectStatementContext
   If LeftParen condition RightParen statement (Else statement)?
   | Switch LeftParen condition RightParen LeftBrace (caseStatement)* RightBrace;
 
-condition:
+condition:                              //ConditionContext
   expr
   | declarator (
     Assign initializationClause
     | bracedInitSeq
   );
 
-iterStatement:
+iterStatement:                         //IterStatementContext
   While LeftParen condition RightParen statement
   | For LeftParen (
     forInitStatement condition? Semi expr?
   ) RightParen statement;
 
-forInitStatement: exprStatement | (simpleDeclaration Semi);
+forInitStatement: exprStatement | (simpleDeclaration Semi);         //ForInitStatementContext
 
 
-declarationStatement: blockDeclaration;
+declarationStatement: blockDeclaration;                  //DeclarationStatementContext
 
 //Declarations
 
-declarseq: declaration+;
+declarseq: declaration+;                 //DeclarseqContext 
 
-declaration:
+declaration:                             //DeclarationContext 
   blockDeclaration
   | functionDefn
   | classDefn;
 
-blockDeclaration:
+blockDeclaration:                         //BlockDeclarationContext
   simpleDeclaration Semi;
   
-simpleDeclaration:
+simpleDeclaration:                        //SimpleDeclarationContext
   initDeclaratorSeq?;
 
-dataType:
+dataType:                                //DataTypeContext
   Bool
   | String
   | Int
@@ -200,74 +200,74 @@ dataType:
   | Void
   | className;
 
-initDeclaratorSeq: dataType initDeclarator (Comma initDeclarator)*;
+initDeclaratorSeq: dataType initDeclarator (Comma initDeclarator)*;        //InitDeclaratorSeqContext
 
-initDeclarator: declarator initializer?;
+initDeclarator: declarator initializer?;                                   //InitDeclaratorContext
 
-declarator:
+declarator:                      //DeclaratorContext 
   Identifier (parameters
   | LeftBracket constexpr? RightBracket (LeftBracket constexpr? RightBracket)?)? ;
 
-parameters:
+parameters:                       //ParametersContext
   LeftParen parameterDeclarationSeq? RightParen;
 
-parameterDeclarationSeq:
+parameterDeclarationSeq:          //ParameterDeclarationSeqContext
   parameterDeclaration (Comma parameterDeclaration)*;
 
-parameterDeclaration:
+parameterDeclaration:             //ParameterDeclarationContext
    (dataType(declarator initializer?)?)?;
 
-functionDefn:
+functionDefn:                     //FunctionDefnContext
   dataType Identifier LeftParen parameterDeclarationSeq RightParen functionBody;
 
-functionBody:
+functionBody:                    //FunctionBodyContext
   compoundStatement;
 
-initializer:
+initializer:                     //InitializerContext
   braceOrEqualInitializer
   | LeftParen exprList RightParen
   | HyphenD;
 
-braceOrEqualInitializer:
+braceOrEqualInitializer:         //BraceOrEqualInitializerContext 
   Assign initializationClause
   | bracedInitSeq;
 
-initializationClause: assignExpr | bracedInitSeq;
+initializationClause: assignExpr | bracedInitSeq;         //InitializationClauseContext
 
 
-bracedInitSeq: LeftBrace (initializationseq Comma?)? RightBrace;
+bracedInitSeq: LeftBrace (initializationseq Comma?)? RightBrace;       //BracedInitSeqContext
 
 
 //Classes
 
-initializationseq:
+initializationseq:                                              //InitializationseqContext
   initializationClause  ( Comma initializationClause )*;
 
-className: Identifier;
+className: Identifier;                 //ClassNameContext
 
-classDefn:
+classDefn:                             //ClassDefnContext
   classHead LeftBrace memberlist? RightBrace Semi;
 
-classHead:
+classHead:                             //ClassHeadContext
   Class className inheritanceClause?;
 
 
-memberlist:
+memberlist:                            //MemberlistContext
   (memberdeclaration)+;
 
-memberdeclaration:
+memberdeclaration:                     //MemberdeclarationContext
    memberDeclaratorList? Semi
   | functionDefn;
 
-memberDeclaratorList:
+memberDeclaratorList:                 //MemberDeclaratorListContext
   dataType memberDeclarator (Comma memberDeclarator)*;
 
-memberDeclarator:
+memberDeclarator:                    // MemberDeclaratorContext
   initDeclarator braceOrEqualInitializer?;
 
 
-inheritanceClause: Colon inheriterList;
+inheritanceClause: Colon inheriterList;        //InheritanceClauseContext
 
-inheriterList:
+inheriterList:                                 //InheriterListContext
   className (Comma className )*;
 
