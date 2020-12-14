@@ -64,7 +64,7 @@ public class SemanticTest {
 				;
 	}
 
-	static void printAST(String filename) throws Exception{
+	static void printTree(String filename) throws Exception{
 		ANTLRInputStream inStream=null;
 		try{
 			inStream = new ANTLRInputStream(new FileInputStream(filename));
@@ -116,7 +116,7 @@ public class SemanticTest {
 			System.err.println("No files given");
 			System.exit(1);
 		}
-		printAST(args[0]);
+		printTree(args[0]);
 	}
 
 	public static class ParserError extends BaseErrorListener {
