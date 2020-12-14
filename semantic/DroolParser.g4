@@ -6,7 +6,6 @@ options {
 
 @header{
 	import java.util.List;
-  import AST.java;
 }
 
 @members{

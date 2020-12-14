@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 
 public class SemanticTest {
 
-	static String[] TOKENS = {"ERROR","Literal","LeftParen", "RightParen", "LeftBrace=5", "RightBrace", 
+	static String[] TOKENS = {"ERROR","Literal","LeftParen", "RightParen", "LeftBrace", "RightBrace", 
 		"LeftBracket", "RightBracket", "Or", "Star", "And", "Plus", "Minus", 
 		"Tildae", "Not", "Div", "Mod", "Less", "Greater", "LessEqual", 
         "GreaterEqual", "Equal", "NotEqual", "Caret", "AndAnd", "OrOr", 
@@ -25,7 +25,7 @@ public class SemanticTest {
         "AndAssign", "XorAssign", "OrAssign", "PlusPlus", "MinusMinus", "Dot", 
         "Arrow", "Sizeof", "Hashtag", "DoubleHashtag", "Addc", "Addr", "Delr", 
 		"Delc", "Questionmark", "Inv", "Trans", "Det", "Vsizeof", "Esizeof", 
-        "Val=53", "Pull", "Push", "HyphenD", "If", "Else", "Switch", "While", 
+        "Val", "Pull", "Push", "HyphenD", "If", "Else", "Switch", "While", 
 		"For", "Case", "Default", "Comma", "Colon", "Semi", "SingleQuote", 
         "DoubleQuote","Class", "Void","Bool", "Int", "Float", "String", 
         "Graph", "Edge", "Matrix", "Vertex", "Long", "Unsigned", "Delete", 
@@ -37,7 +37,7 @@ public class SemanticTest {
         "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", "EOF_COMMENT_1", "EOF_COMMENT_2", 
 		"IN_NEST_MLC_0", "CLOSE_MLC_0", "CONTENT_MLC_0", "EOF_COMMENT_3", 
 		"EOF_COMMENT_4", "EOF_COMMENT_5", "IN_NEST_MLC_1", "CLOSE_MLC_1", 
-		"CONTENT_MLC_1", "OTHER=121"};
+		"CONTENT_MLC_1", "OTHER"};
 
 	static int VALUED_INDEX_LIMIT = 6;
 	static int NAMED_TOKEN_INDEX = 23;
