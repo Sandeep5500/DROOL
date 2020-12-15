@@ -73,11 +73,7 @@ public class Semantic {
         if (classList.containsKey("Main") == false) {
             reportError(filename, 1, "Program does not contain class 'Main'");
         } 
-	
-	//Check is there a main method in Main class
-        else if (classList.get("Main").methods.containsKey("main") == false ) {    
-            reportError(filename, 1, "'Main' class does not contain 'main' method");
-        }
+
     }
 
     //function for incorporating built-in data types
@@ -85,13 +81,13 @@ public class Semantic {
        
         // contains Object, String, Input/output methods, graph and matrices
 
-        List<HashMap<String,DroolParser.method>> basicClassMethods = new ArrayList<HashMap<String,DroolParser.method> >(); 
-        basicClassMethods.add(new HashMap<String, DroolParser.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.method>());
-        List<DroolParser.formal> substr_formal = new ArrayList<DroolParser.formal>();
+        List<HashMap<String,DroolParser.classListContext.method>> basicClassMethods = new ArrayList<HashMap<String,DroolParser.classListContext.method> >(); 
+        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
+        List<DroolParser.classListContext.formal> substr_formal = new ArrayList<DroolParser.classListContext.formal>();
         substr_formal.add(new DroolParser.formal("i", "Int", 0));
         substr_formal.add(new DroolParser.formal("l", "Int", 0));
         // fills basicClassMethods with respective classes
