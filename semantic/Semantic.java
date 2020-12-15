@@ -2,26 +2,8 @@ package drool;
 
 import java.util.*;
 
-import drool.AST.formal;
+import java.*;
 
-class ClassNode {
-    public String name;
-    public String parent;
-    public int height;
-    public HashMap<String, AST.attr> attributes ;
-    public HashMap<String, AST.method> methods ;
-
-    ClassNode(String class_name,  String  class_parent, int  class_height, HashMap<String, AST.attr> class_atributes ,  HashMap<String,  AST.method> class_methods) {
-        attributes = new HashMap<String, AST.attr>();
-        methods = new HashMap<String, AST.method> ();
-        name  = class_name;
-        parent  = class_parent;
-        height  = class_height;
-
-        attributes.putAll(class_atributes);
-        methods.putAll(class_methods);
-    }
-}
 
 public class Semantic {
     private Boolean errorFlag = false;
@@ -38,32 +20,42 @@ public class Semantic {
     int condiii = 0;
     
     // Scope Table to manage scope of attributes
-    private ScopeTable<AST.attr> scope = new ScopeTable<AST.attr>();
+    private ScopeTable<DroolParser.classListContext.memberDeclarator> scope = new ScopeTable<DroolParser.classListContext.memberDeclarator>();
 
     // Hashmap containing all the classes
     public HashMap<String, ClassNode> classList = new HashMap<String, ClassNode>();
     private String filename;
 
     //SEMANTIC ANALYSIS BEGINS
-    //Takes the argument of type AST.program
-    public Semantic(AST.program program) {
+    //Takes the argument of type DroolParser.program
+    public HashMap<String, String> parent = new Hashmap<>();
+    public void Inheritance(DroolParser.ClassList ctx, parent){
+        if(ctx == null)
+            return;
+        String temp = ctx.classDefn().classHead().className().Identifier().getText();
+        if (ctx.classDefn().classHead().inheritanceClause() != null)
+            parent.put(temp, ctx.classDefn().inheritanceClause().className().getText());
+        System.out.println(ctx.classDefn().classHead().className().Identifier())
+        Inheritance(ctx.classList()); 
+    }
+    public Semantic(DroolParser.programContext program) {
 
         // adds basic classes to the class list
         addBuiltInClasses();
 
         // process the entire program and fills classList with the help of few functions
-        GraphHandler(program.classes);
+        GraphHandler(program.declarseq);
         int i = 0 ;
-        while (i < (program.classes).size()) {
+        while (i < (program.class).size()) {
 	    
             filename = ((program.classes).get(i)).filename; // each class has a file name
 
             scope.enterScope(); // entering new scope
             
             String name = ((program.classes).get(i)).name;
-            AST.no_expr b = new AST.no_expr(((program.classes).get(i)).lineNo); 
+            DroolParser.no_expr b = new DroolParser.no_expr(((program.classes).get(i)).lineNo); 
             int lNo = ((program.classes).get(i)).lineNo;
-            AST.attr a = new AST.attr("self", name , b , lNo );
+            DroolParser.classListContext.memberDeclarator a = new DroolParser.classListContext.memberDeclarator("self", name , b , lNo );
             scope.insert("self", a );     //in the class self is availaible as an attribuite
 
             String Name = ((program.classes).get(i)).name;
@@ -82,89 +74,93 @@ public class Semantic {
             reportError(filename, 1, "Program does not contain class 'Main'");
         } 
 	
-
+	//Check is there a main method in Main class
+        else if (classList.get("Main").methods.containsKey("main") == false ) {    
+            reportError(filename, 1, "'Main' class does not contain 'main' method");
+        }
+    }
 
     //function for incorporating built-in data types
     private void addBuiltInClasses() {
        
         // contains Object, String, Input/output methods, graph and matrices
 
-        List<HashMap<String,AST.method>> basicClassMethods = new ArrayList<HashMap<String,AST.method> >(); 
-        basicClassMethods.add(new HashMap<String, AST.method>());
-        basicClassMethods.add(new HashMap<String, AST.method>());
-        basicClassMethods.add(new HashMap<String, AST.method>());
-        basicClassMethods.add(new HashMap<String, AST.method>());
-        basicClassMethods.add(new HashMap<String, AST.method>());
-        List<AST.formal> substr_formal = new ArrayList<AST.formal>();
-        substr_formal.add(new AST.formal("i", "Int", 0));
-        substr_formal.add(new AST.formal("l", "Int", 0));
+        List<HashMap<String,DroolParser.method>> basicClassMethods = new ArrayList<HashMap<String,DroolParser.method> >(); 
+        basicClassMethods.add(new HashMap<String, DroolParser.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.method>());
+        basicClassMethods.add(new HashMap<String, DroolParser.method>());
+        List<DroolParser.formal> substr_formal = new ArrayList<DroolParser.formal>();
+        substr_formal.add(new DroolParser.formal("i", "Int", 0));
+        substr_formal.add(new DroolParser.formal("l", "Int", 0));
         // fills basicClassMethods with respective classes
         helperAddObjectIOString(basicClassMethods, substr_formal);
         // adds the built in classes to the class list
         helperAddBuiltInClassToClassList(basicClassMethods);
      }
 // helper function to fill basicClassMethods with respective classes
-private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClassMethods,  List<AST.formal> substr_formal)
+private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> basicClassMethods,  List<DroolParser.formal> substr_formal)
     {
-        AST.no_expr[] nox  =  new AST.no_expr[14];
+        DroolParser.no_expr[] nox  =  new DroolParser.no_expr[14];
            
         for(int i = 0; i < 14; i++)
         {
-            nox[i] = new AST.no_expr(0);
+            nox[i] = new DroolParser.no_expr(0);
         }
         // adding Object
-        basicClassMethods.get(0).put("abort", new AST.method("abort", new ArrayList<AST.formal>(), "Object",nox[0] , 0));
-        basicClassMethods.get(0).put("type_name", new AST.method("type_name", new ArrayList<AST.formal>(), "String",nox[1], 0));
-        basicClassMethods.get(0).put("copy", new AST.method("copy", new ArrayList<AST.formal>(), "Object", nox[2], 0));
+        basicClassMethods.get(0).put("abort", new DroolParser.method("abort", new ArrayList<DroolParser.formal>(), "Object",nox[0] , 0));
+        basicClassMethods.get(0).put("type_name", new DroolParser.method("type_name", new ArrayList<DroolParser.formal>(), "String",nox[1], 0));
+        basicClassMethods.get(0).put("copy", new DroolParser.method("copy", new ArrayList<DroolParser.formal>(), "Object", nox[2], 0));
 
         // adding IO    
-        basicClassMethods.get(1).put("output", new AST.method("output", new ArrayList<AST.formal>(), "String", nox[3], 0));
-        basicClassMethods.get(1).put("input", new AST.method("input", new ArrayList<AST.formal>(), "String", nox[4], 0));
+        basicClassMethods.get(1).put("output", new DroolParser.method("output", new ArrayList<DroolParser.formal>(), "String", nox[3], 0));
+        basicClassMethods.get(1).put("input", new DroolParser.method("input", new ArrayList<DroolParser.formal>(), "String", nox[4], 0));
         basicClassMethods.get(1).putAll(basicClassMethods.get(0));      //inheriting all object methods
         
         // adding String
         //defining methods for string length, concatanation,substr
-        basicClassMethods.get(2).put("length", new AST.method("length", new ArrayList<AST.formal>(), "Int", nox[5], 0));
-        basicClassMethods.get(2).put("concat", new AST.method("concat", Arrays.asList(new AST.formal("s", "String", 0)), "String", nox[6], 0));
-        basicClassMethods.get(2).put("substr", new AST.method("substr", substr_formal, "String",nox[7], 0));
+        basicClassMethods.get(2).put("length", new DroolParser.method("length", new ArrayList<DroolParser.formal>(), "Int", nox[5], 0));
+        basicClassMethods.get(2).put("concat", new DroolParser.method("concat", Arrays.asList(new DroolParser.formal("s", "String", 0)), "String", nox[6], 0));
+        basicClassMethods.get(2).put("substr", new DroolParser.method("substr", substr_formal, "String",nox[7], 0));
         basicClassMethods.get(2).putAll(basicClassMethods.get(0));      //inheriting all object methods
 
         //adding Graph
         //defining methods for size,vetex no.size,edge no. size
-        basicClassMethods.get(3).put("size", new AST.method("size", new ArrayList<AST.formal>(), "Int", nox[8], 0));
-        basicClassMethods.get(3).put("vsize", new AST.method("vsize", new ArrayList<AST.formal>(), "Int", nox[9], 0));
-        basicClassMethods.get(3).put("esize", new AST.method("esize", new ArrayList<AST.formal>(), "Int", nox[10], 0));
+        basicClassMethods.get(3).put("size", new DroolParser.method("size", new ArrayList<DroolParser.formal>(), "Int", nox[8], 0));
+        basicClassMethods.get(3).put("vsize", new DroolParser.method("vsize", new ArrayList<DroolParser.formal>(), "Int", nox[9], 0));
+        basicClassMethods.get(3).put("esize", new DroolParser.method("esize", new ArrayList<DroolParser.formal>(), "Int", nox[10], 0));
         basicClassMethods.get(3).putAll(basicClassMethods.get(0)); 
 
         //Adding Matrix
         //defining methods for no. of rows, no. of coloumns, deteminant.
-        basicClassMethods.get(3).put("nrow", new AST.method("nrow", new ArrayList<AST.formal>(), "Int", nox[11], 0));
-        basicClassMethods.get(3).put("ncol", new AST.method("ncol", new ArrayList<AST.formal>(), "Int", nox[12], 0));
-        basicClassMethods.get(3).put("det", new AST.method("det", new ArrayList<AST.formal>(), "Float", nox[13], 0));
+        basicClassMethods.get(3).put("nrow", new DroolParser.method("nrow", new ArrayList<DroolParser.formal>(), "Int", nox[11], 0));
+        basicClassMethods.get(3).put("ncol", new DroolParser.method("ncol", new ArrayList<DroolParser.formal>(), "Int", nox[12], 0));
+        basicClassMethods.get(3).put("det", new DroolParser.method("det", new ArrayList<DroolParser.formal>(), "Float", nox[13], 0));
         basicClassMethods.get(2).putAll(basicClassMethods.get(0)); 
 
         return ;
     }
 
     // adding all the classes to the class list
-    private void helperAddBuiltInClassToClassList(List<HashMap<String,AST.method>> basicClassMethods)
+    private void helperAddBuiltInClassToClassList(List<HashMap<String,DroolParser.method>> basicClassMethods)
     {
-        classList.put("Object", new ClassNode("Object", null, 0, new HashMap <String, AST.attr>(), basicClassMethods.get(0)));
-        classList.put("IO", new ClassNode("IO", "Object", 1, new HashMap <String, AST.attr>(), basicClassMethods.get(1)));
-        classList.put("String", new ClassNode("String", "Object", 1, new HashMap <String, AST.attr>(), basicClassMethods.get(2)));
-        classList.put("Graph", new ClassNode("Graph", "Object", 1, new HashMap <String, AST.attr>(), basicClassMethods.get(3)));
-        classList.put("Matrix", new ClassNode("Matrix", "Object", 1, new HashMap <String, AST.attr>(), basicClassMethods.get(4)));
-        classList.put("Int", new ClassNode("Int", "Object", 1, new HashMap <String, AST.attr>(), new HashMap <String, AST.method>(basicClassMethods.get(0))));
-        classList.put("Bool", new ClassNode("Bool", "Object", 1, new HashMap <String, AST.attr>(), new HashMap <String, AST.method>(basicClassMethods.get(0))));
-        classList.put("Float", new ClassNode("Float", "Object", 1, new HashMap <String, AST.attr>(), new HashMap <String, AST.method>(basicClassMethods.get(0))));
-        classList.put("Vertex", new ClassNode("Vertex", "Object", 1, new HashMap <String, AST.attr>(), new HashMap <String, AST.method>(basicClassMethods.get(0))));
-        classList.put("Edge", new ClassNode("Edge", "Object", 1, new HashMap <String, AST.attr>(), new HashMap <String, AST.method>(basicClassMethods.get(0))));
+        classList.put("Object", new ClassNode("Object", null, 0, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(0)));
+        classList.put("IO", new ClassNode("IO", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(1)));
+        classList.put("String", new ClassNode("String", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(2)));
+        classList.put("Graph", new ClassNode("Graph", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(3)));
+        classList.put("Matrix", new ClassNode("Matrix", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(4)));
+        classList.put("Int", new ClassNode("Int", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
+        classList.put("Bool", new ClassNode("Bool", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
+        classList.put("Float", new ClassNode("Float", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
+        classList.put("Vertex", new ClassNode("Vertex", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
+        classList.put("Edge", new ClassNode("Edge", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
         return;
     }
 
         // returns the number equivalent to a class in the adjacenccy graph
         //return -1 if classname which is provided in the class list
-    private int ClassNameEquivalentNumber(ArrayList<AST.class_> class_node,String name )
+    private int ClassNameEquivalentNumber(ArrayList<DroolParser.class_> class_node,String name )
     {
         for (int i = 0 ; i < class_node.size(); i++ )
         {
@@ -192,12 +188,12 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     // makes a graph detects cycles checks for inheritance related stuff
     //we check for cylcles in classes
     // if everything is fine adds class to the class list using some functions
-    //Takes the argument of type List<Ast.class_> which is list of all classes in the language
-    private void GraphHandler(List<AST.class_> classes) {
+    //Takes the argument of type List<DroolParser.class_> which is list of all classes in the language
+    private void GraphHandler(List<DroolParser.class_> classes) {
 
         // contains all the classes
-        // defines a Array list variable of type <AST.class_> which stroes all the classes
-        ArrayList<AST.class_> class_node = new ArrayList<AST.class_>();     
+        // defines a Array list variable of type <DroolParser.class_> which stroes all the classes
+        ArrayList<DroolParser.class_> class_node = new ArrayList<DroolParser.class_>();     
 
         // contains inheritance graph all the classes
         ArrayList<ArrayList<Integer>> adjacency_list = new ArrayList<ArrayList<Integer>>();
@@ -268,7 +264,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     }
 
     //adds the built in classes to the inheritance graph
-    private void helperUpdateClassNodeAndGraph(ArrayList<AST.class_> class_node, ArrayList<ArrayList<Integer>> adjacency_list)
+    private void helperUpdateClassNodeAndGraph(ArrayList<DroolParser.class_> class_node, ArrayList<ArrayList<Integer>> adjacency_list)
     {
 
         class_node.add(null);
@@ -296,7 +292,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     }
 
      // Nodes are added in a BFS style to classList so that the derived class can easily inherit features from the parent class   
-    private void makeClassList(ArrayList<ArrayList<Integer>> adjacency_list,ArrayList<AST.class_> class_node)
+    private void makeClassList(ArrayList<ArrayList<Integer>> adjacency_list,ArrayList<DroolParser.class_> class_node)
     {
         ArrayList<Integer> q = new ArrayList<Integer>();
         boolean[] visited = new boolean[class_node.size()];       
@@ -333,7 +329,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     //we traverse through the adjaceny list to make sure that addition of the class_node results in a inheritance cycle or not 
     //return true if cycle
 
-    private boolean isCyclic(ArrayList<ArrayList<Integer>> adjacency_list, ArrayList<AST.class_> class_node) {
+    private boolean isCyclic(ArrayList<ArrayList<Integer>> adjacency_list, ArrayList<DroolParser.class_> class_node) {
     
         boolean[] visited = new boolean[class_node.size()];
         Arrays.fill(visited, Boolean.FALSE);
@@ -381,13 +377,13 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     
      //   every class which is reachable from the node part of a cycle is flagged
     //    all the nodes are printed using bfs
-    void printHelperFunc(AST.class_ Node)
+    void printHelperFunc(DroolParser.class_ Node)
     {
         reportError(Node.filename, Node.lineNo, " Class " + Node.name + ", or an ancestor of " + Node.name + ", is involved in an inheritance cycle.");
     }
 
     //prints the cycle present in the adjacency list when the class_node results in a cyclic inheritance graph
-    private void printCycle(ArrayList<ArrayList<Integer>> adjacency_list, ArrayList<AST.class_> class_node, Integer node) {
+    private void printCycle(ArrayList<ArrayList<Integer>> adjacency_list, ArrayList<DroolParser.class_> class_node, Integer node) {
 
         ArrayList<Integer> q = new ArrayList<Integer>();
         Boolean[] visited = new Boolean[class_node.size()];
@@ -418,30 +414,30 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     }
 
     // intitialising the attribuites
-    private void add_default_value(AST.attr atr) {
+    private void add_default_value(DroolParser.classListContext.memberDeclarator atr) {
         switch(atr.typeid){
             case "Int":{
-                atr.value = new AST.int_const(0, atr.lineNo);
+                atr.value = new DroolParser.int_const(0, atr.lineNo);
                 break;
             }
             case "String":{
-                atr.value = new AST.string_const("", atr.lineNo);
+                atr.value = new DroolParser.string_const("", atr.lineNo);
                 break;
             }
             case "Bool":{
-                atr.value = new AST.bool_const(false, atr.lineNo);
+                atr.value = new DroolParser.bool_const(false, atr.lineNo);
                 break;
             }
             case "Float":{
-                atr.value = new AST.float_const(0.0, atr.lineNo);
+                atr.value = new DroolParser.float_const(0.0, atr.lineNo);
                 break;
             }
             case "Vertex":{
-                atr.value = new AST.string_const("", atr.lineNo);
+                atr.value = new DroolParser.string_const("", atr.lineNo);
                 break;
             }
             case "Edge":{
-                atr.value = new AST.string_const("", atr.lineNo);
+                atr.value = new DroolParser.string_const("", atr.lineNo);
                 break;
             }
             
@@ -449,14 +445,14 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     }
 
     // inserts classes to the classList in a BFS manner
-    private void insert_class(AST.class_ cl) {
+    private void insert_class(DroolParser.class_ cl) {
         //stores the parent of class cl
         String parent = cl.parent;
-        ArrayList<HashMap<String, AST.attr>> attribuitess = new ArrayList<HashMap<String, AST.attr>>();
-        ArrayList<HashMap<String, AST.method>> methodss = new ArrayList<HashMap<String, AST.method>>();
-        attribuitess.add(new HashMap<String, AST.attr>());
+        ArrayList<HashMap<String, DroolParser.classListContext.memberDeclarator>> attribuitess = new ArrayList<HashMap<String, DroolParser.classListContext.memberDeclarator>>();
+        ArrayList<HashMap<String, DroolParser.method>> methodss = new ArrayList<HashMap<String, DroolParser.method>>();
+        attribuitess.add(new HashMap<String, DroolParser.classListContext.memberDeclarator>());
         attribuitess.add(classList.get(parent).attributes);
-        methodss.add(new HashMap<String, AST.method>());
+        methodss.add(new HashMap<String, DroolParser.method>());
         methodss.add(classList.get(parent).methods);
         int i =0;
 
@@ -468,8 +464,8 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
         while(i< (cl.features).size()) {
 
             // Going throug the attributes of class
-            if (cl.features.get(i).getClass() == AST.attr.class) {
-                AST.attr atr = (AST.attr)cl.features.get(i);
+            if (cl.features.get(i).getClass() == DroolParser.classListContext.memberDeclarator.class) {
+                DroolParser.classListContext.memberDeclarator atr = (DroolParser.classListContext.memberDeclarator)cl.features.get(i);
                 flag = true;
 
                 // are there duplicate attributes within the class attributes
@@ -486,7 +482,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
                 if (flag) {
                     // Default values are added
-                    if (atr.value.getClass() == AST.no_expr.class)
+                    if (atr.value.getClass() == DroolParser.no_expr.class)
                        {
                             add_default_value(atr);
                        }
@@ -494,8 +490,8 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
                 }
             }
 
-            else if (cl.features.get(i).getClass() == AST.method.class) {
-                AST.method me = (AST.method)cl.features.get(i);
+            else if (cl.features.get(i).getClass() == DroolParser.method.class) {
+                DroolParser.method me = (DroolParser.method)cl.features.get(i);
                 flag = true;
 
                 if (methodss.get(0).containsKey(me.name)) {
@@ -503,7 +499,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
                     flag =  false;
                 }
                 if (methodss.get(1).containsKey(me.name)) {
-                    AST.method pr_met = methodss.get(1).get(me.name);
+                    DroolParser.method pr_met = methodss.get(1).get(me.name);
 
                     // Checking number of formal parameters
                     if (pr_met.formals.size() != me.formals.size()) {
@@ -545,27 +541,27 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     }
 
     // Visit the class
-    private void visit_class(AST.class_ cl) {
-        Iterator<AST.feature> cl_f_Iter = cl.features.iterator(); //Inits at -1
+    private void visit_class(DroolParser.class_ cl) {
+        Iterator<DroolParser.feature> cl_f_Iter = cl.features.iterator(); //Inits at -1
         while(cl_f_Iter.hasNext()) {
-        AST.feature temp = cl_f_Iter.next();
-        if (temp.getClass() == AST.method.class) {
-            visit_method((AST.method)temp);
+        DroolParser.feature temp = cl_f_Iter.next();
+        if (temp.getClass() == DroolParser.method.class) {
+            visit_method((DroolParser.method)temp);
             continue;
         }
-        if (temp.getClass() == AST.attr.class) 
-            visit_attr((AST.attr)temp);
+        if (temp.getClass() == DroolParser.classListContext.memberDeclarator.class) 
+            visit_attr((DroolParser.classListContext.memberDeclarator)temp);
         }
     }
 
     // Visit methods of a certain class
-    private void visit_method(AST.method cl_m) {
+    private void visit_method(DroolParser.method cl_m) {
         scope.enterScope();                                     //Entering a new scope
-        Iterator<AST.formal> cl_m_for_Iter = cl_m.formals.iterator();
+        Iterator<DroolParser.formal> cl_m_for_Iter = cl_m.formals.iterator();
         while(cl_m_for_Iter.hasNext()) {
-            AST.formal temp = cl_m_for_Iter.next();
+            DroolParser.formal temp = cl_m_for_Iter.next();
             if (scope.lookUpLocal(temp.name) == null){
-                scope.insert(temp.name, new AST.attr(temp.name, temp.typeid, new AST.no_expr(temp.lineNo), temp.lineNo));
+                scope.insert(temp.name, new DroolParser.classListContext.memberDeclarator(temp.name, temp.typeid, new DroolParser.no_expr(temp.lineNo), temp.lineNo));
                 continue;
             }
             reportError(filename, temp.lineNo, "Duplicate declarations found for formal parameters");
@@ -577,9 +573,9 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
     }
 
     // Visit attributes of a certain class
-    private void visit_attr(AST.attr attrib) {
+    private void visit_attr(DroolParser.classListContext.memberDeclarator attrib) {
         //Visit recursively if possible
-        if ((attrib.value.getClass() == AST.no_expr.class) != true) {
+        if ((attrib.value.getClass() == DroolParser.no_expr.class) != true) {
             visit_expr(attrib.value);
             if (conform(attrib.value.type, attrib.typeid) != true) {  
                 reportError(filename, attrib.lineNo, "Types \"" + attrib.value.type + "\", \"" + attrib.typeid + "\" do not conform. ");
@@ -591,130 +587,130 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
     // Big bad function to take care of all the expressions tiny and large alike.
    
-    private void visit_expr(AST.expression expr) {
+    private void visit_expr(DroolParser.expression expr) {
         String type = expr.getClass().getSimpleName();  //get type of AST as string for case
         switch (type){                                  //Select action based on type of expression
             //Constants
             case "bool_const": {
-                ((AST.bool_const)expr).type = "Bool";
+                ((DroolParser.bool_const)expr).type = "Bool";
                 break;
             }
 
             case "string_const":{
-                ((AST.string_const)expr).type = "String";
+                ((DroolParser.string_const)expr).type = "String";
                 break;
             }
 
             case "int_const":{
-                ((AST.int_const)expr).type = "Int";
+                ((DroolParser.int_const)expr).type = "Int";
                 break;
             }
 
             case "float_const":{
-                ((AST.float_const)expr).type = "Float";
+                ((DroolParser.float_const)expr).type = "Float";
                 break;
             }
 
             case "vertex_const":{
-                ((AST.vertex_const)expr).type = "Vertex";
+                ((DroolParser.vertex_const)expr).type = "Vertex";
                 break;
             }
             
             //~expr
             case "comp":{
-                AST.comp the_complement = ((AST.comp)expr);
-                visit_expr(((AST.comp)expr).e1);
-                if ((((AST.comp)expr).e1).type.equals("Bool") == true) {
-                    ((AST.comp)expr).type = "Bool";
+                DroolParser.comp the_complement = ((DroolParser.comp)expr);
+                visit_expr(((DroolParser.comp)expr).e1);
+                if ((((DroolParser.comp)expr).e1).type.equals("Bool") == true) {
+                    ((DroolParser.comp)expr).type = "Bool";
                     break;
                 }
                 // if the expresion expr is not of type bool: report error
-                ((AST.comp)expr).type = "Bool";
-                reportError(filename, (((AST.comp)expr).e1).lineNo, "Type \"" + (((AST.comp)expr).e1).type + "\" encountered for complement. Expected \"Bool\"");
+                ((DroolParser.comp)expr).type = "Bool";
+                reportError(filename, (((DroolParser.comp)expr).e1).lineNo, "Type \"" + (((DroolParser.comp)expr).e1).type + "\" encountered for complement. Expected \"Bool\"");
                 break;
             }
 
             //not expr
             case "neg":{
-                visit_expr(((AST.neg)expr).e1);
-                if (((((AST.neg)expr).e1).type.equals("Int")) == true || ((((AST.neg)expr).e1).type.equals("Bool")) == true) {
-                    ((AST.neg)expr).type = "Int";
+                visit_expr(((DroolParser.neg)expr).e1);
+                if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
+                    ((DroolParser.neg)expr).type = "Int";
                     break;
                 }
-                ((AST.neg)expr).type = "Int";
-                reportError(filename, ((AST.neg)expr).lineNo, "Type \"" + (((AST.neg)expr).e1).type + "\" encountered. Expected \"Int\" for negation");
+                ((DroolParser.neg)expr).type = "Int";
+                reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for negation");
                 break;
             }
 
             // | expr
             case "unary_or":{
-                visit_expr(((AST.unary_or)expr).e1);
-                if (((((AST.unary_or)expr).e1).type.equals("Int")) == true || ((((AST.unary_or)expr).e1).type.equals("Bool")) == true) {
-                    ((AST.unary_or)expr).type = "Int";
+                visit_expr(((DroolParser.unary_or)expr).e1);
+                if (((((DroolParser.unary_or)expr).e1).type.equals("Int")) == true || ((((DroolParser.unary_or)expr).e1).type.equals("Bool")) == true) {
+                    ((DroolParser.unary_or)expr).type = "Int";
                     break;
                 }
-                ((AST.unary_or)expr).type = "Int";
-                reportError(filename, ((AST.unary_or)expr).lineNo, "Type \"" + (((AST.unary_or)expr).e1).type + "\" encountered. Expected \"Int\" for unary or");
+                ((DroolParser.unary_or)expr).type = "Int";
+                reportError(filename, ((DroolParser.unary_or)expr).lineNo, "Type \"" + (((DroolParser.unary_or)expr).e1).type + "\" encountered. Expected \"Int\" for unary or");
                 break;
             }
 
              // &expr
              case "unary_and":{
-                visit_expr(((AST.unary_and)expr).e1);
-                if (((((AST.unary_and)expr).e1).type.equals("Int")) == true || ((((AST.unary_and)expr).e1).type.equals("Bool")) == true) {
-                    ((AST.unary_and)expr).type = "Int";
+                visit_expr(((DroolParser.unary_and)expr).e1);
+                if (((((DroolParser.unary_and)expr).e1).type.equals("Int")) == true || ((((DroolParser.unary_and)expr).e1).type.equals("Bool")) == true) {
+                    ((DroolParser.unary_and)expr).type = "Int";
                     break;
                 }
-                ((AST.unary_and)expr).type = "Int";
-                reportError(filename, ((AST.unary_and)expr).lineNo, "Type \"" + (((AST.unary_and)expr).e1).type + "\" encountered. Expected \"Int\" for unary and");
+                ((DroolParser.unary_and)expr).type = "Int";
+                reportError(filename, ((DroolParser.unary_and)expr).lineNo, "Type \"" + (((DroolParser.unary_and)expr).e1).type + "\" encountered. Expected \"Int\" for unary and");
                 break;
             }
 
              // *expr
              case "unary_mul":{
-                visit_expr(((AST.neg)expr).e1);
-                if (((((AST.neg)expr).e1).type.equals("Int")) == true || ((((AST.neg)expr).e1).type.equals("Bool")) == true) {
-                    ((AST.neg)expr).type = "Int";
+                visit_expr(((DroolParser.neg)expr).e1);
+                if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
+                    ((DroolParser.neg)expr).type = "Int";
                     break;
                 }
-                ((AST.neg)expr).type = "Int";
-                reportError(filename, ((AST.neg)expr).lineNo, "Type \"" + (((AST.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary mul");
+                ((DroolParser.neg)expr).type = "Int";
+                reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary mul");
                 break;
             }
 
              // +expr
              case "unary_plus":{
-                visit_expr(((AST.neg)expr).e1);
-                if (((((AST.neg)expr).e1).type.equals("Int")) == true || ((((AST.neg)expr).e1).type.equals("Bool")) == true) {
-                    ((AST.neg)expr).type = "Int";
+                visit_expr(((DroolParser.neg)expr).e1);
+                if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
+                    ((DroolParser.neg)expr).type = "Int";
                     break;
                 }
-                ((AST.neg)expr).type = "Int";
-                reportError(filename, ((AST.neg)expr).lineNo, "Type \"" + (((AST.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary plus");
+                ((DroolParser.neg)expr).type = "Int";
+                reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary plus");
                 break;
             }
 
              // ++expr,expr++
              case "plusplus":{
-                visit_expr(((AST.plusplus)expr).e1);
-                if (((((AST.plusplus)expr).e1).type.equals("Int")) == true) {
-                    ((AST.plusplus)expr).type = "Int";
+                visit_expr(((DroolParser.plusplus)expr).e1);
+                if (((((DroolParser.plusplus)expr).e1).type.equals("Int")) == true) {
+                    ((DroolParser.plusplus)expr).type = "Int";
                     break;
                 }
-                ((AST.plusplus)expr).type = "Int";
-                reportError(filename, ((AST.plusplus)expr).lineNo, "Type \"" + (((AST.plusplus)expr).e1).type + "\" encountered. Expected \"Int\" for increment");
+                ((DroolParser.plusplus)expr).type = "Int";
+                reportError(filename, ((DroolParser.plusplus)expr).lineNo, "Type \"" + (((DroolParser.plusplus)expr).e1).type + "\" encountered. Expected \"Int\" for increment");
                 break;
             }
 
              // --expr,expr--
              case "minusminus":{
-                visit_expr(((AST.minusminus)expr).e1);
-                if (((((AST.minusminus)expr).e1).type.equals("Int")) == true) {
-                    ((AST.minusminus)expr).type = "Int";
+                visit_expr(((DroolParser.minusminus)expr).e1);
+                if (((((DroolParser.minusminus)expr).e1).type.equals("Int")) == true) {
+                    ((DroolParser.minusminus)expr).type = "Int";
                     break;
                 }
-                ((AST.minusminus)expr).type = "Int";
-                reportError(filename, ((AST.minusminus)expr).lineNo, "Type \"" + (((AST.minusminus)expr).e1).type + "\" encountered. Expected \"Int\" for decrement");
+                ((DroolParser.minusminus)expr).type = "Int";
+                reportError(filename, ((DroolParser.minusminus)expr).lineNo, "Type \"" + (((DroolParser.minusminus)expr).e1).type + "\" encountered. Expected \"Int\" for decrement");
                 break;
             }
 
@@ -722,28 +718,26 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             //expr == expr.
             //type of expressions should be same
             case "eq":{
-                AST.eq the_equality = (AST.eq)expr;
-                visit_expr(((AST.eq)expr).e1);
-                visit_expr(((AST.eq)expr).e2);
+                DroolParser.eq the_equality = (DroolParser.eq)expr;
+                visit_expr(((DroolParser.eq)expr).e1);
+                visit_expr(((DroolParser.eq)expr).e2);
 
-                Boolean e1_Ok =  (((AST.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("String");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Bool");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Vertex");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Matrix");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Edge");
+                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("String");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Bool");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Vertex");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Edge");
 
-                Boolean e2_Ok =  (((AST.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("String");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Bool");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Vertex");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Matrix");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Edge");
+                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("String");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Bool");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("vertex");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Edge");
                 
-                ((AST.eq)expr).type = "Bool";
+                ((DroolParser.eq)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.eq)expr).e1).type.equals((((AST.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.eq)expr).e1).type + "\", \"" + (((AST.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -754,28 +748,26 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             //expr != expr.
             //type of expressions should be equal
             case "neq":{
-                AST.neq not_equality = (AST.neq)expr;
-                visit_expr(((AST.neq)expr).e1);
-                visit_expr(((AST.neq)expr).e2);
+                DroolParser.neq not_equality = (DroolParser.neq)expr;
+                visit_expr(((DroolParser.neq)expr).e1);
+                visit_expr(((DroolParser.neq)expr).e2);
 
-                Boolean e1_Ok =  (((AST.neq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("String");
-                e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Bool");
-                e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Vertex");
-                e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Edge");
-                e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Matrix");
+                Boolean e1_Ok =  (((DroolParser.neq)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("String");
+                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Bool");
+                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Vertex");
+                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Edge");
 
-
-                Boolean e2_Ok =  (((AST.neq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("String");
-                e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("Bool");
-                e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("vertex");
-                e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("Matrix");
+                Boolean e2_Ok =  (((DroolParser.neq)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("String");
+                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("Bool");
+                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("vertex");
+                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("Edge");
                 
-                ((AST.neq)expr).type = "Bool";
+                ((DroolParser.neq)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.neq)expr).e1).type.equals((((AST.neq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.neq)expr).e1).type + "\", \"" + (((AST.neq)expr).e2).type + "\"encountered for not equality testing. Expected \"Int\"");
+                    if ((((DroolParser.neq)expr).e1).type.equals((((DroolParser.neq)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.neq)expr).e1).type + "\", \"" + (((DroolParser.neq)expr).e2).type + "\"encountered for not equality testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -785,41 +777,35 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr = expr
             case "assign":{
-                visit_expr(((AST.assign)expr).e1);
-                visit_expr(((AST.assign)expr).e2);
+                visit_expr(((DroolParser.assign)expr).e1);
+                visit_expr(((DroolParser.assign)expr).e2);
 
 
-                if (scope.lookUpGlobal(((AST.assign)expr).name) == null) {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.assign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.assign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.assign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.assign)expr).e1).type, scope.lookUpGlobal(((AST.assign)expr).name).typeid) == true) {
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                if (conform((((DroolParser.assign)expr).e1).type, scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid) == true) {
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Types \"" + (((AST.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.assign)expr).name).typeid + "\" do not conform.");
-                    ((AST.assign)expr).type = "Object";
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.assign)expr).type = "Object";
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 }
-                ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.assign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("Float");
-                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("String");
-                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("Graph");
-                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("Matrix");
+                Boolean e1_Ok =  (((DroolParser.assign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.assign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.assign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("Float");
-                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("String");
-                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("Graph");
-                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("Matrix");
+                Boolean e2_Ok =  (((DroolParser.assign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.assign)expr).e2).type.equals("Float");
 
 
-                ((AST.assign)expr).type = "Bool";
+                ((DroolParser.assign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.assign)expr).e1).type.equals((((AST.assign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.assign)expr).e1).type + "\", \"" + (((AST.assign)expr).e2).type + "\"encountered for assign testing. Expected \"Int\"");
+                    if ((((DroolParser.assign)expr).e1).type.equals((((DroolParser.assign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + (((DroolParser.assign)expr).e2).type + "\"encountered for assign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -829,40 +815,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr += expr
             case "plusassign":{
-                visit_expr(((AST.plusassign)expr).e1);
-                visit_expr(((AST.plusassign)expr).e2);
+                visit_expr(((DroolParser.plusassign)expr).e1);
+                visit_expr(((DroolParser.plusassign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.plusassign)expr).name) == null) {
-                    reportError(filename, ((AST.plusassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.plusassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.plusassign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.plusassign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.plusassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.plusassign)expr).e1).type, scope.lookUpGlobal(((AST.plusassign)expr).name).typeid) == true) {
-                    ((AST.plusassign)expr).type = ((AST.plusassign)expr).e1.type;
+                if (conform((((DroolParser.plusassign)expr).e1).type, scope.lookUpGlobal(((DroolParser.plusassign)expr).name).typeid) == true) {
+                    ((DroolParser.plusassign)expr).type = ((DroolParser.plusassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.plusassign)expr).lineNo, "Types \"" + (((AST.plusassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.plusassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.plusassign)expr).type = "Object";
-                    ((AST.plusassign)expr).type = ((AST.plusassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.plusassign)expr).lineNo, "Types \"" + (((DroolParser.plusassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.plusassign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.plusassign)expr).type = "Object";
+                    ((DroolParser.plusassign)expr).type = ((DroolParser.plusassign)expr).e1.type;
                 }
-                ((AST.plusassign)expr).type = ((AST.plusassign)expr).e1.type;
+                ((DroolParser.plusassign)expr).type = ((DroolParser.plusassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.plusassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("Float");
-                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("String");
-                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("Graph");
-                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("Matrix");
+                Boolean e1_Ok =  (((DroolParser.plusassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.plusassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.plusassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("Float");
-                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("String");
-                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("Graph");
-                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("Matrix");
+                Boolean e2_Ok =  (((DroolParser.plusassign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.plusassign)expr).e2).type.equals("Float");
 
 
-                ((AST.plusassign)expr).type = "Bool";
+                ((DroolParser.plusassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.plusassign)expr).e1).type.equals((((AST.plusassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.plusassign)expr).e1).type + "\", \"" + (((AST.plusassign)expr).e2).type + "\"encountered for plusassign testing. Expected \"Int\"");
+                    if ((((DroolParser.plusassign)expr).e1).type.equals((((DroolParser.plusassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.plusassign)expr).e1).type + "\", \"" + (((DroolParser.plusassign)expr).e2).type + "\"encountered for plusassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -871,37 +851,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr -= expr
             case "minusassign":{
-                visit_expr(((AST.minusassign)expr).e1);
-                visit_expr(((AST.minusassign)expr).e2);
+                visit_expr(((DroolParser.minusassign)expr).e1);
+                visit_expr(((DroolParser.minusassign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.minusassign)expr).name) == null) {
-                    reportError(filename, ((AST.minusassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.minusassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.minusassign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.minusassign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.minusassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.minusassign)expr).e1).type, scope.lookUpGlobal(((AST.minusassign)expr).name).typeid) == true) {
-                    ((AST.minusassign)expr).type = ((AST.minusassign)expr).e1.type;
+                if (conform((((DroolParser.minusassign)expr).e1).type, scope.lookUpGlobal(((DroolParser.minusassign)expr).name).typeid) == true) {
+                    ((DroolParser.minusassign)expr).type = ((DroolParser.minusassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.minusassign)expr).lineNo, "Types \"" + (((AST.minusassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.minusassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.minusassign)expr).type = "Object";
-                    ((AST.minusassign)expr).type = ((AST.minusassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.minusassign)expr).lineNo, "Types \"" + (((DroolParser.minusassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.minusassign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.minusassign)expr).type = "Object";
+                    ((DroolParser.minusassign)expr).type = ((DroolParser.minusassign)expr).e1.type;
                 }
-                ((AST.minusassign)expr).type = ((AST.minusassign)expr).e1.type;
+                ((DroolParser.minusassign)expr).type = ((DroolParser.minusassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.minusassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.minusassign)expr).e1).type.equals("Float");
-                e1_Ok = e1_Ok || (((AST.minusassign)expr).e1).type.equals("Matrix");
-                e1_Ok = e1_Ok || (((AST.minusassign)expr).e1).type.equals("Graph");
+                Boolean e1_Ok =  (((DroolParser.minusassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.minusassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.minusassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.minusassign)expr).e2).type.equals("Float");
-                e2_Ok = e2_Ok || (((AST.minusassign)expr).e2).type.equals("Matrix");
-                e2_Ok = e2_Ok || (((AST.minusassign)expr).e2).type.equals("Graph");
+                Boolean e2_Ok =  (((DroolParser.minusassign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.minusassign)expr).e2).type.equals("Float");
 
-                ((AST.minusassign)expr).type = "Bool";
+
+                ((DroolParser.minusassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.minusassign)expr).e1).type.equals((((AST.minusassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.minusassign)expr).e1).type + "\", \"" + (((AST.minusassign)expr).e2).type + "\"encountered for minusassign testing. Expected \"Int\"");
+                    if ((((DroolParser.minusassign)expr).e1).type.equals((((DroolParser.minusassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.minusassign)expr).e1).type + "\", \"" + (((DroolParser.minusassign)expr).e2).type + "\"encountered for minusassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -910,35 +887,35 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr /= expr
             case "divassign":{
-                visit_expr(((AST.divassign)expr).e1);
-                visit_expr(((AST.divassign)expr).e1);
+                visit_expr(((DroolParser.divassign)expr).e1);
+                visit_expr(((DroolParser.divassign)expr).e1);
 
-                if (scope.lookUpGlobal(((AST.divassign)expr).name) == null) {
-                    reportError(filename, ((AST.divassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.divassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.divassign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.divassign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.divassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.divassign)expr).e1).type, scope.lookUpGlobal(((AST.divassign)expr).name).typeid) == true) {
-                    ((AST.divassign)expr).type = ((AST.divassign)expr).e1.type;
+                if (conform((((DroolParser.divassign)expr).e1).type, scope.lookUpGlobal(((DroolParser.divassign)expr).name).typeid) == true) {
+                    ((DroolParser.divassign)expr).type = ((DroolParser.divassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.divassign)expr).lineNo, "Types \"" + (((AST.divassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.divassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.divassign)expr).type = "Object";
-                    ((AST.divassign)expr).type = ((AST.divassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.divassign)expr).lineNo, "Types \"" + (((DroolParser.divassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.divassign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.divassign)expr).type = "Object";
+                    ((DroolParser.divassign)expr).type = ((DroolParser.divassign)expr).e1.type;
                 }
-                ((AST.divassign)expr).type = ((AST.divassign)expr).e1.type;
+                ((DroolParser.divassign)expr).type = ((DroolParser.divassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.divassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.divassign)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((DroolParser.divassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.divassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.divassign)expr).e2).type.equals("Int") && ((AST.eq)expr).e2!=0);
-                e2_Ok = e2_Ok || (((AST.divassign)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((DroolParser.divassign)expr).e2).type.equals("Int") && ((DroolParser.eq)expr).e2!=0);
+                e2_Ok = e2_Ok || (((DroolParser.divassign)expr).e2).type.equals("Float");
                 
 
 
-                ((AST.divassign)expr).type = "Bool";
+                ((DroolParser.divassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.divassign)expr).e1).type.equals((((AST.divassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.divassign)expr).e1).type + "\", \"" + (((AST.divassign)expr).e2).type + "\"encountered for division assign testing. Expected \"Int\"");
+                    if ((((DroolParser.divassign)expr).e1).type.equals((((DroolParser.divassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.divassign)expr).e1).type + "\", \"" + (((DroolParser.divassign)expr).e2).type + "\"encountered for division assign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -948,34 +925,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr *= expr
             case "mulassign":{
-                visit_expr(((AST.mulassign)expr).e1);
-                visit_expr(((AST.mulassign)expr).e2);
+                visit_expr(((DroolParser.mulassign)expr).e1);
+                visit_expr(((DroolParser.mulassign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.mulassign)expr).name) == null) {
-                    reportError(filename, ((AST.mulassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.mulassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.mulassign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.mulassign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.mulassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.mulassign)expr).e1).type, scope.lookUpGlobal(((AST.mulassign)expr).name).typeid) == true) {
-                    ((AST.mulassign)expr).type = ((AST.mulassign)expr).e1.type;
+                if (conform((((DroolParser.mulassign)expr).e1).type, scope.lookUpGlobal(((DroolParser.mulassign)expr).name).typeid) == true) {
+                    ((DroolParser.mulassign)expr).type = ((DroolParser.mulassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.mulassign)expr).lineNo, "Types \"" + (((AST.mulassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.mulassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.mulassign)expr).type = "Object";
-                    ((AST.mulassign)expr).type = ((AST.mulassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.mulassign)expr).lineNo, "Types \"" + (((DroolParser.mulassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.mulassign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.mulassign)expr).type = "Object";
+                    ((DroolParser.mulassign)expr).type = ((DroolParser.mulassign)expr).e1.type;
                 }
-                ((AST.mulassign)expr).type = ((AST.mulassign)expr).e1.type;
+                ((DroolParser.mulassign)expr).type = ((DroolParser.mulassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.mulassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.mulassign)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((DroolParser.mulassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.mulassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.mulassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.mulassign)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((DroolParser.mulassign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.mulassign)expr).e2).type.equals("Float");
 
 
-                ((AST.mulassign)expr).type = "Bool";
+                ((DroolParser.mulassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.mulassign)expr).e1).type.equals((((AST.mulassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.mulassign)expr).e1).type + "\", \"" + (((AST.mulassign)expr).e2).type + "\"encountered for mulassign testing. Expected \"Int\"");
+                    if ((((DroolParser.mulassign)expr).e1).type.equals((((DroolParser.mulassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.mulassign)expr).e1).type + "\", \"" + (((DroolParser.mulassign)expr).e2).type + "\"encountered for mulassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -984,33 +961,33 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr %= expr
             case "modassign":{
-                visit_expr(((AST.modassign)expr).e1);
-                visit_expr(((AST.modassign)expr).e2)
+                visit_expr(((DroolParser.modassign)expr).e1);
+                visit_expr(((DroolParser.modassign)expr).e2)
 
-                if (scope.lookUpGlobal(((AST.modassign)expr).name) == null) {
-                    reportError(filename, ((AST.modassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.modassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.modassign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.modassign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.modassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.modassign)expr).e1).type, scope.lookUpGlobal(((AST.modassign)expr).name).typeid) == true) {
-                    ((AST.modassign)expr).type = ((AST.modassign)expr).e1.type;
+                if (conform((((DroolParser.modassign)expr).e1).type, scope.lookUpGlobal(((DroolParser.modassign)expr).name).typeid) == true) {
+                    ((DroolParser.modassign)expr).type = ((DroolParser.modassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.modassign)expr).lineNo, "Types \"" + (((AST.modassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.modassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.modassign)expr).type = "Object";
-                    ((AST.modassign)expr).type = ((AST.modassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.modassign)expr).lineNo, "Types \"" + (((DroolParser.modassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.modassign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.modassign)expr).type = "Object";
+                    ((DroolParser.modassign)expr).type = ((DroolParser.modassign)expr).e1.type;
                 }
-                ((AST.modassign)expr).type = ((AST.modassign)expr).e1.type;
+                ((DroolParser.modassign)expr).type = ((DroolParser.modassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.modassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.modassign)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((DroolParser.modassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.modassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.modassign)expr).e2).type.equals("Int") && ((AST.eq)expr).e2!=0);
-                e2_Ok = e2_Ok || (((AST.modassign)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((DroolParser.modassign)expr).e2).type.equals("Int") && ((DroolParser.eq)expr).e2!=0);
+                e2_Ok = e2_Ok || (((DroolParser.modassign)expr).e2).type.equals("Float");
                 
-             ((AST.modassign)expr).type = "Bool";
+             ((DroolParser.modassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.modassign)expr).e1).type.equals((((AST.modassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.modassign)expr).e1).type + "\", \"" + (((AST.modassign)expr).e2).type + "\"encountered for modassign testing. Expected \"Int\"");
+                    if ((((DroolParser.modassign)expr).e1).type.equals((((DroolParser.modassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.modassign)expr).e1).type + "\", \"" + (((DroolParser.modassign)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1019,34 +996,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr |= expr
             case "orassign":{
-                visit_expr(((AST.orassign)expr).e1);
-                visit_expr(((AST.orassign)expr).e2);
+                visit_expr(((DroolParser.assign)expr).e1);
+                visit_expr(((DroolParser.assign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.orassign)expr).name) == null) {
-                    reportError(filename, ((AST.orassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.orassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.assign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.assign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.orassign)expr).e1).type, scope.lookUpGlobal(((AST.orassign)expr).name).typeid) == true) {
-                    ((AST.orassign)expr).type = ((AST.orassign)expr).e1.type;
+                if (conform((((DroolParser.assign)expr).e1).type, scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid) == true) {
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.orassign)expr).lineNo, "Types \"" + (((AST.orassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.orassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.orassign)expr).type = "Object";
-                    ((AST.orassign)expr).type = ((AST.orassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.assign)expr).type = "Object";
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 }
-                ((AST.orassign)expr).type = ((AST.orassign)expr).e1.type;
+                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.orassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.orassign)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.orassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.orassign)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
 
 
-                ((AST.orassign)expr).type = "Bool";
+                ((DroolParser.eq)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.orassign)expr).e1).type.equals((((AST.orassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.orassign)expr).e1).type + "\", \"" + (((AST.orassign)expr).e2).type + "\"encountered for orassign testing. Expected \"Int\"");
+                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1055,34 +1032,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr &= expr
             case "andassign":{
-                visit_expr(((AST.andassign)expr).e1);
-                visit_expr(((AST.andassign)expr).e2);
+                visit_expr(((DroolParser.assign)expr).e1);
+                visit_expr(((DroolParser.assign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.andassign)expr).name) == null) {
-                    reportError(filename, ((AST.andassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.andassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.assign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.assign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.andassign)expr).e1).type, scope.lookUpGlobal(((AST.andassign)expr).name).typeid) == true) {
-                    ((AST.andassign)expr).type = ((AST.andassign)expr).e1.type;
+                if (conform((((DroolParser.assign)expr).e1).type, scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid) == true) {
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.andassign)expr).lineNo, "Types \"" + (((AST.andassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.andassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.andassign)expr).type = "Object";
-                    ((AST.andassign)expr).type = ((AST.andassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.assign)expr).type = "Object";
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 }
-                ((AST.andassign)expr).type = ((AST.andassign)expr).e1.type;
+                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.andassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.andassign)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.andassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.andassign)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
 
 
-                ((AST.andassign)expr).type = "Bool";
+                ((DroolParser.eq)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.andassign)expr).e1).type.equals((((AST.andassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.andassign)expr).e1).type + "\", \"" + (((AST.andassign)expr).e2).type + "\"encountered for andassign testing. Expected \"Int\"");
+                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1091,34 +1068,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr ^= expr
             case "xorassign":{
-                visit_expr(((AST.xorassign)expr).e1);
-                visit_expr(((AST.xorassign)expr).e2);
+                visit_expr(((DroolParser.assign)expr).e1);
+                visit_expr(((DroolParser.assign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.xorassign)expr).name) == null) {
-                    reportError(filename, ((AST.xorassign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.xorassign)expr).type = "Object";
+                if (scope.lookUpGlobal(((DroolParser.assign)expr).name) == null) {
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Variable being used without being declared");
+                    ((DroolParser.assign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.xorassign)expr).e1).type, scope.lookUpGlobal(((AST.xorassign)expr).name).typeid) == true) {
-                    ((AST.xorassign)expr).type = ((AST.xorassign)expr).e1.type;
+                if (conform((((DroolParser.assign)expr).e1).type, scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid) == true) {
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.xorassign)expr).lineNo, "Types \"" + (((AST.xorassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.xorassign)expr).name).typeid + "\" do not conform.");
-                    ((AST.xorassign)expr).type = "Object";
-                    ((AST.xorassign)expr).type = ((AST.xorassign)expr).e1.type;
+                    reportError(filename, ((DroolParser.assign)expr).lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((DroolParser.assign)expr).name).typeid + "\" do not conform.");
+                    ((DroolParser.assign)expr).type = "Object";
+                    ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
                 }
-                ((AST.xorassign)expr).type = ((AST.xorassign)expr).e1.type;
+                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.xorassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.xorassign)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.xorassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.xorassign)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
 
 
-                ((AST.xorassign)expr).type = "Bool";
+                ((DroolParser.eq)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.xorassign)expr).e1).type.equals((((AST.xorassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.xorassign)expr).e1).type + "\", \"" + (((AST.xorassign)expr).e2).type + "\"encountered for xorassign testing. Expected \"Int\"");
+                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1127,437 +1104,276 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr <= expr
             case "leq": {
-                visit_expr(((AST.leq)expr).e1);
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.leq)expr).type = "Bool";
-                    reportError(filename, ((AST.leq)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.leq)expr).e1).type + "\" & \"" + (((AST.leq)expr).e2).type + "\" for less than or equal to operator");
+                visit_expr(((DroolParser.leq)expr).e1);
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.leq)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
                 }
-                visit_expr(((AST.leq)expr).e2);
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.leq)expr).type = "Bool";
-                    reportError(filename, ((AST.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.leq)expr).e1).type + "\" & \"" + (((AST.leq)expr).e2).type + "\" for less than or equal to operator");
+                visit_expr(((DroolParser.leq)expr).e2);
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.leq)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
                 }
-                ((AST.leq)expr).type = "Bool";
+                ((DroolParser.leq)expr).type = "Bool";
                 break;
             }
             //expr < expr
             case "lt":{
-                visit_expr(((AST.lt)expr).e1);
-                visit_expr(((AST.lt)expr).e2);
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.lt)expr).type = "Bool";
-                    reportError(filename, ((AST.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.lt)expr).e1).type + "\" & \"" + (((AST.lt)expr).e2).type + "\" for less than operator");
+                visit_expr(((DroolParser.lt)expr).e1);
+                visit_expr(((DroolParser.lt)expr).e2);
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.lt)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
                 }
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.lt)expr).type = "Bool";
-                    reportError(filename, ((AST.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.lt)expr).e1).type + "\" & \"" + (((AST.lt)expr).e2).type + "\" for less than operator");
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.lt)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
                 }
-                ((AST.lt)expr).type = "Bool";
+                ((DroolParser.lt)expr).type = "Bool";
                 break;
             }
 
             //expr >= expr
             case "geq": {
-                visit_expr(((AST.geq)expr).e1);
-                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
-                    ((AST.geq)expr).type = "Bool";
-                    reportError(filename, ((AST.geq)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.geq)expr).e1).type + "\" & \"" + (((AST.geq)expr).e2).type + "\" for greater than or equal to operator");
+                visit_expr(((DroolParser.geq)expr).e1);
+                if ((((DroolParser.geq)expr).e1).type.equals("Int") == false && (((DroolParser.geq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.leq)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.geq)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
                 }
-                visit_expr(((AST.geq)expr).e2);
-                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
-                    ((AST.geq)expr).type = "Bool";
-                    reportError(filename, ((AST.geq)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.geq)expr).e1).type + "\" & \"" + (((AST.geq)expr).e2).type + "\" for greater than or equal to operator");
+                visit_expr(((DroolParser.leq)expr).e2);
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.leq)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
                 }
-                ((AST.geq)expr).type = "Bool";
+                ((DroolParser.leq)expr).type = "Bool";
                 break;
             }
             //expr > expr
             case "gt":{
-                visit_expr(((AST.gt)expr).e1);
-                visit_expr(((AST.gt)expr).e2);
-                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
-                    ((AST.gt)expr).type = "Bool";
-                    reportError(filename, ((AST.gt)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.gt)expr).e1).type + "\" & \"" + (((AST.gt)expr).e2).type + "\" for greator than operator");
+                visit_expr(((DroolParser.lt)expr).e1);
+                visit_expr(((DroolParser.lt)expr).e2);
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.lt)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
                 }
-                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
-                    ((AST.gt)expr).type = "Bool";
-                    reportError(filename, ((AST.gt)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.gt)expr).e1).type + "\" & \"" + (((AST.gt)expr).e2).type + "\" for greator than operator");
+                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+                    ((DroolParser.lt)expr).type = "Bool";
+                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
                 }
-                ((AST.gt)expr).type = "Bool";
+                ((DroolParser.lt)expr).type = "Bool";
                 break;
             }
             
             //if expr then expr else expr
             case "cond":{
-                visit_expr(((AST.cond)expr).predicate);
-                visit_expr(((AST.cond)expr).ifbody);
-                visit_expr(((AST.cond)expr).elsebody);
-                if ((((AST.cond)expr).predicate).type.equals("Bool") == true) {
-                    ((AST.cond)expr).type = lca((((AST.cond)expr).ifbody).type, (((AST.cond)expr).elsebody).type);
+                visit_expr(((DroolParser.cond)expr).predicate);
+                visit_expr(((DroolParser.cond)expr).ifbody);
+                visit_expr(((DroolParser.cond)expr).elsebody);
+                if ((((DroolParser.cond)expr).predicate).type.equals("Bool") == true) {
+                    ((DroolParser.cond)expr).type = lca((((DroolParser.cond)expr).ifbody).type, (((DroolParser.cond)expr).elsebody).type);
                     break;
                 }
-                ((AST.cond)expr).type = lca((((AST.cond)expr).ifbody).type, (((AST.cond)expr).elsebody).type);
-                reportError(filename, (((AST.cond)expr).predicate).lineNo, "Conditional encountered has type \"" + (((AST.cond)expr).predicate).type + "\". Expected \"Bool\"");
+                ((DroolParser.cond)expr).type = lca((((DroolParser.cond)expr).ifbody).type, (((DroolParser.cond)expr).elsebody).type);
+                reportError(filename, (((DroolParser.cond)expr).predicate).lineNo, "Conditional encountered has type \"" + (((DroolParser.cond)expr).predicate).type + "\". Expected \"Bool\"");
                 break;
             }
             
             //expr/expr
             case "divide":{
-                visit_expr(((AST.divide)expr).e1);
-                if ((((AST.divide)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((AST.divide)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.divide)expr).e1).type + "\" & \"" + (((AST.divide)expr).e2).type + "\" for performing division");
-                    ((AST.divide)expr).type = "Int";
+                visit_expr(((DroolParser.divide)expr).e1);
+                if ((((DroolParser.divide)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((DroolParser.divide)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.divide)expr).e1).type + "\" & \"" + (((DroolParser.divide)expr).e2).type + "\" for performing division");
+                    ((DroolParser.divide)expr).type = "Int";
                 }
-                visit_expr(((AST.divide)expr).e2);
-                if ((((AST.divide)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((AST.divide)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.divide)expr).e1).type + "\" & \"" + (((AST.divide)expr).e2).type + "\" for performing division");
-                    ((AST.divide)expr).type = "Int";
+                visit_expr(((DroolParser.divide)expr).e2);
+                if ((((DroolParser.divide)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((DroolParser.divide)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.divide)expr).e1).type + "\" & \"" + (((DroolParser.divide)expr).e2).type + "\" for performing division");
+                    ((DroolParser.divide)expr).type = "Int";
                 }
-                ((AST.divide)expr).type = "Int";
+                ((DroolParser.divide)expr).type = "Int";
                 break;
             }
             //expr*expr
             case "mul":{
-                visit_expr(((AST.mul)expr).e1);
-                if ((((AST.mul)expr).e1).type.equals("Int") == false || (((AST.mul)expr).e1).type.equals("Float") == false || (((AST.mul)expr).e1).type.equals("Graph") == false|| (((AST.mul)expr).e1).type.equals("Matrix") == false){
-                    ((AST.mul)expr).type = "Int";
-                    reportError(filename, ((AST.mul)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.mul)expr).e1).type + "\" & \"" + (((AST.mul)expr).e2).type + "\" for performing multiplication");    
+                visit_expr(((DroolParser.mul)expr).e1);
+                if ((((DroolParser.mul)expr).e1).type.equals("Int") == false){
+                    ((DroolParser.mul)expr).type = "Int";
+                    reportError(filename, ((DroolParser.mul)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.mul)expr).e1).type + "\" & \"" + (((DroolParser.mul)expr).e2).type + "\" for performing multiplication");    
                 }
-                if ((((AST.mul)expr).e1).type.equals("Int") == false || (((AST.mul)expr).e1).type.equals("Float") == false || (((AST.mul)expr).e1).type.equals("Graph") == false|| (((AST.mul)expr).e1).type.equals("Matrix") == false){
-            
-                    ((AST.mul)expr).type = "Int";
-                    reportError(filename, ((AST.mul)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.mul)expr).e1).type + "\" & \"" + (((AST.mul)expr).e2).type + "\" for performing multiplication");
+                visit_expr(((DroolParser.mul)expr).e2);
+                if ((((DroolParser.mul)expr).e2).type.equals("Int") == false) {
+                    ((DroolParser.mul)expr).type = "Int";
+                    reportError(filename, ((DroolParser.mul)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.mul)expr).e1).type + "\" & \"" + (((DroolParser.mul)expr).e2).type + "\" for performing multiplication");
                 }
-                ((AST.mul)expr).type = "Int";
+                ((DroolParser.mul)expr).type = "Int";
                 break;
             }
             //expr+expr
             case "plus":{
-                visit_expr(((AST.plus)expr).e1);
-                visit_expr(((AST.plus)expr).e2);
-                if ((((AST.plus)expr).e1).type.equals("Int") == false || (((AST.plus)expr).e1).type.equals("Float") == false || (((AST.plus)expr).e1).type.equals("Graph") == false|| (((AST.plus)expr).e1).type.equals("Matrix") == false){
-
-                    ((AST.plus)expr).type = "Int";
-                    reportError(filename, ((AST.plus)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.plus)expr).e1).type + "\" & \"" + (((AST.plus)expr).e2).type + "\" for performing addition");
+                visit_expr(((DroolParser.plus)expr).e1);
+                visit_expr(((DroolParser.plus)expr).e2);
+                if ((((DroolParser.plus)expr).e1).type.equals("Int") == false){
+                    ((DroolParser.plus)expr).type = "Int";
+                    reportError(filename, ((DroolParser.plus)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.plus)expr).e1).type + "\" & \"" + (((DroolParser.plus)expr).e2).type + "\" for performing addition");
                 }
-                if ((((AST.plus)expr).e1).type.equals("Int") == false || (((AST.plus)expr).e1).type.equals("Float") == false || (((AST.plus)expr).e1).type.equals("Graph") == false|| (((AST.plus)expr).e1).type.equals("Matrix") == false){
-
-                    ((AST.plus)expr).type = "Int";
-                    reportError(filename, ((AST.plus)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.plus)expr).e1).type + "\" & \"" + (((AST.plus)expr).e2).type + "\" for performing addition");
+                if ((((DroolParser.plus)expr).e2).type.equals("Int") == false) {
+                    ((DroolParser.plus)expr).type = "Int";
+                    reportError(filename, ((DroolParser.plus)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.plus)expr).e1).type + "\" & \"" + (((DroolParser.plus)expr).e2).type + "\" for performing addition");
                 }
-                ((AST.plus)expr).type = "Int";
+                ((DroolParser.plus)expr).type = "Int";
                 break;
             }
             //expr-expr
             case "sub":{
-                visit_expr(((AST.sub)expr).e1);
-                if ((((AST.sub)expr).e1).type.equals("Int") == false || (((AST.sub)expr).e1).type.equals("Float") == false || (((AST.sub)expr).e1).type.equals("Graph") == false|| (((AST.sub)expr).e1).type.equals("Matrix") == false){
-
-                    reportError(filename, ((AST.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.sub)expr).e1).type + "\" & \"" + (((AST.sub)expr).e2).type + "\" for performing subtraction");
-                    ((AST.sub)expr).type = "Int";
+                visit_expr(((DroolParser.sub)expr).e1);
+                if ((((DroolParser.sub)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+                    ((DroolParser.sub)expr).type = "Int";
                 } 
-                visit_expr(((AST.sub)expr).e2);
-                if ((((AST.sub)expr).e1).type.equals("Int") == false || (((AST.sub)expr).e1).type.equals("Float") == false || (((AST.sub)expr).e1).type.equals("Graph") == false|| (((AST.sub)expr).e1).type.equals("Matrix") == false){
-
-                    reportError(filename, ((AST.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.sub)expr).e1).type + "\" & \"" + (((AST.sub)expr).e2).type + "\" for performing subtraction");
-                    ((AST.sub)expr).type = "Int";
+                visit_expr(((DroolParser.sub)expr).e2);
+                if ((((DroolParser.sub)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+                    ((DroolParser.sub)expr).type = "Int";
                 }
-                ((AST.sub)expr).type = "Int";
+                ((DroolParser.sub)expr).type = "Int";
                 break;
             }
             //expr%expr
             case "mod":{
-                visit_expr(((AST.mod)expr).e1);
-                if ((((AST.mod)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((AST.mod)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.mod)expr).e1).type + "\" & \"" + (((AST.mod)expr).e2).type + "\" for performing mod");
-                    ((AST.mod)expr).type = "Int";
+                visit_expr(((DroolParser.sub)expr).e1);
+                if ((((DroolParser.sub)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+                    ((DroolParser.sub)expr).type = "Int";
                 } 
-                visit_expr(((AST.mod)expr).e2);
-                if ((((AST.mod)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((AST.mod)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.mod)expr).e1).type + "\" & \"" + (((AST.mod)expr).e2).type + "\" for performing mod");
-                    ((AST.mod)expr).type = "Int";
+                visit_expr(((DroolParser.sub)expr).e2);
+                if ((((DroolParser.sub)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+                    ((DroolParser.sub)expr).type = "Int";
                 }
-                ((AST.mod)expr).type = "Int";
+                ((DroolParser.sub)expr).type = "Int";
                 break;
             }
-
-            //expr|expr
-            case "bin_or":{
-                visit_expr(((AST.bin_or)expr).e1);
-                if ((((AST.bin_or)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((AST.bin_or)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.bin_or)expr).e1).type + "\" & \"" + (((AST.bin_or)expr).e2).type + "\" for performing bin_or");
-                    ((AST.bin_or)expr).type = "Int";
-                } 
-                visit_expr(((AST.bin_or)expr).e2);
-                if ((((AST.bin_or)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((AST.bin_or)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.bin_or)expr).e1).type + "\" & \"" + (((AST.bin_or)expr).e2).type + "\" for performing bin_or");
-                    ((AST.bin_or)expr).type = "Int";
-                }
-                ((AST.bin_or)expr).type = "Int";
-                break;
-            }
-
-            //expr&expr
-            case "bin_and":{
-                visit_expr(((AST.bin_and)expr).e1);
-                if ((((AST.bin_and)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((AST.bin_and)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.bin_and)expr).e1).type + "\" & \"" + (((AST.bin_and)expr).e2).type + "\" for performing bin_and");
-                    ((AST.bin_and)expr).type = "Int";
-                } 
-                visit_expr(((AST.bin_and)expr).e2);
-                if ((((AST.bin_and)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((AST.bin_and)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.bin_and)expr).e1).type + "\" & \"" + (((AST.bin_and)expr).e2).type + "\" for performing bin_and");
-                    ((AST.bin_and)expr).type = "Int";
-                }
-                ((AST.bin_and)expr).type = "Int";
-                break;
-            }
-
-            //expr^expr
-            case "bin_xor":{
-                visit_expr(((AST.bin_xor)expr).e1);
-                if ((((AST.bin_xor)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((AST.bin_xor)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.bin_xor)expr).e1).type + "\" & \"" + (((AST.bin_xor)expr).e2).type + "\" for performing bin_xor");
-                    ((AST.bin_xor)expr).type = "Int";
-                } 
-                visit_expr(((AST.bin_xor)expr).e2);
-                if ((((AST.bin_xor)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((AST.bin_xor)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.bin_xor)expr).e1).type + "\" & \"" + (((AST.bin_xor)expr).e2).type + "\" for performing bin_xor");
-                    ((AST.bin_xor)expr).type = "Int";
-                }
-                ((AST.bin_xor)expr).type = "Int";
-                break;
-            }
-
-            //expr>>expr
-            case "pull":{
-                visit_expr(((AST.pull)expr).e1);
-                if ((((AST.pull)expr).e1).type.equals("Graph") == false){
-                    reportError(filename, ((AST.pull)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.pull)expr).e1).type + "\" & \"" + (((AST.pull)expr).e2).type + "\" for performing pull");
-                    ((AST.pull)expr).type = "Int";
-                } 
-                visit_expr(((AST.pull)expr).e2);
-                if ((((AST.pull)expr).e2).type.equals("Vertex") == false && (((AST.pull)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.pull)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.pull)expr).e1).type + "\" & \"" + (((AST.pull)expr).e2).type + "\" for performing pull");
-                    ((AST.pull)expr).type = "Int";
-                }
-                ((AST.pull)expr).type = "Int";
-                break;
-            }
-
-            //expr<<expr
-            case "push":{
-                visit_expr(((AST.push)expr).e1);
-                if ((((AST.push)expr).e1).type.equals("Graph") == false){
-                    reportError(filename, ((AST.push)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.push)expr).e1).type + "\" & \"" + (((AST.push)expr).e2).type + "\" for performing push");
-                    ((AST.push)expr).type = "Int";
-                } 
-                visit_expr(((AST.push)expr).e2);
-                if ((((AST.push)expr).e2).type.equals("Vertex") == false && (((AST.push)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.push)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.push)expr).e1).type + "\" & \"" + (((AST.push)expr).e2).type + "\" for performing push");
-                    ((AST.push)expr).type = "Int";
-                }
-                ((AST.push)expr).type = "Int";
-                break;
-            }
-
-            //expr#expr
-            case "hashtag":{
-                visit_expr(((AST.hashtag)expr).e1);
-                if ((((AST.hashtag)expr).e1).type.equals("Vertex") == false){
-                    reportError(filename, ((AST.hashtag)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.hashtag)expr).e1).type + "\" & \"" + (((AST.hashtag)expr).e2).type + "\" for performing hashtag");
-                    ((AST.hashtag)expr).type = "Int";
-                } 
-                visit_expr(((AST.hashtag)expr).e2);
-                if ((((AST.hashtag)expr).e2).type.equals("Graph") == false && (((AST.hashtag)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.hashtag)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.hashtag)expr).e1).type + "\" & \"" + (((AST.hashtag)expr).e2).type + "\" for performing hashtag");
-                    ((AST.hashtag)expr).type = "Int";
-                }
-                ((AST.hashtag)expr).type = "Int";
-                break;
-            }
-
-            //expr?expr
-            case "qmark":{
-                visit_expr(((AST.qmark)expr).e1);
-                if ((((AST.qmark)expr).e1).type.equals("Vertex") == false){
-                    reportError(filename, ((AST.qmark)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.qmark)expr).e1).type + "\" & \"" + (((AST.qmark)expr).e2).type + "\" for performing qmark");
-                    ((AST.qmark)expr).type = "Int";
-                } 
-                visit_expr(((AST.qmark)expr).e2);
-                if ((((AST.qmark)expr).e2).type.equals("Graph") == false && (((AST.qmark)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.qmark)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.qmark)expr).e1).type + "\" & \"" + (((AST.qmark)expr).e2).type + "\" for performing qmark");
-                    ((AST.qmark)expr).type = "Int";
-                }
-                ((AST.qmark)expr).type = "Int";
-                break;
-            }
-
-            //expr addc expr
-            case "addc":{
-                visit_expr(((AST.addc)expr).e1);
-                if ((((AST.addc)expr).e1).type.equals("Matrix") == false){
-                    reportError(filename, ((AST.addc)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.addc)expr).e1).type + "\" & \"" + (((AST.addc)expr).e2).type + "\" for performing addc");
-                    ((AST.addc)expr).type = "Int";
-                } 
-                visit_expr(((AST.addc)expr).e2);
-                if ((((AST.addc)expr).e2).type.equals("Matrix") == false && (((AST.addc)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.addc)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.addc)expr).e1).type + "\" & \"" + (((AST.addc)expr).e2).type + "\" for performing addc");
-                    ((AST.addc)expr).type = "Int";
-                }
-                ((AST.addc)expr).type = "Int";
-                break;
-            }
-
-            //expr addr expr
-            case "addr":{
-                visit_expr(((AST.addr)expr).e1);
-                if ((((AST.addr)expr).e1).type.equals("Matrix") == false){
-                    reportError(filename, ((AST.addr)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.addr)expr).e1).type + "\" & \"" + (((AST.addr)expr).e2).type + "\" for performing addr");
-                    ((AST.addr)expr).type = "Int";
-                } 
-                visit_expr(((AST.addr)expr).e2);
-                if ((((AST.addr)expr).e2).type.equals("Matrix") == false && (((AST.addr)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.addr)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.addr)expr).e1).type + "\" & \"" + (((AST.addr)expr).e2).type + "\" for performing addr");
-                    ((AST.addr)expr).type = "Int";
-                }
-                ((AST.addr)expr).type = "Int";
-                break;
-            }
-
-             //expr delc expr
-             case "delc":{
-                visit_expr(((AST.delc)expr).e1);
-                if ((((AST.delc)expr).e1).type.equals("Matrix") == false){
-                    reportError(filename, ((AST.delc)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.delc)expr).e1).type + "\" & \"" + (((AST.delc)expr).e2).type + "\" for performing delc");
-                    ((AST.delc)expr).type = "Int";
-                } 
-                visit_expr(((AST.delc)expr).e2);
-                if ((((AST.delc)expr).e2).type.equals("Matrix") == false && (((AST.delc)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.delc)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.delc)expr).e1).type + "\" & \"" + (((AST.delc)expr).e2).type + "\" for performing delc");
-                    ((AST.delc)expr).type = "Int";
-                }
-                ((AST.delc)expr).type = "Int";
-                break;
-            }
-
-            //expr delr expr
-            case "delr":{
-                visit_expr(((AST.delr)expr).e1);
-                if ((((AST.delr)expr).e1).type.equals("Matrix") == false){
-                    reportError(filename, ((AST.delr)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.delr)expr).e1).type + "\" & \"" + (((AST.delr)expr).e2).type + "\" for performing delr");
-                    ((AST.delr)expr).type = "Int";
-                } 
-                visit_expr(((AST.delr)expr).e2);
-                if ((((AST.delr)expr).e2).type.equals("Matrix") == false && (((AST.delr)expr).e2).type.equals("") == false) {
-                    reportError(filename, ((AST.delr)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.delr)expr).e1).type + "\" & \"" + (((AST.delr)expr).e2).type + "\" for performing delr");
-                    ((AST.delr)expr).type = "Int";
-                }
-                ((AST.delr)expr).type = "Int";
-                break;
-            }
-
-             //while expr loop expr
+            //while expr loop expr pool
             case "loop":{
-                visit_expr(((AST.loop)expr).predicate);
-                visit_expr(((AST.loop)expr).body);
-                if ((((AST.loop)expr).predicate).type.equals("Bool") == true) {
-                    ((AST.loop)expr).type = "Object";
+                visit_expr(((DroolParser.loop)expr).predicate);
+                visit_expr(((DroolParser.loop)expr).body);
+                if ((((DroolParser.loop)expr).predicate).type.equals("Bool") == true) {
+                    ((DroolParser.loop)expr).type = "Object";
                     break;
                 }
-                ((AST.loop)expr).type = "Object";
-                reportError(filename, (((AST.loop)expr).predicate).lineNo, "Type encountered for loop conditional is \"" + (((AST.loop)expr).predicate).type + "\". Expected \"Bool\"");
+                ((DroolParser.loop)expr).type = "Object";
+                reportError(filename, (((DroolParser.loop)expr).predicate).lineNo, "Type encountered for loop conditional is \"" + (((DroolParser.loop)expr).predicate).type + "\". Expected \"Bool\"");
                 break;
             }
-
-           // for exp exp exp loop exp
-            case "forloop":{
-                visit_expr(((AST.loop)expr).init);
-                visit_expr(((AST.loop)expr).predicate);
-                visit_expr(((AST.loop)expr).update);
-                visit_expr(((AST.loop)expr).body);
-                if ((((AST.loop)expr).predicate).type.equals("Bool") == true) {
-                    ((AST.loop)expr).type = "Object";
-                    break;
-                }
-                ((AST.loop)expr).type = "Object";
-                reportError(filename, (((AST.loop)expr).predicate).lineNo, "Type encountered for loop conditional is \"" + (((AST.loop)expr).predicate).type + "\". Expected \"Bool\"");
+            //isvoid expr
+            case "isvoid":{
+                ((DroolParser.isvoid)expr).type = "Bool";
                 break;
             }
-
-
-
-            
-            //compund statement {expr;+}
+            //{expr;+}
             case "block":{
-                for (AST.expression c_expr : ((AST.block)expr).l1) {
+                for (DroolParser.expression c_expr : ((DroolParser.block)expr).l1) {
                     visit_expr(c_expr);
                 }
-                ((AST.block)expr).type = ((AST.block)expr).l1.get(((AST.block)expr).l1.size() - 1).type;
+                ((DroolParser.block)expr).type = ((DroolParser.block)expr).l1.get(((DroolParser.block)expr).l1.size() - 1).type;
                 break;
             }
             //ID
             case "object":{
-                if (scope.lookUpGlobal(((AST.object)expr).name) != null) {
-                    ((AST.object)expr).type = scope.lookUpGlobal(((AST.object)expr).name).typeid;
+                if (scope.lookUpGlobal(((DroolParser.object)expr).name) != null) {
+                    ((DroolParser.object)expr).type = scope.lookUpGlobal(((DroolParser.object)expr).name).typeid;
                     break;
                 }
-                reportError(filename, ((AST.object)expr).lineNo, "Identifier \"" + ((AST.object)expr).name + "\" being used without being declared in the current scope.");
-                ((AST.object)expr).type = "Object";
+                reportError(filename, ((DroolParser.object)expr).lineNo, "Identifier \"" + ((DroolParser.object)expr).name + "\" being used without being declared in the current scope.");
+                ((DroolParser.object)expr).type = "Object";
                 break;
             }
-            
-            //case expr of (ID:TYPE => expr)+ 
+            //let ID:TYPE <- expr* in expr
+            case "let":{
+                visit_expr((DroolParser.let)expr);
+                break;
+            }
+            //case expr of (ID:TYPE => expr)+ esac
             case "typcase":{
-                visit_expr((AST.typcase)expr);
+                visit_expr((DroolParser.typcase)expr);
                 break;
             }
-
             //class.method
             case "dispatch":{
-                visit_expr((AST.dispatch)expr);
+                visit_expr((DroolParser.dispatch)expr);
                 break;
             }
-
             //class@class.method
             case "static_dispatch":{
-                visit_expr((AST.static_dispatch)expr);
+                visit_expr((DroolParser.static_dispatch)expr);
                 break;
             }
-
             //Null expr non assignable only for internal workings 
             case "no_expr":{
-                ((AST.no_expr)expr).type = "No_type";
+                ((DroolParser.no_expr)expr).type = "No_type";
                 break;
             }
         }
         //If condition to test whether the expr was new_.
-        if (expr.getClass() == AST.new_.class) {
-            if (classList.containsKey(((AST.new_)expr).typeid) == false) {
-                reportError(filename, ((AST.new_)expr).lineNo, "Class type \"" + ((AST.new_)expr).typeid + "\" being used without being defined");
-                ((AST.new_)expr).type = "Object";
+        if (expr.getClass() == DroolParser.new_.class) {
+            if (classList.containsKey(((DroolParser.new_)expr).typeid) == false) {
+                reportError(filename, ((DroolParser.new_)expr).lineNo, "Class type \"" + ((DroolParser.new_)expr).typeid + "\" being used without being defined");
+                ((DroolParser.new_)expr).type = "Object";
             } else {
-                ((AST.new_)expr).type = ((AST.new_)expr).typeid;
+                ((DroolParser.new_)expr).type = ((DroolParser.new_)expr).typeid;
             }
         }
     }
 
-    
+    // Let expressions
+    private void visit_expr(DroolParser.let l) {
+        scope.enterScope();
+        if (classList.containsKey(l.typeid) == false) { //Class for let body is undefined
+            reportError(filename, l.lineNo, "Let has undefined class for In");
+        }
+
+        if (l.value.getClass()==DroolParser.no_expr.class) {    //Trivial case. No body
+            switch(l.typeid){
+                case "String": {
+                    l.value = new DroolParser.string_const("", l.lineNo);
+                    break;
+                }
+                case "Int": {
+                    l.value = new DroolParser.int_const(0, l.lineNo);
+                    break;
+                }
+                case "Bool": {
+                    l.value = new DroolParser.bool_const(false, l.lineNo);
+                    break;
+                }
+            }
+        } else {
+            visit_expr(l.value);
+            if (conform(l.value.type, l.typeid) == false) {
+                reportError(filename, l.lineNo, "Types \"" + l.value.type + "\" & \"" + l.typeid + "\" encountered do not conform. ");
+            }
+        }
+
+        scope.insert(l.name, new DroolParser.classListContext.memberDeclarator(l.name, l.typeid, l.value, l.lineNo));
+        visit_expr(l.body);                         //There is a body. Explore it.
+        l.type = l.body.type;
+        scope.exitScope();
+    }
     //switch and dcase statements
-    private void visit_expr(AST.typcase cases) {
+    private void visit_expr(DroolParser.typcase cases) {
         visit_expr(cases.predicate);
-        for (AST.branch single_branch : cases.branches) {
+        for (DroolParser.branch single_branch : cases.branches) {
             scope.enterScope();
             String in_type = new String("Object");
             if (classList.containsKey(single_branch.type) == true) {
                 in_type = single_branch.type;
-                scope.insert(single_branch.name, new AST.attr(single_branch.name, in_type, single_branch.value, single_branch.lineNo));
+                scope.insert(single_branch.name, new DroolParser.classListContext.memberDeclarator(single_branch.name, in_type, single_branch.value, single_branch.lineNo));
                 visit_expr(single_branch.value);
                 scope.exitScope();
                 continue;
             }
             reportError(filename, single_branch.lineNo, "Class \"" + single_branch.type + "\" being used without being defined.");
-            scope.insert(single_branch.name, new AST.attr(single_branch.name, in_type, single_branch.value, single_branch.lineNo));
+            scope.insert(single_branch.name, new DroolParser.classListContext.memberDeclarator(single_branch.name, in_type, single_branch.value, single_branch.lineNo));
             visit_expr(single_branch.value);
             scope.exitScope();            
         }
@@ -1572,9 +1388,8 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             cases.type = ((i!=0)?lca(type, cases.branches.get(i).value.type):cases.branches.get(i).value.type);
         }
     }
-
-    //dispatch for function calls
-    private void visit_expr(AST.dispatch disp) {
+    //dispatch
+    private void visit_expr(DroolParser.dispatch disp) {
         visit_expr(disp.caller);
         for (int i = 0; i < disp.actuals.size(); i++) {
             visit_expr(disp.actuals.get(i));
@@ -1602,9 +1417,8 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
         reportError(filename, disp.caller.lineNo, "Class \"" + disp.caller.type + "\" was not declared");
         disp.type = "Object";
     }
-    
     //static dispatch
-    private void visit_expr(AST.static_dispatch static_disp) {
+    private void visit_expr(DroolParser.static_dispatch static_disp) {
         visit_expr(static_disp.caller);
         for (int i = 0; i < static_disp.actuals.size(); i++) {
             visit_expr(static_disp.actuals.get(i));
