@@ -1,0 +1,8 @@
+int main()
+{
+    Matrix m1[2][3] = {{1,2,3},{4,5,6}};
+    output(det(m1));
+    output(inv(m1));
+    output(trans(m1));
+    m1 delr;   
+} 

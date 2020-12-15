@@ -1,0 +1,12 @@
+int main()
+{
+// Vetices 
+Vertex v1 = "v1", v2 = "v2", v3 = "v3";
+
+Graph G;
+// Inserting Vertices into Graph G
+G << v1 << v2 << v3;
+
+// Inserting edges into graph G
+G << (v1, v2, 2)<<(v1, v3);
+}
