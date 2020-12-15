@@ -417,6 +417,7 @@ public class AST{
 		}
 	}
 
+	//=
 	public static class assign extends expression{
 		public expression name;
 		public expression e1;
@@ -429,7 +430,7 @@ public class AST{
 			return space+"#"+lineNo+"\n"+space+"_assign\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
 		}
 	}
-
+	//*=
   public static class mulassign extends expression{
 		public expression name;
 		public expression e1;
@@ -443,6 +444,7 @@ public class AST{
 		}
 	}
 
+	// /=
   public static class divassign extends expression{
 		public expression name;
 		public expression e1;
@@ -456,7 +458,8 @@ public class AST{
 		}
 	}
 
-  public static class modassign extends expression{
+	// %=
+	public static class modassign extends expression{
 		public expression name;
 		public expression e1;
 		public modassign(expression n, expression v1, int l){
@@ -469,7 +472,8 @@ public class AST{
 		}
 	}
 
-  public static class plusassign extends expression{
+  //+=
+	public static class plusassign extends expression{
 		public expression name;
 		public expression e1;
 		public plusassign(expression n, expression v1, int l){
@@ -482,7 +486,8 @@ public class AST{
 		}
 	}
 
-  public static class minusassign extends expression{
+  //-=
+	public static class minusassign extends expression{
 		public expression name;
 		public expression e1;
 		public minusassign(expression n, expression v1, int l){
@@ -495,7 +500,8 @@ public class AST{
 		}
 	}
 
-  public static class andassign extends expression{
+ // &=
+	public static class andassign extends expression{
 		public expression name;
 		public expression e1;
 		public andassign(expression n, expression v1, int l){
@@ -508,7 +514,8 @@ public class AST{
 		}
 	}
 
-  public static class xorassign extends expression{
+  //^=
+	public static class xorassign extends expression{
 		public expression name;
 		public expression e1;
 		public xorassign(expression n, expression v1, int l){
@@ -521,7 +528,8 @@ public class AST{
 		}
 	}
 
-  public static class orassign extends expression{
+  //|=
+	public static class orassign extends expression{
 		public expression name;
 		public expression e1;
 		public orassign(expression n, expression v1, int l){
@@ -534,7 +542,8 @@ public class AST{
 		}
 	}
 
-  public static class pull extends expression{
+  // >>
+	public static class pull extends expression{
 		public expression name;
 		public expression e1;
 		public pull(expression n, expression v1, int l){
@@ -547,7 +556,8 @@ public class AST{
 		}
 	}
 
-  public static class push extends expression{
+  //<<
+	public static class push extends expression{
 		public expression name;
 		public expression e1;
 		public push(expression n, expression v1, int l){
@@ -560,32 +570,38 @@ public class AST{
 		}
 	}
 
-  public static class dot extends expression{
+	// hashtag #
+	public static class hashtag extends expression{
 		public expression name;
 		public expression e1;
-		public dot(expression n, expression v1, int l){
+		public hashtag(expression name,expression v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
 		}
 		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_dot\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
+			return space+"#"+lineNo+"\n"+space+"_pull\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
 		}
 	}
 
-  public static class arrow extends expression{
+	// qmark ?
+	public static class qmark extends expression{
 		public expression name;
 		public expression e1;
-		public arrow(expression n, expression v1, int l){
+		public qmark(expression name,expression v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
 		}
 		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_arrow\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
+			return space+"#"+lineNo+"\n"+space+"_pull\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
 		}
 	}
 
+
+  
+  
+ // add row
   public static class addr extends expression{
 		public expression name;
 		public expression e1;
@@ -599,6 +615,7 @@ public class AST{
 		}
 	}
 
+	//add coloumn
   public static class addc extends expression{
 		public expression name;
 		public expression e1;
@@ -612,7 +629,8 @@ public class AST{
 		}
 	}
 
-  public static class delr extends expression{
+  //delete row
+	public static class delr extends expression{
 		public expression e1;
 		public delr(expression v1, int l){
 			e1 = v1;
@@ -623,7 +641,8 @@ public class AST{
 		}
 	}
 
-   public static class delc extends expression{
+	//delete column
+	public static class delc extends expression{
 		public expression e1;
 		public delc(expression v1, int l){
 			e1 = v1;
@@ -634,18 +653,6 @@ public class AST{
 		}
 	}
 
-  public static class matrixop extends expression{
-		public expression e1;
-    public expression e2;
-		public delc(expression v1,expression v2 int l){
-			e1 = v1;
-      e2 = v2;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_delc\n"+space+sp+name+"\n"+e1.getString(space+sp)+"\n"+space+": "+type;
-		}
-	}
 
   //compund statement
   public static class block extends expression{
@@ -686,8 +693,8 @@ public class AST{
 		public expression body;
 		public loop(expression v1, expression v2,expression v3, expression v4 int l){
 			init = v1;
-      predicate = v2;
-      update = v3;
+      		predicate = v2;
+           update = v3;
 			body = v4;
 			lineNo = l;
 		}

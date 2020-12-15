@@ -82,11 +82,7 @@ public class Semantic {
             reportError(filename, 1, "Program does not contain class 'Main'");
         } 
 	
-	//Check is there a main method in Main class
-        else if (classList.get("Main").methods.containsKey("main") == false ) {    
-            reportError(filename, 1, "'Main' class does not contain 'main' method");
-        }
-    }
+
 
     //function for incorporating built-in data types
     private void addBuiltInClasses() {
@@ -734,12 +730,14 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
                 e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("String");
                 e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Bool");
                 e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Vertex");
+                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Matrix");
                 e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Edge");
 
                 Boolean e2_Ok =  (((AST.eq)expr).e2).type.equals("Int");
                 e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("String");
                 e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Bool");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("vertex");
+                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Vertex");
+                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Matrix");
                 e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Edge");
                 
                 ((AST.eq)expr).type = "Bool";
@@ -765,12 +763,14 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
                 e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Bool");
                 e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Vertex");
                 e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Edge");
+                e1_Ok = e1_Ok || (((AST.neq)expr).e1).type.equals("Matrix");
+
 
                 Boolean e2_Ok =  (((AST.neq)expr).e2).type.equals("Int");
                 e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("String");
                 e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("Bool");
                 e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("vertex");
-                e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("Edge");
+                e2_Ok = e2_Ok || (((AST.neq)expr).e2).type.equals("Matrix");
                 
                 ((AST.neq)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
@@ -805,9 +805,15 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
                 Boolean e1_Ok =  (((AST.assign)expr).e1).type.equals("Int");
                 e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("Float");
+                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("String");
+                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("Graph");
+                e1_Ok = e1_Ok || (((AST.assign)expr).e1).type.equals("Matrix");
 
                 Boolean e2_Ok =  (((AST.assign)expr).e2).type.equals("Int");
                 e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("Float");
+                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("String");
+                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("Graph");
+                e2_Ok = e2_Ok || (((AST.assign)expr).e2).type.equals("Matrix");
 
 
                 ((AST.assign)expr).type = "Bool";
@@ -842,9 +848,15 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
                 Boolean e1_Ok =  (((AST.plusassign)expr).e1).type.equals("Int");
                 e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("Float");
+                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("String");
+                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("Graph");
+                e1_Ok = e1_Ok || (((AST.plusassign)expr).e1).type.equals("Matrix");
 
                 Boolean e2_Ok =  (((AST.plusassign)expr).e2).type.equals("Int");
                 e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("Float");
+                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("String");
+                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("Graph");
+                e2_Ok = e2_Ok || (((AST.plusassign)expr).e2).type.equals("Matrix");
 
 
                 ((AST.plusassign)expr).type = "Bool";
@@ -878,10 +890,13 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
                 Boolean e1_Ok =  (((AST.minusassign)expr).e1).type.equals("Int");
                 e1_Ok = e1_Ok || (((AST.minusassign)expr).e1).type.equals("Float");
+                e1_Ok = e1_Ok || (((AST.minusassign)expr).e1).type.equals("Matrix");
+                e1_Ok = e1_Ok || (((AST.minusassign)expr).e1).type.equals("Graph");
 
                 Boolean e2_Ok =  (((AST.minusassign)expr).e2).type.equals("Int");
                 e2_Ok = e2_Ok || (((AST.minusassign)expr).e2).type.equals("Float");
-
+                e2_Ok = e2_Ok || (((AST.minusassign)expr).e2).type.equals("Matrix");
+                e2_Ok = e2_Ok || (((AST.minusassign)expr).e2).type.equals("Graph");
 
                 ((AST.minusassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
@@ -995,7 +1010,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
              ((AST.modassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
                     if ((((AST.modassign)expr).e1).type.equals((((AST.modassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.modassign)expr).e1).type + "\", \"" + (((AST.modassign)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.modassign)expr).e1).type + "\", \"" + (((AST.modassign)expr).e2).type + "\"encountered for modassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1004,34 +1019,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr |= expr
             case "orassign":{
-                visit_expr(((AST.assign)expr).e1);
-                visit_expr(((AST.assign)expr).e2);
+                visit_expr(((AST.orassign)expr).e1);
+                visit_expr(((AST.orassign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.assign)expr).name) == null) {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.assign)expr).type = "Object";
+                if (scope.lookUpGlobal(((AST.orassign)expr).name) == null) {
+                    reportError(filename, ((AST.orassign)expr).lineNo, "Variable being used without being declared");
+                    ((AST.orassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.assign)expr).e1).type, scope.lookUpGlobal(((AST.assign)expr).name).typeid) == true) {
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                if (conform((((AST.orassign)expr).e1).type, scope.lookUpGlobal(((AST.orassign)expr).name).typeid) == true) {
+                    ((AST.orassign)expr).type = ((AST.orassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Types \"" + (((AST.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.assign)expr).name).typeid + "\" do not conform.");
-                    ((AST.assign)expr).type = "Object";
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                    reportError(filename, ((AST.orassign)expr).lineNo, "Types \"" + (((AST.orassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.orassign)expr).name).typeid + "\" do not conform.");
+                    ((AST.orassign)expr).type = "Object";
+                    ((AST.orassign)expr).type = ((AST.orassign)expr).e1.type;
                 }
-                ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                ((AST.orassign)expr).type = ((AST.orassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((AST.orassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((AST.orassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((AST.orassign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((AST.orassign)expr).e2).type.equals("Float");
 
 
-                ((AST.eq)expr).type = "Bool";
+                ((AST.orassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.eq)expr).e1).type.equals((((AST.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.eq)expr).e1).type + "\", \"" + (((AST.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+                    if ((((AST.orassign)expr).e1).type.equals((((AST.orassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.orassign)expr).e1).type + "\", \"" + (((AST.orassign)expr).e2).type + "\"encountered for orassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1040,34 +1055,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr &= expr
             case "andassign":{
-                visit_expr(((AST.assign)expr).e1);
-                visit_expr(((AST.assign)expr).e2);
+                visit_expr(((AST.andassign)expr).e1);
+                visit_expr(((AST.andassign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.assign)expr).name) == null) {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.assign)expr).type = "Object";
+                if (scope.lookUpGlobal(((AST.andassign)expr).name) == null) {
+                    reportError(filename, ((AST.andassign)expr).lineNo, "Variable being used without being declared");
+                    ((AST.andassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.assign)expr).e1).type, scope.lookUpGlobal(((AST.assign)expr).name).typeid) == true) {
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                if (conform((((AST.andassign)expr).e1).type, scope.lookUpGlobal(((AST.andassign)expr).name).typeid) == true) {
+                    ((AST.andassign)expr).type = ((AST.andassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Types \"" + (((AST.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.assign)expr).name).typeid + "\" do not conform.");
-                    ((AST.assign)expr).type = "Object";
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                    reportError(filename, ((AST.andassign)expr).lineNo, "Types \"" + (((AST.andassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.andassign)expr).name).typeid + "\" do not conform.");
+                    ((AST.andassign)expr).type = "Object";
+                    ((AST.andassign)expr).type = ((AST.andassign)expr).e1.type;
                 }
-                ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                ((AST.andassign)expr).type = ((AST.andassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((AST.andassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((AST.andassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((AST.andassign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((AST.andassign)expr).e2).type.equals("Float");
 
 
-                ((AST.eq)expr).type = "Bool";
+                ((AST.andassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.eq)expr).e1).type.equals((((AST.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.eq)expr).e1).type + "\", \"" + (((AST.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+                    if ((((AST.andassign)expr).e1).type.equals((((AST.andassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.andassign)expr).e1).type + "\", \"" + (((AST.andassign)expr).e2).type + "\"encountered for andassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1076,34 +1091,34 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
 
             //expr ^= expr
             case "xorassign":{
-                visit_expr(((AST.assign)expr).e1);
-                visit_expr(((AST.assign)expr).e2);
+                visit_expr(((AST.xorassign)expr).e1);
+                visit_expr(((AST.xorassign)expr).e2);
 
-                if (scope.lookUpGlobal(((AST.assign)expr).name) == null) {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Variable being used without being declared");
-                    ((AST.assign)expr).type = "Object";
+                if (scope.lookUpGlobal(((AST.xorassign)expr).name) == null) {
+                    reportError(filename, ((AST.xorassign)expr).lineNo, "Variable being used without being declared");
+                    ((AST.xorassign)expr).type = "Object";
                     break;
                 } 
-                if (conform((((AST.assign)expr).e1).type, scope.lookUpGlobal(((AST.assign)expr).name).typeid) == true) {
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                if (conform((((AST.xorassign)expr).e1).type, scope.lookUpGlobal(((AST.xorassign)expr).name).typeid) == true) {
+                    ((AST.xorassign)expr).type = ((AST.xorassign)expr).e1.type;
                 } else {
-                    reportError(filename, ((AST.assign)expr).lineNo, "Types \"" + (((AST.assign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.assign)expr).name).typeid + "\" do not conform.");
-                    ((AST.assign)expr).type = "Object";
-                    ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                    reportError(filename, ((AST.xorassign)expr).lineNo, "Types \"" + (((AST.xorassign)expr).e1).type + "\", \"" + scope.lookUpGlobal(((AST.xorassign)expr).name).typeid + "\" do not conform.");
+                    ((AST.xorassign)expr).type = "Object";
+                    ((AST.xorassign)expr).type = ((AST.xorassign)expr).e1.type;
                 }
-                ((AST.assign)expr).type = ((AST.assign)expr).e1.type;
+                ((AST.xorassign)expr).type = ((AST.xorassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((AST.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((AST.eq)expr).e1).type.equals("Float");
+                Boolean e1_Ok =  (((AST.xorassign)expr).e1).type.equals("Int");
+                e1_Ok = e1_Ok || (((AST.xorassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((AST.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((AST.eq)expr).e2).type.equals("Float");
+                Boolean e2_Ok =  (((AST.xorassign)expr).e2).type.equals("Int");
+                e2_Ok = e2_Ok || (((AST.xorassign)expr).e2).type.equals("Float");
 
 
-                ((AST.eq)expr).type = "Bool";
+                ((AST.xorassign)expr).type = "Bool";
                 if ((e1_Ok || e2_Ok)) {
-                    if ((((AST.eq)expr).e1).type.equals((((AST.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.eq)expr).e1).type + "\", \"" + (((AST.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+                    if ((((AST.xorassign)expr).e1).type.equals((((AST.xorassign)expr).e1).type) == false) {
+                        reportError(filename, the_equality.lineNo, "Types \"" + (((AST.xorassign)expr).e1).type + "\", \"" + (((AST.xorassign)expr).e2).type + "\"encountered for xorassign testing. Expected \"Int\"");
                         break;
                     }
                 }
@@ -1145,30 +1160,30 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             case "geq": {
                 visit_expr(((AST.geq)expr).e1);
                 if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
-                    ((AST.leq)expr).type = "Bool";
-                    reportError(filename, ((AST.geq)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.leq)expr).e1).type + "\" & \"" + (((AST.leq)expr).e2).type + "\" for less than or equal to operator");
+                    ((AST.geq)expr).type = "Bool";
+                    reportError(filename, ((AST.geq)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.geq)expr).e1).type + "\" & \"" + (((AST.geq)expr).e2).type + "\" for greater than or equal to operator");
                 }
-                visit_expr(((AST.leq)expr).e2);
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.leq)expr).type = "Bool";
-                    reportError(filename, ((AST.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.leq)expr).e1).type + "\" & \"" + (((AST.leq)expr).e2).type + "\" for less than or equal to operator");
+                visit_expr(((AST.geq)expr).e2);
+                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
+                    ((AST.geq)expr).type = "Bool";
+                    reportError(filename, ((AST.geq)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.geq)expr).e1).type + "\" & \"" + (((AST.geq)expr).e2).type + "\" for greater than or equal to operator");
                 }
-                ((AST.leq)expr).type = "Bool";
+                ((AST.geq)expr).type = "Bool";
                 break;
             }
             //expr > expr
             case "gt":{
-                visit_expr(((AST.lt)expr).e1);
-                visit_expr(((AST.lt)expr).e2);
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.lt)expr).type = "Bool";
-                    reportError(filename, ((AST.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.lt)expr).e1).type + "\" & \"" + (((AST.lt)expr).e2).type + "\" for less than operator");
+                visit_expr(((AST.gt)expr).e1);
+                visit_expr(((AST.gt)expr).e2);
+                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
+                    ((AST.gt)expr).type = "Bool";
+                    reportError(filename, ((AST.gt)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.gt)expr).e1).type + "\" & \"" + (((AST.gt)expr).e2).type + "\" for greator than operator");
                 }
-                if ((((AST.leq)expr).e1).type.equals("Int") == false && (((AST.leq)expr).e1).type.equals("Float") == false){
-                    ((AST.lt)expr).type = "Bool";
-                    reportError(filename, ((AST.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.lt)expr).e1).type + "\" & \"" + (((AST.lt)expr).e2).type + "\" for less than operator");
+                if ((((AST.geq)expr).e1).type.equals("Int") == false && (((AST.geq)expr).e1).type.equals("Float") == false){
+                    ((AST.gt)expr).type = "Bool";
+                    reportError(filename, ((AST.gt)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.gt)expr).e1).type + "\" & \"" + (((AST.gt)expr).e2).type + "\" for greator than operator");
                 }
-                ((AST.lt)expr).type = "Bool";
+                ((AST.gt)expr).type = "Bool";
                 break;
             }
             
@@ -1204,12 +1219,12 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             //expr*expr
             case "mul":{
                 visit_expr(((AST.mul)expr).e1);
-                if ((((AST.mul)expr).e1).type.equals("Int") == false){
+                if ((((AST.mul)expr).e1).type.equals("Int") == false || (((AST.mul)expr).e1).type.equals("Float") == false || (((AST.mul)expr).e1).type.equals("Graph") == false|| (((AST.mul)expr).e1).type.equals("Matrix") == false){
                     ((AST.mul)expr).type = "Int";
                     reportError(filename, ((AST.mul)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.mul)expr).e1).type + "\" & \"" + (((AST.mul)expr).e2).type + "\" for performing multiplication");    
                 }
-                visit_expr(((AST.mul)expr).e2);
-                if ((((AST.mul)expr).e2).type.equals("Int") == false) {
+                if ((((AST.mul)expr).e1).type.equals("Int") == false || (((AST.mul)expr).e1).type.equals("Float") == false || (((AST.mul)expr).e1).type.equals("Graph") == false|| (((AST.mul)expr).e1).type.equals("Matrix") == false){
+            
                     ((AST.mul)expr).type = "Int";
                     reportError(filename, ((AST.mul)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.mul)expr).e1).type + "\" & \"" + (((AST.mul)expr).e2).type + "\" for performing multiplication");
                 }
@@ -1220,11 +1235,13 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             case "plus":{
                 visit_expr(((AST.plus)expr).e1);
                 visit_expr(((AST.plus)expr).e2);
-                if ((((AST.plus)expr).e1).type.equals("Int") == false){
+                if ((((AST.plus)expr).e1).type.equals("Int") == false || (((AST.plus)expr).e1).type.equals("Float") == false || (((AST.plus)expr).e1).type.equals("Graph") == false|| (((AST.plus)expr).e1).type.equals("Matrix") == false){
+
                     ((AST.plus)expr).type = "Int";
                     reportError(filename, ((AST.plus)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.plus)expr).e1).type + "\" & \"" + (((AST.plus)expr).e2).type + "\" for performing addition");
                 }
-                if ((((AST.plus)expr).e2).type.equals("Int") == false) {
+                if ((((AST.plus)expr).e1).type.equals("Int") == false || (((AST.plus)expr).e1).type.equals("Float") == false || (((AST.plus)expr).e1).type.equals("Graph") == false|| (((AST.plus)expr).e1).type.equals("Matrix") == false){
+
                     ((AST.plus)expr).type = "Int";
                     reportError(filename, ((AST.plus)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.plus)expr).e1).type + "\" & \"" + (((AST.plus)expr).e2).type + "\" for performing addition");
                 }
@@ -1234,12 +1251,14 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             //expr-expr
             case "sub":{
                 visit_expr(((AST.sub)expr).e1);
-                if ((((AST.sub)expr).e1).type.equals("Int") == false){
+                if ((((AST.sub)expr).e1).type.equals("Int") == false || (((AST.sub)expr).e1).type.equals("Float") == false || (((AST.sub)expr).e1).type.equals("Graph") == false|| (((AST.sub)expr).e1).type.equals("Matrix") == false){
+
                     reportError(filename, ((AST.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.sub)expr).e1).type + "\" & \"" + (((AST.sub)expr).e2).type + "\" for performing subtraction");
                     ((AST.sub)expr).type = "Int";
                 } 
                 visit_expr(((AST.sub)expr).e2);
-                if ((((AST.sub)expr).e2).type.equals("Int") == false) {
+                if ((((AST.sub)expr).e1).type.equals("Int") == false || (((AST.sub)expr).e1).type.equals("Float") == false || (((AST.sub)expr).e1).type.equals("Graph") == false|| (((AST.sub)expr).e1).type.equals("Matrix") == false){
+
                     reportError(filename, ((AST.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.sub)expr).e1).type + "\" & \"" + (((AST.sub)expr).e2).type + "\" for performing subtraction");
                     ((AST.sub)expr).type = "Int";
                 }
@@ -1248,20 +1267,197 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             }
             //expr%expr
             case "mod":{
-                visit_expr(((AST.sub)expr).e1);
-                if ((((AST.sub)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((AST.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.sub)expr).e1).type + "\" & \"" + (((AST.sub)expr).e2).type + "\" for performing subtraction");
-                    ((AST.sub)expr).type = "Int";
+                visit_expr(((AST.mod)expr).e1);
+                if ((((AST.mod)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((AST.mod)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.mod)expr).e1).type + "\" & \"" + (((AST.mod)expr).e2).type + "\" for performing mod");
+                    ((AST.mod)expr).type = "Int";
                 } 
-                visit_expr(((AST.sub)expr).e2);
-                if ((((AST.sub)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((AST.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.sub)expr).e1).type + "\" & \"" + (((AST.sub)expr).e2).type + "\" for performing subtraction");
-                    ((AST.sub)expr).type = "Int";
+                visit_expr(((AST.mod)expr).e2);
+                if ((((AST.mod)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((AST.mod)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.mod)expr).e1).type + "\" & \"" + (((AST.mod)expr).e2).type + "\" for performing mod");
+                    ((AST.mod)expr).type = "Int";
                 }
-                ((AST.sub)expr).type = "Int";
+                ((AST.mod)expr).type = "Int";
                 break;
             }
-            //while expr loop expr pool
+
+            //expr|expr
+            case "bin_or":{
+                visit_expr(((AST.bin_or)expr).e1);
+                if ((((AST.bin_or)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((AST.bin_or)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.bin_or)expr).e1).type + "\" & \"" + (((AST.bin_or)expr).e2).type + "\" for performing bin_or");
+                    ((AST.bin_or)expr).type = "Int";
+                } 
+                visit_expr(((AST.bin_or)expr).e2);
+                if ((((AST.bin_or)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((AST.bin_or)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.bin_or)expr).e1).type + "\" & \"" + (((AST.bin_or)expr).e2).type + "\" for performing bin_or");
+                    ((AST.bin_or)expr).type = "Int";
+                }
+                ((AST.bin_or)expr).type = "Int";
+                break;
+            }
+
+            //expr&expr
+            case "bin_and":{
+                visit_expr(((AST.bin_and)expr).e1);
+                if ((((AST.bin_and)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((AST.bin_and)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.bin_and)expr).e1).type + "\" & \"" + (((AST.bin_and)expr).e2).type + "\" for performing bin_and");
+                    ((AST.bin_and)expr).type = "Int";
+                } 
+                visit_expr(((AST.bin_and)expr).e2);
+                if ((((AST.bin_and)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((AST.bin_and)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.bin_and)expr).e1).type + "\" & \"" + (((AST.bin_and)expr).e2).type + "\" for performing bin_and");
+                    ((AST.bin_and)expr).type = "Int";
+                }
+                ((AST.bin_and)expr).type = "Int";
+                break;
+            }
+
+            //expr^expr
+            case "bin_xor":{
+                visit_expr(((AST.bin_xor)expr).e1);
+                if ((((AST.bin_xor)expr).e1).type.equals("Int") == false){
+                    reportError(filename, ((AST.bin_xor)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.bin_xor)expr).e1).type + "\" & \"" + (((AST.bin_xor)expr).e2).type + "\" for performing bin_xor");
+                    ((AST.bin_xor)expr).type = "Int";
+                } 
+                visit_expr(((AST.bin_xor)expr).e2);
+                if ((((AST.bin_xor)expr).e2).type.equals("Int") == false) {
+                    reportError(filename, ((AST.bin_xor)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.bin_xor)expr).e1).type + "\" & \"" + (((AST.bin_xor)expr).e2).type + "\" for performing bin_xor");
+                    ((AST.bin_xor)expr).type = "Int";
+                }
+                ((AST.bin_xor)expr).type = "Int";
+                break;
+            }
+
+            //expr>>expr
+            case "pull":{
+                visit_expr(((AST.pull)expr).e1);
+                if ((((AST.pull)expr).e1).type.equals("Graph") == false){
+                    reportError(filename, ((AST.pull)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.pull)expr).e1).type + "\" & \"" + (((AST.pull)expr).e2).type + "\" for performing pull");
+                    ((AST.pull)expr).type = "Int";
+                } 
+                visit_expr(((AST.pull)expr).e2);
+                if ((((AST.pull)expr).e2).type.equals("Vertex") == false && (((AST.pull)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.pull)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.pull)expr).e1).type + "\" & \"" + (((AST.pull)expr).e2).type + "\" for performing pull");
+                    ((AST.pull)expr).type = "Int";
+                }
+                ((AST.pull)expr).type = "Int";
+                break;
+            }
+
+            //expr<<expr
+            case "push":{
+                visit_expr(((AST.push)expr).e1);
+                if ((((AST.push)expr).e1).type.equals("Graph") == false){
+                    reportError(filename, ((AST.push)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.push)expr).e1).type + "\" & \"" + (((AST.push)expr).e2).type + "\" for performing push");
+                    ((AST.push)expr).type = "Int";
+                } 
+                visit_expr(((AST.push)expr).e2);
+                if ((((AST.push)expr).e2).type.equals("Vertex") == false && (((AST.push)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.push)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.push)expr).e1).type + "\" & \"" + (((AST.push)expr).e2).type + "\" for performing push");
+                    ((AST.push)expr).type = "Int";
+                }
+                ((AST.push)expr).type = "Int";
+                break;
+            }
+
+            //expr#expr
+            case "hashtag":{
+                visit_expr(((AST.hashtag)expr).e1);
+                if ((((AST.hashtag)expr).e1).type.equals("Vertex") == false){
+                    reportError(filename, ((AST.hashtag)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.hashtag)expr).e1).type + "\" & \"" + (((AST.hashtag)expr).e2).type + "\" for performing hashtag");
+                    ((AST.hashtag)expr).type = "Int";
+                } 
+                visit_expr(((AST.hashtag)expr).e2);
+                if ((((AST.hashtag)expr).e2).type.equals("Graph") == false && (((AST.hashtag)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.hashtag)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.hashtag)expr).e1).type + "\" & \"" + (((AST.hashtag)expr).e2).type + "\" for performing hashtag");
+                    ((AST.hashtag)expr).type = "Int";
+                }
+                ((AST.hashtag)expr).type = "Int";
+                break;
+            }
+
+            //expr?expr
+            case "qmark":{
+                visit_expr(((AST.qmark)expr).e1);
+                if ((((AST.qmark)expr).e1).type.equals("Vertex") == false){
+                    reportError(filename, ((AST.qmark)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.qmark)expr).e1).type + "\" & \"" + (((AST.qmark)expr).e2).type + "\" for performing qmark");
+                    ((AST.qmark)expr).type = "Int";
+                } 
+                visit_expr(((AST.qmark)expr).e2);
+                if ((((AST.qmark)expr).e2).type.equals("Graph") == false && (((AST.qmark)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.qmark)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.qmark)expr).e1).type + "\" & \"" + (((AST.qmark)expr).e2).type + "\" for performing qmark");
+                    ((AST.qmark)expr).type = "Int";
+                }
+                ((AST.qmark)expr).type = "Int";
+                break;
+            }
+
+            //expr addc expr
+            case "addc":{
+                visit_expr(((AST.addc)expr).e1);
+                if ((((AST.addc)expr).e1).type.equals("Matrix") == false){
+                    reportError(filename, ((AST.addc)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.addc)expr).e1).type + "\" & \"" + (((AST.addc)expr).e2).type + "\" for performing addc");
+                    ((AST.addc)expr).type = "Int";
+                } 
+                visit_expr(((AST.addc)expr).e2);
+                if ((((AST.addc)expr).e2).type.equals("Matrix") == false && (((AST.addc)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.addc)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.addc)expr).e1).type + "\" & \"" + (((AST.addc)expr).e2).type + "\" for performing addc");
+                    ((AST.addc)expr).type = "Int";
+                }
+                ((AST.addc)expr).type = "Int";
+                break;
+            }
+
+            //expr addr expr
+            case "addr":{
+                visit_expr(((AST.addr)expr).e1);
+                if ((((AST.addr)expr).e1).type.equals("Matrix") == false){
+                    reportError(filename, ((AST.addr)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.addr)expr).e1).type + "\" & \"" + (((AST.addr)expr).e2).type + "\" for performing addr");
+                    ((AST.addr)expr).type = "Int";
+                } 
+                visit_expr(((AST.addr)expr).e2);
+                if ((((AST.addr)expr).e2).type.equals("Matrix") == false && (((AST.addr)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.addr)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.addr)expr).e1).type + "\" & \"" + (((AST.addr)expr).e2).type + "\" for performing addr");
+                    ((AST.addr)expr).type = "Int";
+                }
+                ((AST.addr)expr).type = "Int";
+                break;
+            }
+
+             //expr delc expr
+             case "delc":{
+                visit_expr(((AST.delc)expr).e1);
+                if ((((AST.delc)expr).e1).type.equals("Matrix") == false){
+                    reportError(filename, ((AST.delc)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.delc)expr).e1).type + "\" & \"" + (((AST.delc)expr).e2).type + "\" for performing delc");
+                    ((AST.delc)expr).type = "Int";
+                } 
+                visit_expr(((AST.delc)expr).e2);
+                if ((((AST.delc)expr).e2).type.equals("Matrix") == false && (((AST.delc)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.delc)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.delc)expr).e1).type + "\" & \"" + (((AST.delc)expr).e2).type + "\" for performing delc");
+                    ((AST.delc)expr).type = "Int";
+                }
+                ((AST.delc)expr).type = "Int";
+                break;
+            }
+
+            //expr delr expr
+            case "delr":{
+                visit_expr(((AST.delr)expr).e1);
+                if ((((AST.delr)expr).e1).type.equals("Matrix") == false){
+                    reportError(filename, ((AST.delr)expr).lineNo, "Incompatible type for operand 1 \"" + (((AST.delr)expr).e1).type + "\" & \"" + (((AST.delr)expr).e2).type + "\" for performing delr");
+                    ((AST.delr)expr).type = "Int";
+                } 
+                visit_expr(((AST.delr)expr).e2);
+                if ((((AST.delr)expr).e2).type.equals("Matrix") == false && (((AST.delr)expr).e2).type.equals("") == false) {
+                    reportError(filename, ((AST.delr)expr).lineNo, "Incompatible type for operand 2 \"" + (((AST.delr)expr).e1).type + "\" & \"" + (((AST.delr)expr).e2).type + "\" for performing delr");
+                    ((AST.delr)expr).type = "Int";
+                }
+                ((AST.delr)expr).type = "Int";
+                break;
+            }
+
+             //while expr loop expr
             case "loop":{
                 visit_expr(((AST.loop)expr).predicate);
                 visit_expr(((AST.loop)expr).body);
@@ -1273,12 +1469,26 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
                 reportError(filename, (((AST.loop)expr).predicate).lineNo, "Type encountered for loop conditional is \"" + (((AST.loop)expr).predicate).type + "\". Expected \"Bool\"");
                 break;
             }
-            //isvoid expr
-            case "isvoid":{
-                ((AST.isvoid)expr).type = "Bool";
+
+           // for exp exp exp loop exp
+            case "forloop":{
+                visit_expr(((AST.loop)expr).init);
+                visit_expr(((AST.loop)expr).predicate);
+                visit_expr(((AST.loop)expr).update);
+                visit_expr(((AST.loop)expr).body);
+                if ((((AST.loop)expr).predicate).type.equals("Bool") == true) {
+                    ((AST.loop)expr).type = "Object";
+                    break;
+                }
+                ((AST.loop)expr).type = "Object";
+                reportError(filename, (((AST.loop)expr).predicate).lineNo, "Type encountered for loop conditional is \"" + (((AST.loop)expr).predicate).type + "\". Expected \"Bool\"");
                 break;
             }
-            //{expr;+}
+
+
+
+            
+            //compund statement {expr;+}
             case "block":{
                 for (AST.expression c_expr : ((AST.block)expr).l1) {
                     visit_expr(c_expr);
@@ -1296,26 +1506,25 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
                 ((AST.object)expr).type = "Object";
                 break;
             }
-            //let ID:TYPE <- expr* in expr
-            case "let":{
-                visit_expr((AST.let)expr);
-                break;
-            }
-            //case expr of (ID:TYPE => expr)+ esac
+            
+            //case expr of (ID:TYPE => expr)+ 
             case "typcase":{
                 visit_expr((AST.typcase)expr);
                 break;
             }
+
             //class.method
             case "dispatch":{
                 visit_expr((AST.dispatch)expr);
                 break;
             }
+
             //class@class.method
             case "static_dispatch":{
                 visit_expr((AST.static_dispatch)expr);
                 break;
             }
+
             //Null expr non assignable only for internal workings 
             case "no_expr":{
                 ((AST.no_expr)expr).type = "No_type";
@@ -1333,40 +1542,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
         }
     }
 
-    // Let expressions
-    private void visit_expr(AST.let l) {
-        scope.enterScope();
-        if (classList.containsKey(l.typeid) == false) { //Class for let body is undefined
-            reportError(filename, l.lineNo, "Let has undefined class for In");
-        }
-
-        if (l.value.getClass()==AST.no_expr.class) {    //Trivial case. No body
-            switch(l.typeid){
-                case "String": {
-                    l.value = new AST.string_const("", l.lineNo);
-                    break;
-                }
-                case "Int": {
-                    l.value = new AST.int_const(0, l.lineNo);
-                    break;
-                }
-                case "Bool": {
-                    l.value = new AST.bool_const(false, l.lineNo);
-                    break;
-                }
-            }
-        } else {
-            visit_expr(l.value);
-            if (conform(l.value.type, l.typeid) == false) {
-                reportError(filename, l.lineNo, "Types \"" + l.value.type + "\" & \"" + l.typeid + "\" encountered do not conform. ");
-            }
-        }
-
-        scope.insert(l.name, new AST.attr(l.name, l.typeid, l.value, l.lineNo));
-        visit_expr(l.body);                         //There is a body. Explore it.
-        l.type = l.body.type;
-        scope.exitScope();
-    }
+    
     //switch and dcase statements
     private void visit_expr(AST.typcase cases) {
         visit_expr(cases.predicate);
@@ -1396,7 +1572,8 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
             cases.type = ((i!=0)?lca(type, cases.branches.get(i).value.type):cases.branches.get(i).value.type);
         }
     }
-    //dispatch
+
+    //dispatch for function calls
     private void visit_expr(AST.dispatch disp) {
         visit_expr(disp.caller);
         for (int i = 0; i < disp.actuals.size(); i++) {
@@ -1425,6 +1602,7 @@ private void helperAddObjectIOString(List<HashMap<String,AST.method>> basicClass
         reportError(filename, disp.caller.lineNo, "Class \"" + disp.caller.type + "\" was not declared");
         disp.type = "Object";
     }
+    
     //static dispatch
     private void visit_expr(AST.static_dispatch static_disp) {
         visit_expr(static_disp.caller);
