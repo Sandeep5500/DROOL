@@ -33,13 +33,7 @@ public class Semantic {
         Inheritance(ctx.classList()); 
     }
     public Semantic(DroolParser.programContext program) 
-
-    // Checks if is there a Main function
-        if (functionDefn.Identifier.containsKey("Main") == false) {
-            reportError(filename, 1, "Program does not contain 'Main' function");
-        } 
-
-    }
+    {    }
      //returns the number of graph in the adjacency list of the class graph 
     private int ClassNumber(HashMap<String, Array<String>> class_node,String name )
     {
@@ -131,7 +125,6 @@ public class Semantic {
                             dfsStack.add(nodeInList);
                         else
                         {       
-                            printCycle(adjacency_list, class_node, nodeInList);  // prints the detected cycle
                             isCyclic = true;
                             dfsStack.clear();
                             size  = 0;
@@ -147,44 +140,6 @@ public class Semantic {
     }
 
     
-     //   every class which is reachable from the node part of a cycle is flagged
-    //    all the nodes are printed using bfs
-    void printHelperFunc(DroolParser.class_ Node)
-    {
-        reportError(Node.filename, Node.lineNo, " Class " + Node.name + ", or an ancestor of " + Node.name + ", is involved in an inheritance cycle.");
-    }
-
-    //prints the cycle present in the adjacency list when the class_node results in a cyclic inheritance graph
-    private void printCycle(ArrayList<ArrayList<Integer>> adjacency_list, ArrayList<DroolParser.class_> class_node, Integer node) {
-
-        ArrayList<Integer> q = new ArrayList<Integer>();
-        Boolean[] visited = new Boolean[class_node.size()];
-        Arrays.fill(visited, Boolean.FALSE);
-        ArrayList<Integer> nodeList;
-        int size = 0, i = 0;
-
-        q.add(node);
-        visited[node] = true;
-        printHelperFunc(class_node.get(node));        
-        size = q.size();
-        while (size > 0) {
-            node = q.get(--size);
-            q.remove(size);
-            nodeList = adjacency_list.get(node);
-            i = 0;
-            while((nodeList!= null) && (i < nodeList.size())) {
-                int tempNode = nodeList.get(i);
-                if (visited[tempNode] == false ) {
-                    q.add(0,tempNode);
-                    size++;
-                    visited[tempNode] =  true;
-                    printHelperFunc(class_node.get(tempNode));
-                }
-                i++;
-            }
-        }
-    }
-
     // intitialising the attribuites
     private void add_default_value(DroolParser.classListContext.memberDeclarator atr) {
         switch(atr.typeid){
@@ -890,6 +845,5 @@ public class Semantic {
         //         ((DroolParser.new_)expr).type = ((DroolParser.new_)expr).typeid;
         //     }
         // }
-    
     
 }
