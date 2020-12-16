@@ -46,6 +46,17 @@ public class AST{
 			return space+"#"+lineNo+"\n"+space+"_primaryExpr\n"+space+": "+type;
 		}
 	}
+	public static class postfixExpr extends primaryExpr {
+		String type;
+		public postfixExpr(){
+			type = "_no_type";
+		}
+		String getString(String space){
+			return "";
+		};
+	}
+	
+	
 	public static class bool_const extends  primaryExpr{
 		public boolean value;
 		public bool_const(boolean v, int l){
@@ -123,19 +134,15 @@ public class AST{
 		}
 	}
 
-  //NOT !
-	// public static class neg extends  postfixExpr{
-	// 	public  primaryExpr e1;
-	// 	public neg( primaryExpr v, int l){
-	// 		e1 = v;
-	// 		lineNo = l;
-	// 	}
-	// 	String getString(String space){
-	// 		return space+"#"+lineNo+"\n"+space+"_neg\n"+e1.getString(space+sp)+"\n"+space+": "+type;
-	// 	}
-	// }
-
-  //orexp
+  	public static class unaryExpr extends postfixExpr {
+		String type;
+		public unaryExpr(){
+			type = "_no_type";
+		}
+		String getString(String space){
+			return "";
+		};
+	}
 	public static class unary_or extends  unaryExpr{
 		public  unaryExpr e1;
 		public unary_or( unaryExpr v, int l){
@@ -217,6 +224,15 @@ public class AST{
 		String getString(String space){
 			return space+"#"+lineNo+"\n"+space+"minusminus\n"+e1.getString(space+sp)+"\n"+space+": "+type;
 		}
+	}
+	public static class multiplicationExpr extends addrcExpr {
+		String type;
+		public multiplicationExpr(){
+			type = "_no_type";
+		}
+		String getString(String space){
+			return "";
+		};
 	}
 
 	public static class divide extends  multiplicationExpr{
