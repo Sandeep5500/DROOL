@@ -312,737 +312,584 @@ public class Semantic {
         classList.put(cl.name, clNode);
     }
 
-    // Visit the class
-    private void visit_class(DroolParser.class_ cl) {
-        Iterator<DroolParser.feature> cl_f_Iter = cl.features.iterator(); //Inits at -1
-        while(cl_f_Iter.hasNext()) {
-        DroolParser.feature temp = cl_f_Iter.next();
-        if (temp.getClass() == DroolParser.method.class) {
-            visit_method((DroolParser.method)temp);
-            continue;
-        }
-        if (temp.getClass() == DroolParser.classListContext.memberDeclarator.class) 
-            visit_attr((DroolParser.classListContext.memberDeclarator)temp);
-        }
-    }
-
-    // Visit methods of a certain class
-    private void visit_method(DroolParser.method cl_m) {
-                                             
-
-        Iterator<DroolParser.formal> cl_m_for_Iter = cl_m.formals.iterator();
-        
-        visit_expr(cl_m.body);
-        if (conform(cl_m.body.type, cl_m.typeid) != true)          
-            reportError(filename, cl_m.lineNo, "Types \"" + cl_m.body.type + ", " + cl_m.typeid + "\" do not conform.");
-    }
-
-    // Visit attributes of a certain class
-    private void visit_attr(DroolParser.classListContext.memberDeclarator attrib) {
-        //Visit recursively if possible
-        if ((attrib.value.getClass() == DroolParser.no_expr.class) != true) {
-            visit_expr(attrib.value);
-            if (conform(attrib.value.type, attrib.typeid) != true) {  
-                reportError(filename, attrib.lineNo, "Types \"" + attrib.value.type + "\", \"" + attrib.typeid + "\" do not conform. ");
-            }
-        }
-    }
-
+    
     
 
     //Type checking
    
-    private void visit_expr(DroolParser.expression expr) {
-        String type = expr.getClass().getSimpleName();  //get type of AST as string for case
-        switch (type){                                  //Select action based on type of expression
-            //Constants
-            case "bool_const": {
-                ((DroolParser.bool_const)expr).type = "Bool";
-                break;
-            }
 
-            case "string_const":{
-                ((DroolParser.string_const)expr).type = "String";
-                break;
-            }
+        // switch (type){                                  //Select action based on type of expression
+        //     //Constants
+        //     case "bool_const": {
+        //         ((DroolParser.bool_const)expr).type = "Bool";
+        //         break;
+        //     }
 
-            case "int_const":{
-                ((DroolParser.int_const)expr).type = "Int";
-                break;
-            }
+        //     case "string_const":{
+        //         ((DroolParser.string_const)expr).type = "String";
+        //         break;
+        //     }
 
-            case "float_const":{
-                ((DroolParser.float_const)expr).type = "Float";
-                break;
-            }
+        //     case "int_const":{
+        //         ((DroolParser.int_const)expr).type = "Int";
+        //         break;
+        //     }
 
-            case "vertex_const":{
-                ((DroolParser.vertex_const)expr).type = "Vertex";
-                break;
-            }
+        //     case "float_const":{
+        //         ((DroolParser.float_const)expr).type = "Float";
+        //         break;
+        //     }
+
+        //     case "vertex_const":{
+        //         ((DroolParser.vertex_const)expr).type = "Vertex";
+        //         break;
+        //     }
             
-            //~expr
-            case "comp":{
-                DroolParser.comp the_complement = ((DroolParser.comp)expr);
-                visit_expr(((DroolParser.comp)expr).e1);
-                if ((((DroolParser.comp)expr).e1).type.equals("Bool") == true) {
-                    ((DroolParser.comp)expr).type = "Bool";
-                    break;
-                }
-                // if the expresion expr is not of type bool: report error
-                ((DroolParser.comp)expr).type = "Bool";
-                reportError(filename, (((DroolParser.comp)expr).e1).lineNo, "Type \"" + (((DroolParser.comp)expr).e1).type + "\" encountered for complement. Expected \"Bool\"");
-                break;
-            }
+        //     //~expr
+        //     case "comp":{
+        //         DroolParser.comp the_complement = ((DroolParser.comp)expr);
+        //         visit_expr(((DroolParser.comp)expr).e1);
+        //         if ((((DroolParser.comp)expr).e1).type.equals("Bool") == true) {
+        //             ((DroolParser.comp)expr).type = "Bool";
+        //             break;
+        //         }
+        //         // if the expresion expr is not of type bool: report error
+        //         ((DroolParser.comp)expr).type = "Bool";
+        //         reportError(filename, (((DroolParser.comp)expr).e1).lineNo, "Type \"" + (((DroolParser.comp)expr).e1).type + "\" encountered for complement. Expected \"Bool\"");
+        //         break;
+        //     }
 
-            //not expr
-            case "neg":{
-                visit_expr(((DroolParser.neg)expr).e1);
-                if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
-                    ((DroolParser.neg)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.neg)expr).type = "Int";
-                reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for negation");
-                break;
-            }
+        //     //not expr
+        //     case "neg":{
+        //         visit_expr(((DroolParser.neg)expr).e1);
+        //         if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
+        //             ((DroolParser.neg)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.neg)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for negation");
+        //         break;
+        //     }
 
-            // | expr
-            case "unary_or":{
-                visit_expr(((DroolParser.unary_or)expr).e1);
-                if (((((DroolParser.unary_or)expr).e1).type.equals("Int")) == true || ((((DroolParser.unary_or)expr).e1).type.equals("Bool")) == true) {
-                    ((DroolParser.unary_or)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.unary_or)expr).type = "Int";
-                reportError(filename, ((DroolParser.unary_or)expr).lineNo, "Type \"" + (((DroolParser.unary_or)expr).e1).type + "\" encountered. Expected \"Int\" for unary or");
-                break;
-            }
+        //     // | expr
+        //     case "unary_or":{
+        //         visit_expr(((DroolParser.unary_or)expr).e1);
+        //         if (((((DroolParser.unary_or)expr).e1).type.equals("Int")) == true || ((((DroolParser.unary_or)expr).e1).type.equals("Bool")) == true) {
+        //             ((DroolParser.unary_or)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.unary_or)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.unary_or)expr).lineNo, "Type \"" + (((DroolParser.unary_or)expr).e1).type + "\" encountered. Expected \"Int\" for unary or");
+        //         break;
+        //     }
 
-             // &expr
-             case "unary_and":{
-                visit_expr(((DroolParser.unary_and)expr).e1);
-                if (((((DroolParser.unary_and)expr).e1).type.equals("Int")) == true || ((((DroolParser.unary_and)expr).e1).type.equals("Bool")) == true) {
-                    ((DroolParser.unary_and)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.unary_and)expr).type = "Int";
-                reportError(filename, ((DroolParser.unary_and)expr).lineNo, "Type \"" + (((DroolParser.unary_and)expr).e1).type + "\" encountered. Expected \"Int\" for unary and");
-                break;
-            }
+        //      // &expr
+        //      case "unary_and":{
+        //         visit_expr(((DroolParser.unary_and)expr).e1);
+        //         if (((((DroolParser.unary_and)expr).e1).type.equals("Int")) == true || ((((DroolParser.unary_and)expr).e1).type.equals("Bool")) == true) {
+        //             ((DroolParser.unary_and)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.unary_and)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.unary_and)expr).lineNo, "Type \"" + (((DroolParser.unary_and)expr).e1).type + "\" encountered. Expected \"Int\" for unary and");
+        //         break;
+        //     }
 
-             // *expr
-             case "unary_mul":{
-                visit_expr(((DroolParser.neg)expr).e1);
-                if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
-                    ((DroolParser.neg)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.neg)expr).type = "Int";
-                reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary mul");
-                break;
-            }
+        //      // *expr
+        //      case "unary_mul":{
+        //         visit_expr(((DroolParser.neg)expr).e1);
+        //         if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
+        //             ((DroolParser.neg)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.neg)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary mul");
+        //         break;
+        //     }
 
-             // +expr
-             case "unary_plus":{
-                visit_expr(((DroolParser.neg)expr).e1);
-                if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
-                    ((DroolParser.neg)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.neg)expr).type = "Int";
-                reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary plus");
-                break;
-            }
+        //      // +expr
+        //      case "unary_plus":{
+        //         visit_expr(((DroolParser.neg)expr).e1);
+        //         if (((((DroolParser.neg)expr).e1).type.equals("Int")) == true || ((((DroolParser.neg)expr).e1).type.equals("Bool")) == true) {
+        //             ((DroolParser.neg)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.neg)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.neg)expr).lineNo, "Type \"" + (((DroolParser.neg)expr).e1).type + "\" encountered. Expected \"Int\" for unary plus");
+        //         break;
+        //     }
 
-             // ++expr,expr++
-             case "plusplus":{
-                visit_expr(((DroolParser.plusplus)expr).e1);
-                if (((((DroolParser.plusplus)expr).e1).type.equals("Int")) == true) {
-                    ((DroolParser.plusplus)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.plusplus)expr).type = "Int";
-                reportError(filename, ((DroolParser.plusplus)expr).lineNo, "Type \"" + (((DroolParser.plusplus)expr).e1).type + "\" encountered. Expected \"Int\" for increment");
-                break;
-            }
+        //      // ++expr,expr++
+        //      case "plusplus":{
+        //         visit_expr(((DroolParser.plusplus)expr).e1);
+        //         if (((((DroolParser.plusplus)expr).e1).type.equals("Int")) == true) {
+        //             ((DroolParser.plusplus)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.plusplus)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.plusplus)expr).lineNo, "Type \"" + (((DroolParser.plusplus)expr).e1).type + "\" encountered. Expected \"Int\" for increment");
+        //         break;
+        //     }
 
-             // --expr,expr--
-             case "minusminus":{
-                visit_expr(((DroolParser.minusminus)expr).e1);
-                if (((((DroolParser.minusminus)expr).e1).type.equals("Int")) == true) {
-                    ((DroolParser.minusminus)expr).type = "Int";
-                    break;
-                }
-                ((DroolParser.minusminus)expr).type = "Int";
-                reportError(filename, ((DroolParser.minusminus)expr).lineNo, "Type \"" + (((DroolParser.minusminus)expr).e1).type + "\" encountered. Expected \"Int\" for decrement");
-                break;
-            }
+        //      // --expr,expr--
+        //      case "minusminus":{
+        //         visit_expr(((DroolParser.minusminus)expr).e1);
+        //         if (((((DroolParser.minusminus)expr).e1).type.equals("Int")) == true) {
+        //             ((DroolParser.minusminus)expr).type = "Int";
+        //             break;
+        //         }
+        //         ((DroolParser.minusminus)expr).type = "Int";
+        //         reportError(filename, ((DroolParser.minusminus)expr).lineNo, "Type \"" + (((DroolParser.minusminus)expr).e1).type + "\" encountered. Expected \"Int\" for decrement");
+        //         break;
+        //     }
 
-            // equal
-            //expr == expr.
-            //type of expressions should be same
-            case "eq":{
-                DroolParser.eq the_equality = (DroolParser.eq)expr;
-                visit_expr(((DroolParser.eq)expr).e1);
-                visit_expr(((DroolParser.eq)expr).e2);
+        //     // equal
+        //     //expr == expr.
+        //     //type of expressions should be same
+        //     case "eq":{
+        //         DroolParser.eq the_equality = (DroolParser.eq)expr;
+        //         visit_expr(((DroolParser.eq)expr).e1);
+        //         visit_expr(((DroolParser.eq)expr).e2);
 
-                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("String");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Bool");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Vertex");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Edge");
+        //         Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("String");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Bool");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Vertex");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Edge");
 
-                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("String");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Bool");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("vertex");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Edge");
+        //         Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("String");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Bool");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("vertex");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Edge");
                 
-                ((DroolParser.eq)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
+        //         ((DroolParser.eq)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
 
-             // not equal
-            //expr != expr.
-            //type of expressions should be equal
-            case "neq":{
-                DroolParser.neq not_equality = (DroolParser.neq)expr;
-                visit_expr(((DroolParser.neq)expr).e1);
-                visit_expr(((DroolParser.neq)expr).e2);
+        //      // not equal
+        //     //expr != expr.
+        //     //type of expressions should be equal
+        //     case "neq":{
+        //         DroolParser.neq not_equality = (DroolParser.neq)expr;
+        //         visit_expr(((DroolParser.neq)expr).e1);
+        //         visit_expr(((DroolParser.neq)expr).e2);
 
-                Boolean e1_Ok =  (((DroolParser.neq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("String");
-                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Bool");
-                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Vertex");
-                e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Edge");
+        //         Boolean e1_Ok =  (((DroolParser.neq)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("String");
+        //         e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Bool");
+        //         e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Vertex");
+        //         e1_Ok = e1_Ok || (((DroolParser.neq)expr).e1).type.equals("Edge");
 
-                Boolean e2_Ok =  (((DroolParser.neq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("String");
-                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("Bool");
-                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("vertex");
-                e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("Edge");
+        //         Boolean e2_Ok =  (((DroolParser.neq)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("String");
+        //         e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("Bool");
+        //         e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("vertex");
+        //         e2_Ok = e2_Ok || (((DroolParser.neq)expr).e2).type.equals("Edge");
                 
-                ((DroolParser.neq)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.neq)expr).e1).type.equals((((DroolParser.neq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.neq)expr).e1).type + "\", \"" + (((DroolParser.neq)expr).e2).type + "\"encountered for not equality testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
+        //         ((DroolParser.neq)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.neq)expr).e1).type.equals((((DroolParser.neq)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.neq)expr).e1).type + "\", \"" + (((DroolParser.neq)expr).e2).type + "\"encountered for not equality testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
 
 
-            //expr = expr
-            case "assign":{
-                visit_expr(((DroolParser.assign)expr).e1);
-                visit_expr(((DroolParser.assign)expr).e2);
-                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
+        //     //expr = expr
+        //     case "assign":{
+        //         visit_expr(((DroolParser.assign)expr).e1);
+        //         visit_expr(((DroolParser.assign)expr).e2);
+        //         ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
 
-                Boolean e1_Ok =  (((DroolParser.assign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.assign)expr).e1).type.equals("Float");
+        //         Boolean e1_Ok =  (((DroolParser.assign)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.assign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((DroolParser.assign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.assign)expr).e2).type.equals("Float");
-
-
-                ((DroolParser.assign)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.assign)expr).e1).type.equals((((DroolParser.assign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + (((DroolParser.assign)expr).e2).type + "\"encountered for assign testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-
-                break;
-            }
-
-            //expr += expr
-            case "plusassign":{
-                visit_expr(((DroolParser.plusassign)expr).e1);
-                visit_expr(((DroolParser.plusassign)expr).e2);
-
-                ((DroolParser.plusassign)expr).type = ((DroolParser.plusassign)expr).e1.type;
-
-                Boolean e1_Ok =  (((DroolParser.plusassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.plusassign)expr).e1).type.equals("Float");
-
-                Boolean e2_Ok =  (((DroolParser.plusassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.plusassign)expr).e2).type.equals("Float");
+        //         Boolean e2_Ok =  (((DroolParser.assign)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.assign)expr).e2).type.equals("Float");
 
 
-                ((DroolParser.plusassign)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.plusassign)expr).e1).type.equals((((DroolParser.plusassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.plusassign)expr).e1).type + "\", \"" + (((DroolParser.plusassign)expr).e2).type + "\"encountered for plusassign testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
+        //         ((DroolParser.assign)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.assign)expr).e1).type.equals((((DroolParser.assign)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.assign)expr).e1).type + "\", \"" + (((DroolParser.assign)expr).e2).type + "\"encountered for assign testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
 
-            //expr -= expr
-            case "minusassign":{
-                visit_expr(((DroolParser.minusassign)expr).e1);
-                visit_expr(((DroolParser.minusassign)expr).e2);
+        //         break;
+        //     }
 
-                ((DroolParser.minusassign)expr).type = ((DroolParser.minusassign)expr).e1.type;
+        //     //expr += expr
+        //     case "plusassign":{
+        //         visit_expr(((DroolParser.plusassign)expr).e1);
+        //         visit_expr(((DroolParser.plusassign)expr).e2);
 
-                Boolean e1_Ok =  (((DroolParser.minusassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.minusassign)expr).e1).type.equals("Float");
+        //         ((DroolParser.plusassign)expr).type = ((DroolParser.plusassign)expr).e1.type;
 
-                Boolean e2_Ok =  (((DroolParser.minusassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.minusassign)expr).e2).type.equals("Float");
+        //         Boolean e1_Ok =  (((DroolParser.plusassign)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.plusassign)expr).e1).type.equals("Float");
 
-
-                ((DroolParser.minusassign)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.minusassign)expr).e1).type.equals((((DroolParser.minusassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.minusassign)expr).e1).type + "\", \"" + (((DroolParser.minusassign)expr).e2).type + "\"encountered for minusassign testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
-
-            //expr /= expr
-            case "divassign":{
-                visit_expr(((DroolParser.divassign)expr).e1);
-                visit_expr(((DroolParser.divassign)expr).e1);
-
-                
-                ((DroolParser.divassign)expr).type = ((DroolParser.divassign)expr).e1.type;
-
-                Boolean e1_Ok =  (((DroolParser.divassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.divassign)expr).e1).type.equals("Float");
-
-                Boolean e2_Ok =  (((DroolParser.divassign)expr).e2).type.equals("Int") && ((DroolParser.eq)expr).e2!=0);
-                e2_Ok = e2_Ok || (((DroolParser.divassign)expr).e2).type.equals("Float");
-                
+        //         Boolean e2_Ok =  (((DroolParser.plusassign)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.plusassign)expr).e2).type.equals("Float");
 
 
-                ((DroolParser.divassign)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.divassign)expr).e1).type.equals((((DroolParser.divassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.divassign)expr).e1).type + "\", \"" + (((DroolParser.divassign)expr).e2).type + "\"encountered for division assign testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                
-                break;
-            }
+        //         ((DroolParser.plusassign)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.plusassign)expr).e1).type.equals((((DroolParser.plusassign)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.plusassign)expr).e1).type + "\", \"" + (((DroolParser.plusassign)expr).e2).type + "\"encountered for plusassign testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
 
-            //expr *= expr
-            case "mulassign":{
-                visit_expr(((DroolParser.mulassign)expr).e1);
-                visit_expr(((DroolParser.mulassign)expr).e2);
+        //     //expr -= expr
+        //     case "minusassign":{
+        //         visit_expr(((DroolParser.minusassign)expr).e1);
+        //         visit_expr(((DroolParser.minusassign)expr).e2);
+
+        //         ((DroolParser.minusassign)expr).type = ((DroolParser.minusassign)expr).e1.type;
+
+        //         Boolean e1_Ok =  (((DroolParser.minusassign)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.minusassign)expr).e1).type.equals("Float");
+
+        //         Boolean e2_Ok =  (((DroolParser.minusassign)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.minusassign)expr).e2).type.equals("Float");
+
+
+        //         ((DroolParser.minusassign)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.minusassign)expr).e1).type.equals((((DroolParser.minusassign)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.minusassign)expr).e1).type + "\", \"" + (((DroolParser.minusassign)expr).e2).type + "\"encountered for minusassign testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
+
+        //     //expr /= expr
+        //     case "divassign":{
+        //         visit_expr(((DroolParser.divassign)expr).e1);
+        //         visit_expr(((DroolParser.divassign)expr).e1);
 
                 
-                ((DroolParser.mulassign)expr).type = ((DroolParser.mulassign)expr).e1.type;
+        //         ((DroolParser.divassign)expr).type = ((DroolParser.divassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((DroolParser.mulassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.mulassign)expr).e1).type.equals("Float");
+        //         Boolean e1_Ok =  (((DroolParser.divassign)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.divassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((DroolParser.mulassign)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.mulassign)expr).e2).type.equals("Float");
+        //         Boolean e2_Ok =  (((DroolParser.divassign)expr).e2).type.equals("Int") && ((DroolParser.eq)expr).e2!=0);
+        //         e2_Ok = e2_Ok || (((DroolParser.divassign)expr).e2).type.equals("Float");
+                
 
 
-                ((DroolParser.mulassign)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.mulassign)expr).e1).type.equals((((DroolParser.mulassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.mulassign)expr).e1).type + "\", \"" + (((DroolParser.mulassign)expr).e2).type + "\"encountered for mulassign testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
+        //         ((DroolParser.divassign)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.divassign)expr).e1).type.equals((((DroolParser.divassign)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.divassign)expr).e1).type + "\", \"" + (((DroolParser.divassign)expr).e2).type + "\"encountered for division assign testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+                
+        //         break;
+        //     }
 
-            //expr %= expr
-            case "modassign":{
-                visit_expr(((DroolParser.modassign)expr).e1);
-                visit_expr(((DroolParser.modassign)expr).e2)
+        //     //expr *= expr
+        //     case "mulassign":{
+        //         visit_expr(((DroolParser.mulassign)expr).e1);
+        //         visit_expr(((DroolParser.mulassign)expr).e2);
 
                 
-                ((DroolParser.modassign)expr).type = ((DroolParser.modassign)expr).e1.type;
+        //         ((DroolParser.mulassign)expr).type = ((DroolParser.mulassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((DroolParser.modassign)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.modassign)expr).e1).type.equals("Float");
+        //         Boolean e1_Ok =  (((DroolParser.mulassign)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.mulassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((DroolParser.modassign)expr).e2).type.equals("Int") && ((DroolParser.eq)expr).e2!=0);
-                e2_Ok = e2_Ok || (((DroolParser.modassign)expr).e2).type.equals("Float");
-                
-             ((DroolParser.modassign)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.modassign)expr).e1).type.equals((((DroolParser.modassign)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.modassign)expr).e1).type + "\", \"" + (((DroolParser.modassign)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
-
-            //expr |= expr
-            case "orassign":{
-                visit_expr(((DroolParser.assign)expr).e1);
-                visit_expr(((DroolParser.assign)expr).e2);
-
-                
-                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
-
-                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
-
-                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
+        //         Boolean e2_Ok =  (((DroolParser.mulassign)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.mulassign)expr).e2).type.equals("Float");
 
 
-                ((DroolParser.eq)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
+        //         ((DroolParser.mulassign)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.mulassign)expr).e1).type.equals((((DroolParser.mulassign)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.mulassign)expr).e1).type + "\", \"" + (((DroolParser.mulassign)expr).e2).type + "\"encountered for mulassign testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
 
-            //expr &= expr
-            case "andassign":{
-                visit_expr(((DroolParser.assign)expr).e1);
-                visit_expr(((DroolParser.assign)expr).e2);
-
-                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
-
-                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
-
-                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
-
-
-                ((DroolParser.eq)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
-
-            //expr ^= expr
-            case "xorassign":{
-                visit_expr(((DroolParser.assign)expr).e1);
-                visit_expr(((DroolParser.assign)expr).e2);
+        //     //expr %= expr
+        //     case "modassign":{
+        //         visit_expr(((DroolParser.modassign)expr).e1);
+        //         visit_expr(((DroolParser.modassign)expr).e2)
 
                 
-                ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
+        //         ((DroolParser.modassign)expr).type = ((DroolParser.modassign)expr).e1.type;
 
-                Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
-                e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
+        //         Boolean e1_Ok =  (((DroolParser.modassign)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.modassign)expr).e1).type.equals("Float");
 
-                Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
-                e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
+        //         Boolean e2_Ok =  (((DroolParser.modassign)expr).e2).type.equals("Int") && ((DroolParser.eq)expr).e2!=0);
+        //         e2_Ok = e2_Ok || (((DroolParser.modassign)expr).e2).type.equals("Float");
+                
+        //      ((DroolParser.modassign)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.modassign)expr).e1).type.equals((((DroolParser.modassign)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.modassign)expr).e1).type + "\", \"" + (((DroolParser.modassign)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
+
+        //     //expr |= expr
+        //     case "orassign":{
+        //         visit_expr(((DroolParser.assign)expr).e1);
+        //         visit_expr(((DroolParser.assign)expr).e2);
+
+                
+        //         ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
+
+        //         Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
+
+        //         Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
 
 
-                ((DroolParser.eq)expr).type = "Bool";
-                if ((e1_Ok || e2_Ok)) {
-                    if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
-                        reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
-                        break;
-                    }
-                }
-                break;
-            }
+        //         ((DroolParser.eq)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
 
-            //expr <= expr
-            case "leq": {
-                visit_expr(((DroolParser.leq)expr).e1);
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.leq)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
-                }
-                visit_expr(((DroolParser.leq)expr).e2);
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.leq)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
-                }
-                ((DroolParser.leq)expr).type = "Bool";
-                break;
-            }
-            //expr < expr
-            case "lt":{
-                visit_expr(((DroolParser.lt)expr).e1);
-                visit_expr(((DroolParser.lt)expr).e2);
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.lt)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
-                }
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.lt)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
-                }
-                ((DroolParser.lt)expr).type = "Bool";
-                break;
-            }
+        //     //expr &= expr
+        //     case "andassign":{
+        //         visit_expr(((DroolParser.assign)expr).e1);
+        //         visit_expr(((DroolParser.assign)expr).e2);
 
-            //expr >= expr
-            case "geq": {
-                visit_expr(((DroolParser.geq)expr).e1);
-                if ((((DroolParser.geq)expr).e1).type.equals("Int") == false && (((DroolParser.geq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.leq)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.geq)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
-                }
-                visit_expr(((DroolParser.leq)expr).e2);
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.leq)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
-                }
-                ((DroolParser.leq)expr).type = "Bool";
-                break;
-            }
-            //expr > expr
-            case "gt":{
-                visit_expr(((DroolParser.lt)expr).e1);
-                visit_expr(((DroolParser.lt)expr).e2);
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.lt)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
-                }
-                if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
-                    ((DroolParser.lt)expr).type = "Bool";
-                    reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
-                }
-                ((DroolParser.lt)expr).type = "Bool";
-                break;
-            }
+        //         ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
+
+        //         Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
+
+        //         Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
+
+
+        //         ((DroolParser.eq)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
+
+        //     //expr ^= expr
+        //     case "xorassign":{
+        //         visit_expr(((DroolParser.assign)expr).e1);
+        //         visit_expr(((DroolParser.assign)expr).e2);
+
+                
+        //         ((DroolParser.assign)expr).type = ((DroolParser.assign)expr).e1.type;
+
+        //         Boolean e1_Ok =  (((DroolParser.eq)expr).e1).type.equals("Int");
+        //         e1_Ok = e1_Ok || (((DroolParser.eq)expr).e1).type.equals("Float");
+
+        //         Boolean e2_Ok =  (((DroolParser.eq)expr).e2).type.equals("Int");
+        //         e2_Ok = e2_Ok || (((DroolParser.eq)expr).e2).type.equals("Float");
+
+
+        //         ((DroolParser.eq)expr).type = "Bool";
+        //         if ((e1_Ok || e2_Ok)) {
+        //             if ((((DroolParser.eq)expr).e1).type.equals((((DroolParser.eq)expr).e1).type) == false) {
+        //                 reportError(filename, the_equality.lineNo, "Types \"" + (((DroolParser.eq)expr).e1).type + "\", \"" + (((DroolParser.eq)expr).e2).type + "\"encountered for equality testing. Expected \"Int\"");
+        //                 break;
+        //             }
+        //         }
+        //         break;
+        //     }
+
+        //     //expr <= expr
+        //     case "leq": {
+        //         visit_expr(((DroolParser.leq)expr).e1);
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.leq)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
+        //         }
+        //         visit_expr(((DroolParser.leq)expr).e2);
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.leq)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
+        //         }
+        //         ((DroolParser.leq)expr).type = "Bool";
+        //         break;
+        //     }
+        //     //expr < expr
+        //     case "lt":{
+        //         visit_expr(((DroolParser.lt)expr).e1);
+        //         visit_expr(((DroolParser.lt)expr).e2);
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.lt)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
+        //         }
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.lt)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
+        //         }
+        //         ((DroolParser.lt)expr).type = "Bool";
+        //         break;
+        //     }
+
+        //     //expr >= expr
+        //     case "geq": {
+        //         visit_expr(((DroolParser.geq)expr).e1);
+        //         if ((((DroolParser.geq)expr).e1).type.equals("Int") == false && (((DroolParser.geq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.leq)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.geq)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
+        //         }
+        //         visit_expr(((DroolParser.leq)expr).e2);
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.leq)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.leq)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.leq)expr).e1).type + "\" & \"" + (((DroolParser.leq)expr).e2).type + "\" for less than or equal to operator");
+        //         }
+        //         ((DroolParser.leq)expr).type = "Bool";
+        //         break;
+        //     }
+        //     //expr > expr
+        //     case "gt":{
+        //         visit_expr(((DroolParser.lt)expr).e1);
+        //         visit_expr(((DroolParser.lt)expr).e2);
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.lt)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
+        //         }
+        //         if ((((DroolParser.leq)expr).e1).type.equals("Int") == false && (((DroolParser.leq)expr).e1).type.equals("Float") == false){
+        //             ((DroolParser.lt)expr).type = "Bool";
+        //             reportError(filename, ((DroolParser.lt)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.lt)expr).e1).type + "\" & \"" + (((DroolParser.lt)expr).e2).type + "\" for less than operator");
+        //         }
+        //         ((DroolParser.lt)expr).type = "Bool";
+        //         break;
+        //     }
             
-            //if expr then expr else expr
-            case "cond":{
-                visit_expr(((DroolParser.cond)expr).predicate);
-                visit_expr(((DroolParser.cond)expr).ifbody);
-                visit_expr(((DroolParser.cond)expr).elsebody);
-                if ((((DroolParser.cond)expr).predicate).type.equals("Bool") == true) {
-                    ((DroolParser.cond)expr).type = lca((((DroolParser.cond)expr).ifbody).type, (((DroolParser.cond)expr).elsebody).type);
-                    break;
-                }
-                ((DroolParser.cond)expr).type = lca((((DroolParser.cond)expr).ifbody).type, (((DroolParser.cond)expr).elsebody).type);
-                reportError(filename, (((DroolParser.cond)expr).predicate).lineNo, "Conditional encountered has type \"" + (((DroolParser.cond)expr).predicate).type + "\". Expected \"Bool\"");
-                break;
-            }
+        //     //if expr then expr else expr
+        //     case "cond":{
+        //         visit_expr(((DroolParser.cond)expr).predicate);
+        //         visit_expr(((DroolParser.cond)expr).ifbody);
+        //         visit_expr(((DroolParser.cond)expr).elsebody);
+        //         if ((((DroolParser.cond)expr).predicate).type.equals("Bool") == true) {
+        //             ((DroolParser.cond)expr).type = lca((((DroolParser.cond)expr).ifbody).type, (((DroolParser.cond)expr).elsebody).type);
+        //             break;
+        //         }
+        //         ((DroolParser.cond)expr).type = lca((((DroolParser.cond)expr).ifbody).type, (((DroolParser.cond)expr).elsebody).type);
+        //         reportError(filename, (((DroolParser.cond)expr).predicate).lineNo, "Conditional encountered has type \"" + (((DroolParser.cond)expr).predicate).type + "\". Expected \"Bool\"");
+        //         break;
+        //     }
             
-            //expr/expr
-            case "divide":{
-                visit_expr(((DroolParser.divide)expr).e1);
-                if ((((DroolParser.divide)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((DroolParser.divide)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.divide)expr).e1).type + "\" & \"" + (((DroolParser.divide)expr).e2).type + "\" for performing division");
-                    ((DroolParser.divide)expr).type = "Int";
-                }
-                visit_expr(((DroolParser.divide)expr).e2);
-                if ((((DroolParser.divide)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((DroolParser.divide)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.divide)expr).e1).type + "\" & \"" + (((DroolParser.divide)expr).e2).type + "\" for performing division");
-                    ((DroolParser.divide)expr).type = "Int";
-                }
-                ((DroolParser.divide)expr).type = "Int";
-                break;
-            }
-            //expr*expr
-            case "mul":{
-                visit_expr(((DroolParser.mul)expr).e1);
-                if ((((DroolParser.mul)expr).e1).type.equals("Int") == false){
-                    ((DroolParser.mul)expr).type = "Int";
-                    reportError(filename, ((DroolParser.mul)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.mul)expr).e1).type + "\" & \"" + (((DroolParser.mul)expr).e2).type + "\" for performing multiplication");    
-                }
-                visit_expr(((DroolParser.mul)expr).e2);
-                if ((((DroolParser.mul)expr).e2).type.equals("Int") == false) {
-                    ((DroolParser.mul)expr).type = "Int";
-                    reportError(filename, ((DroolParser.mul)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.mul)expr).e1).type + "\" & \"" + (((DroolParser.mul)expr).e2).type + "\" for performing multiplication");
-                }
-                ((DroolParser.mul)expr).type = "Int";
-                break;
-            }
-            //expr+expr
-            case "plus":{
-                visit_expr(((DroolParser.plus)expr).e1);
-                visit_expr(((DroolParser.plus)expr).e2);
-                if ((((DroolParser.plus)expr).e1).type.equals("Int") == false){
-                    ((DroolParser.plus)expr).type = "Int";
-                    reportError(filename, ((DroolParser.plus)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.plus)expr).e1).type + "\" & \"" + (((DroolParser.plus)expr).e2).type + "\" for performing addition");
-                }
-                if ((((DroolParser.plus)expr).e2).type.equals("Int") == false) {
-                    ((DroolParser.plus)expr).type = "Int";
-                    reportError(filename, ((DroolParser.plus)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.plus)expr).e1).type + "\" & \"" + (((DroolParser.plus)expr).e2).type + "\" for performing addition");
-                }
-                ((DroolParser.plus)expr).type = "Int";
-                break;
-            }
-            //expr-expr
-            case "sub":{
-                visit_expr(((DroolParser.sub)expr).e1);
-                if ((((DroolParser.sub)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
-                    ((DroolParser.sub)expr).type = "Int";
-                } 
-                visit_expr(((DroolParser.sub)expr).e2);
-                if ((((DroolParser.sub)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
-                    ((DroolParser.sub)expr).type = "Int";
-                }
-                ((DroolParser.sub)expr).type = "Int";
-                break;
-            }
-            //expr%expr
-            case "mod":{
-                visit_expr(((DroolParser.sub)expr).e1);
-                if ((((DroolParser.sub)expr).e1).type.equals("Int") == false){
-                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
-                    ((DroolParser.sub)expr).type = "Int";
-                } 
-                visit_expr(((DroolParser.sub)expr).e2);
-                if ((((DroolParser.sub)expr).e2).type.equals("Int") == false) {
-                    reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
-                    ((DroolParser.sub)expr).type = "Int";
-                }
-                ((DroolParser.sub)expr).type = "Int";
-                break;
-            }
-            //while expr loop expr pool
-            case "loop":{
-                visit_expr(((DroolParser.loop)expr).predicate);
-                visit_expr(((DroolParser.loop)expr).body);
-                if ((((DroolParser.loop)expr).predicate).type.equals("Bool") == true) {
-                    ((DroolParser.loop)expr).type = "Object";
-                    break;
-                }
-                ((DroolParser.loop)expr).type = "Object";
-                reportError(filename, (((DroolParser.loop)expr).predicate).lineNo, "Type encountered for loop conditional is \"" + (((DroolParser.loop)expr).predicate).type + "\". Expected \"Bool\"");
-                break;
-            }
-            //isvoid expr
-            case "isvoid":{
-                ((DroolParser.isvoid)expr).type = "Bool";
-                break;
-            }
-            //{expr;+}
-            case "block":{
-                for (DroolParser.expression c_expr : ((DroolParser.block)expr).l1) {
-                    visit_expr(c_expr);
-                }
-                ((DroolParser.block)expr).type = ((DroolParser.block)expr).l1.get(((DroolParser.block)expr).l1.size() - 1).type;
-                break;
-            }
-            //ID
-            case "object":{
-                
-                ((DroolParser.object)expr).type = "Object";
-                break;
-            }
-            //let ID:TYPE <- expr* in expr
-            case "let":{
-                visit_expr((DroolParser.let)expr);
-                break;
-            }
-            //case expr of (ID:TYPE => expr)+ esac
-            case "typcase":{
-                visit_expr((DroolParser.typcase)expr);
-                break;
-            }
-            //class.method
-            case "dispatch":{
-                visit_expr((DroolParser.dispatch)expr);
-                break;
-            }
-            //class@class.method
-            case "static_dispatch":{
-                visit_expr((DroolParser.static_dispatch)expr);
-                break;
-            }
-            //Null expr non assignable only for internal workings 
-            case "no_expr":{
-                ((DroolParser.no_expr)expr).type = "No_type";
-                break;
-            }
-        }
-        //If condition to test whether the expr was new_.
-        if (expr.getClass() == DroolParser.new_.class) {
-            if (classList.containsKey(((DroolParser.new_)expr).typeid) == false) {
-                reportError(filename, ((DroolParser.new_)expr).lineNo, "Class type \"" + ((DroolParser.new_)expr).typeid + "\" being used without being defined");
-                ((DroolParser.new_)expr).type = "Object";
-            } else {
-                ((DroolParser.new_)expr).type = ((DroolParser.new_)expr).typeid;
-            }
-        }
-    }
+        //     //expr/expr
+        //     case "divide":{
+        //         visit_expr(((DroolParser.divide)expr).e1);
+        //         if ((((DroolParser.divide)expr).e1).type.equals("Int") == false){
+        //             reportError(filename, ((DroolParser.divide)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.divide)expr).e1).type + "\" & \"" + (((DroolParser.divide)expr).e2).type + "\" for performing division");
+        //             ((DroolParser.divide)expr).type = "Int";
+        //         }
+        //         visit_expr(((DroolParser.divide)expr).e2);
+        //         if ((((DroolParser.divide)expr).e2).type.equals("Int") == false) {
+        //             reportError(filename, ((DroolParser.divide)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.divide)expr).e1).type + "\" & \"" + (((DroolParser.divide)expr).e2).type + "\" for performing division");
+        //             ((DroolParser.divide)expr).type = "Int";
+        //         }
+        //         ((DroolParser.divide)expr).type = "Int";
+        //         break;
+        //     }
+        //     //expr*expr
+        //     case "mul":{
+        //         visit_expr(((DroolParser.mul)expr).e1);
+        //         if ((((DroolParser.mul)expr).e1).type.equals("Int") == false){
+        //             ((DroolParser.mul)expr).type = "Int";
+        //             reportError(filename, ((DroolParser.mul)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.mul)expr).e1).type + "\" & \"" + (((DroolParser.mul)expr).e2).type + "\" for performing multiplication");    
+        //         }
+        //         visit_expr(((DroolParser.mul)expr).e2);
+        //         if ((((DroolParser.mul)expr).e2).type.equals("Int") == false) {
+        //             ((DroolParser.mul)expr).type = "Int";
+        //             reportError(filename, ((DroolParser.mul)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.mul)expr).e1).type + "\" & \"" + (((DroolParser.mul)expr).e2).type + "\" for performing multiplication");
+        //         }
+        //         ((DroolParser.mul)expr).type = "Int";
+        //         break;
+        //     }
+        //     //expr+expr
+        //     case "plus":{
+        //         visit_expr(((DroolParser.plus)expr).e1);
+        //         visit_expr(((DroolParser.plus)expr).e2);
+        //         if ((((DroolParser.plus)expr).e1).type.equals("Int") == false){
+        //             ((DroolParser.plus)expr).type = "Int";
+        //             reportError(filename, ((DroolParser.plus)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.plus)expr).e1).type + "\" & \"" + (((DroolParser.plus)expr).e2).type + "\" for performing addition");
+        //         }
+        //         if ((((DroolParser.plus)expr).e2).type.equals("Int") == false) {
+        //             ((DroolParser.plus)expr).type = "Int";
+        //             reportError(filename, ((DroolParser.plus)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.plus)expr).e1).type + "\" & \"" + (((DroolParser.plus)expr).e2).type + "\" for performing addition");
+        //         }
+        //         ((DroolParser.plus)expr).type = "Int";
+        //         break;
+        //     }
+        //     //expr-expr
+        //     case "sub":{
+        //         visit_expr(((DroolParser.sub)expr).e1);
+        //         if ((((DroolParser.sub)expr).e1).type.equals("Int") == false){
+        //             reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+        //             ((DroolParser.sub)expr).type = "Int";
+        //         } 
+        //         visit_expr(((DroolParser.sub)expr).e2);
+        //         if ((((DroolParser.sub)expr).e2).type.equals("Int") == false) {
+        //             reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+        //             ((DroolParser.sub)expr).type = "Int";
+        //         }
+        //         ((DroolParser.sub)expr).type = "Int";
+        //         break;
+        //     }
+        //     //expr%expr
+        //     case "mod":{
+        //         visit_expr(((DroolParser.sub)expr).e1);
+        //         if ((((DroolParser.sub)expr).e1).type.equals("Int") == false){
+        //             reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 1 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+        //             ((DroolParser.sub)expr).type = "Int";
+        //         } 
+        //         visit_expr(((DroolParser.sub)expr).e2);
+        //         if ((((DroolParser.sub)expr).e2).type.equals("Int") == false) {
+        //             reportError(filename, ((DroolParser.sub)expr).lineNo, "Incompatible type for operand 2 \"" + (((DroolParser.sub)expr).e1).type + "\" & \"" + (((DroolParser.sub)expr).e2).type + "\" for performing subtraction");
+        //             ((DroolParser.sub)expr).type = "Int";
+        //         }
+        //         ((DroolParser.sub)expr).type = "Int";
+        //         break;
+        //     }
+        //     //while expr loop expr pool
 
-    // Let expressions
-    // private void visit_expr(DroolParser.let l) {
-         
-    //     if (classList.containsKey(l.typeid) == false) { //Class for let body is undefined
-    //         reportError(filename, l.lineNo, "Let has undefined class for In");
-    //     }
 
-    //     if (l.value.getClass()==DroolParser.no_expr.class) {    //Trivial case. No body
-    //         switch(l.typeid){
-    //             case "String": {
-    //                 l.value = new DroolParser.string_const("", l.lineNo);
-    //                 break;
-    //             }
-    //             case "Int": {
-    //                 l.value = new DroolParser.int_const(0, l.lineNo);
-    //                 break;
-    //             }
-    //             case "Bool": {
-    //                 l.value = new DroolParser.bool_const(false, l.lineNo);
-    //                 break;
-    //             }
-    //         }
-    //     } else {
-    //         visit_expr(l.value);
-    //         if (conform(l.value.type, l.typeid) == false) {
-    //             reportError(filename, l.lineNo, "Types \"" + l.value.type + "\" & \"" + l.typeid + "\" encountered do not conform. ");
-    //         }
-    //     }
-
-        
-    //     visit_expr(l.body);                         //There is a body. Explore it.
-    //     l.type = l.body.type;
-        
-    // }
-    //switch and duplicate case statements
-    // private void visit_expr(DroolParser.typcase cases) {
-    //     visit_expr(cases.predicate);
-    //     for (DroolParser.branch single_branch : cases.branches) {
-             
-    //         String in_type = new String("Object");
-    //         if (classList.containsKey(single_branch.type) == true) {
-    //             in_type = single_branch.type
-    //             continue;
-    //         }
-    //         reportError(filename, single_branch.lineNo, "Class \"" + single_branch.type + "\" being used without being defined.");
-    //         visit_expr(single_branch.value);      
-    //     }
-    //     //Find least common ancestor for type checking.
-    //     String type = null;
-    //     for (int i = 0; i < cases.branches.size(); i++) {
-    //         for (int j = i + 1; j < cases.branches.size(); j++) {
-    //             if (cases.branches.get(i).type.equals(cases.branches.get(j).type)) {
-    //                 reportError(filename, cases.branches.get(j).lineNo, "Duplicate branch types \"" + cases.branches.get(i).type + "\"encountered in case expression.");
-    //             }
-    //         }
-    //         cases.type = ((i!=0)?lca(type, cases.branches.get(i).value.type):cases.branches.get(i).value.type);
-    //     }
-    // }
+        // }
+        // //If condition to test whether the expr was new_.
+        // if (expr.getClass() == DroolParser.new_.class) {
+        //     if (classList.containsKey(((DroolParser.new_)expr).typeid) == false) {
+        //         reportError(filename, ((DroolParser.new_)expr).lineNo, "Class type \"" + ((DroolParser.new_)expr).typeid + "\" being used without being defined");
+        //         ((DroolParser.new_)expr).type = "Object";
+        //     } else {
+        //         ((DroolParser.new_)expr).type = ((DroolParser.new_)expr).typeid;
+        //     }
+        // }
     
-    // Least common ancestor of two nodes in AST
-    // private String lca(String type_1, String type_2) {
-    //     return (type_1.equals(type_2))?type_1:((classList.get(type_1).height)<(classList.get(type_2).height)?lca(type_2,type_1):lca(classList.get(type_1).parent, type_2));
-    // }
     
 }
