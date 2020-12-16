@@ -832,7 +832,6 @@ public class Semantic {
         //         ((DroolParser.sub)expr).type = "Int";
         //         break;
         //     }
-        //     //while expr loop expr pool
 
 
         // }
