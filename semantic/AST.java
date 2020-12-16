@@ -289,10 +289,10 @@ public class AST{
 	}
 
   //notequal !=
-	public static class neq extends  comparisionExpr{
-		public  comparisionExpr e1;
-		public  comparisionExpr e2;
-		public neq( comparisionExpr v1,  comparisionExpr v2, int l){
+	public static class neq extends  comparisonExpr{
+		public  comparisonExpr e1;
+		public  comparisonExpr e2;
+		public neq( comparisonExpr v1,  comparisonExpr v2, int l){
 			e1=v1;
 			e2=v2;
 			lineNo = l;
@@ -303,10 +303,10 @@ public class AST{
 	}
 	
   //<=
-	public static class leq extends  comparisionExpr{
-		public  comparisionExpr e1;
-		public  comparisionExpr e2;
-		public leq( comparisionExpr v1,  comparisionExpr v2, int l){
+	public static class leq extends  comparisonExpr{
+		public  comparisonExpr e1;
+		public  comparisonExpr e2;
+		public leq( comparisonExpr v1,  comparisonExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -317,10 +317,10 @@ public class AST{
 	}
   
   //<
-	public static class lt extends  comparisionExpr{
-		public  comparisionExpr e1;
-		public  comparisionExpr e2;
-		public lt( comparisionExpr v1,  comparisionExpr v2, int l){
+	public static class lt extends  comparisonExpr{
+		public  comparisonExpr e1;
+		public  comparisonExpr e2;
+		public lt( comparisonExpr v1,  comparisonExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -331,10 +331,10 @@ public class AST{
 	}
 
   //>=
-	public static class geq extends  comparisionExpr{
-		public  comparisionExpr e1;
-		public  comparisionExpr e2;
-		public geq( comparisionExpr v1,  comparisionExpr v2, int l){
+	public static class geq extends  comparisonExpr{
+		public  comparisonExpr e1;
+		public  comparisonExpr e2;
+		public geq( comparisonExpr v1,  comparisonExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -345,10 +345,10 @@ public class AST{
 	}
 
   //>
-	public static class gt extends  comparisionExpr{
-		public  comparisionExpr e1;
-		public  comparisionExpr e2;
-		public gt( comparisionExpr v1,  comparisionExpr v2, int l){
+	public static class gt extends  comparisonExpr{
+		public  comparisonExpr e1;
+		public  comparisonExpr e2;
+		public gt( comparisonExpr v1,  comparisonExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -719,10 +719,10 @@ public class AST{
 		}
 	}
 	
-	public static class switchcase extends statement{
-		public  statement predicate;
+	public static class switchcase extends  primaryExpr{
+		public  primaryExpr predicate;
 		public List<funcDefn> functions;
-		public switchcase( statement p, List<funcDefn> b, int l){
+		public switchcase( primaryExpr p, List<funcDefn> b, int l){
 			predicate = p;
 			functions = b;
 			lineNo = l;
