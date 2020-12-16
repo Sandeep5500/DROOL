@@ -28,7 +28,7 @@ public class AST{
         }
 
 	
-
+//yet to add rule classes and connect them
 	public static class declaration extends ASTNode {
 		String type;
 		public declaration(){
