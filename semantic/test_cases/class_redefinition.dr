@@ -1,0 +1,14 @@
+class A
+{
+    int a1 = 5;
+};
+
+class A 
+{
+    int a2 = -5;
+};
+
+int main()
+{
+    return 0;
+}
