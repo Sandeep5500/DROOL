@@ -1,3 +1,5 @@
+// Program with illegal class redefinition
+
 class A
 {
     int a1 = 5;

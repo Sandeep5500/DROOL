@@ -1,3 +1,5 @@
+// Program with type compatibility issues with graph and matrix operators
+
 int main()
 {
     Graph G = "graph";

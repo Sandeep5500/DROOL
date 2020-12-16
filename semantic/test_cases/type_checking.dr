@@ -1,3 +1,4 @@
+// Some examples of type mismatch 
 int main()
 {
     int num;

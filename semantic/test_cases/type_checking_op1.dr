@@ -1,3 +1,5 @@
+// Type compatibility issue due to addition of string and integer
+
 int main()
 {
     int num1, num2;

@@ -1,3 +1,5 @@
+// Erroneous program with a class inheritance cycle
+
 class A : D{
 	int a = d + 2;
 };
