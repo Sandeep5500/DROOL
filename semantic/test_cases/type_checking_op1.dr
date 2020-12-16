@@ -1,0 +1,15 @@
+int main()
+{
+    int num1, num2;
+    string str1, str2;
+
+    num1 = 5;
+    num2 = 10;
+
+    str1 = "hello";
+    str2 = "world";
+
+    // '+' operator needs operand belonging to compatible types
+    int num_sum = num1 + str2;  
+    string concat = str1 + num2;  
+}

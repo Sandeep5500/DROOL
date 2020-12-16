@@ -76,83 +76,9 @@ public class Semantic {
 
     }
 
-    //function for incorporating built-in data types
-    private void addBuiltInClasses() {
-       
-        // contains Object, String, Input/output methods, graph and matrices
+   
 
-        List<HashMap<String,DroolParser.classListContext.method>> basicClassMethods = new ArrayList<HashMap<String,DroolParser.classListContext.method> >(); 
-        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
-        basicClassMethods.add(new HashMap<String, DroolParser.classListContext.method>());
-        List<DroolParser.classListContext.formal> substr_formal = new ArrayList<DroolParser.classListContext.formal>();
-        substr_formal.add(new DroolParser.formal("i", "Int", 0));
-        substr_formal.add(new DroolParser.formal("l", "Int", 0));
-        // fills basicClassMethods with respective classes
-        helperAddObjectIOString(basicClassMethods, substr_formal);
-        // adds the built in classes to the class list
-        helperAddBuiltInClassToClassList(basicClassMethods);
-     }
-// helper function to fill basicClassMethods with respective classes
-private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> basicClassMethods,  List<DroolParser.formal> substr_formal)
-    {
-        DroolParser.no_expr[] nox  =  new DroolParser.no_expr[14];
-           
-        for(int i = 0; i < 14; i++)
-        {
-            nox[i] = new DroolParser.no_expr(0);
-        }
-        // adding Object
-        basicClassMethods.get(0).put("abort", new DroolParser.method("abort", new ArrayList<DroolParser.formal>(), "Object",nox[0] , 0));
-        basicClassMethods.get(0).put("type_name", new DroolParser.method("type_name", new ArrayList<DroolParser.formal>(), "String",nox[1], 0));
-        basicClassMethods.get(0).put("copy", new DroolParser.method("copy", new ArrayList<DroolParser.formal>(), "Object", nox[2], 0));
-
-        // adding IO    
-        basicClassMethods.get(1).put("output", new DroolParser.method("output", new ArrayList<DroolParser.formal>(), "String", nox[3], 0));
-        basicClassMethods.get(1).put("input", new DroolParser.method("input", new ArrayList<DroolParser.formal>(), "String", nox[4], 0));
-        basicClassMethods.get(1).putAll(basicClassMethods.get(0));      //inheriting all object methods
-        
-        // adding String
-        //defining methods for string length, concatanation,substr
-        basicClassMethods.get(2).put("length", new DroolParser.method("length", new ArrayList<DroolParser.formal>(), "Int", nox[5], 0));
-        basicClassMethods.get(2).put("concat", new DroolParser.method("concat", Arrays.asList(new DroolParser.formal("s", "String", 0)), "String", nox[6], 0));
-        basicClassMethods.get(2).put("substr", new DroolParser.method("substr", substr_formal, "String",nox[7], 0));
-        basicClassMethods.get(2).putAll(basicClassMethods.get(0));      //inheriting all object methods
-
-        //adding Graph
-        //defining methods for size,vetex no.size,edge no. size
-        basicClassMethods.get(3).put("size", new DroolParser.method("size", new ArrayList<DroolParser.formal>(), "Int", nox[8], 0));
-        basicClassMethods.get(3).put("vsize", new DroolParser.method("vsize", new ArrayList<DroolParser.formal>(), "Int", nox[9], 0));
-        basicClassMethods.get(3).put("esize", new DroolParser.method("esize", new ArrayList<DroolParser.formal>(), "Int", nox[10], 0));
-        basicClassMethods.get(3).putAll(basicClassMethods.get(0)); 
-
-        //Adding Matrix
-        //defining methods for no. of rows, no. of coloumns, deteminant.
-        basicClassMethods.get(3).put("nrow", new DroolParser.method("nrow", new ArrayList<DroolParser.formal>(), "Int", nox[11], 0));
-        basicClassMethods.get(3).put("ncol", new DroolParser.method("ncol", new ArrayList<DroolParser.formal>(), "Int", nox[12], 0));
-        basicClassMethods.get(3).put("det", new DroolParser.method("det", new ArrayList<DroolParser.formal>(), "Float", nox[13], 0));
-        basicClassMethods.get(2).putAll(basicClassMethods.get(0)); 
-
-        return ;
-    }
-
-    // adding all the classes to the class list
-    private void helperAddBuiltInClassToClassList(List<HashMap<String,DroolParser.method>> basicClassMethods)
-    {
-        classList.put("Object", new ClassNode("Object", null, 0, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(0)));
-        classList.put("IO", new ClassNode("IO", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(1)));
-        classList.put("String", new ClassNode("String", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(2)));
-        classList.put("Graph", new ClassNode("Graph", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(3)));
-        classList.put("Matrix", new ClassNode("Matrix", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), basicClassMethods.get(4)));
-        classList.put("Int", new ClassNode("Int", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
-        classList.put("Bool", new ClassNode("Bool", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
-        classList.put("Float", new ClassNode("Float", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
-        classList.put("Vertex", new ClassNode("Vertex", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
-        classList.put("Edge", new ClassNode("Edge", "Object", 1, new HashMap <String, DroolParser.classListContext.memberDeclarator>(), new HashMap <String, DroolParser.method>(basicClassMethods.get(0))));
-        return;
-    }
+    
 
         // returns the number equivalent to a class in the adjacenccy graph
         //return -1 if classname which is provided in the class list
@@ -168,18 +94,8 @@ private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> ba
 
 
 
-    // checks if the class is a basic class
-    private boolean isBasicClass(String cl)
-    {
-        return (cl.equals("Object") || cl.equals("IO") || cl.equals("Graph")|| cl.equals("Matrix")|| cl.equals("Int") ||cl.equals("Float") || cl.equals("Vertex")|| cl.equals("Edge")|| cl.equals("String") || cl.equals("Bool"));
-    }
-
-    // checks if a class is inheritable if it is a basic inbuilt class
-    private boolean isBasicClassNotInheritable(String cl)
-    {
-        return (cl.equals("Int") || cl.equals("String") || cl.equals("Bool") || cl.equals("Graph")|| cl.equals("Matrix"));
-    }
-
+   
+  
 
     // makes a graph detects cycles checks for inheritance related stuff
     //we check for cylcles in classes
@@ -194,26 +110,15 @@ private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> ba
         // contains inheritance graph all the classes
         ArrayList<ArrayList<Integer>> adjacency_list = new ArrayList<ArrayList<Integer>>();
        
-        // adds the built in classes to the inheritance graph
-        helperUpdateClassNodeAndGraph(class_node, adjacency_list);
-
+        
         boolean flag = true;
 
         // checks for proper class redefinition and inheritance from class and then adds to the graph
         int m = 0;
         while ( m < classes.size()) {
-            // check if the class is inherited from a non-inheritable class that is object,IO,string,Graph or matrix
-            if (isBasicClassNotInheritable(classes.get(m).parent)) {
-                reportError(classes.get(m).filename, classes.get(m).lineNo, "Class '" + classes.get(m).name + "' cannot inherit basic inbuilt class '" + classes.get(m).parent + "'.");
-                flag = false;
-            }
-            //Check that the class defined is a preexisiting basic classes : object,IO,string,Graph,matrix,int,float,vertex,edge
-            if (isBasicClass(classes.get(m).name)) {
-                reportError(classes.get(m).filename, classes.get(m).lineNo, "basic class is redefined  '" + classes.get(m).name + "'.");
-                flag = false ;
-            }
-            //check if not a basic class, and is redefined again
-            if (!isBasicClass(classes.get(m).name) &&  (ClassNameEquivalentNumber(class_node, classes.get(m).name)!= -1)) {
+
+            //check if class is redefined again
+            if ( (ClassNameEquivalentNumber(class_node, classes.get(m).name)!= -1)) {
                 reportError(classes.get(m).filename, classes.get(m).lineNo, "Class '" + classes.get(m).name + "' was previously defined.Redfining not allowed.");
                 flag = false;
             } else {
@@ -231,7 +136,7 @@ private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> ba
             // paren stores the class name of the parent class
             //checks for if the parent classes is a basic class or doesnot exist in the class list
             String paren = classes.get(n).parent;
-            if (!paren.equals("Object") &&!paren.equals("IO") &&!paren.equals("String") &&!paren.equals("Graph") &&!paren.equals("Matrix") &&!paren.equals("Int")  &&!paren.equals("Float") &&!paren.equals("Vertex") &&!paren.equals("Edge")  &&!paren.equals("Bool") && ClassNameEquivalentNumber(class_node, paren) == -1) {
+            if (!paren.equals("Object")  && ClassNameEquivalentNumber(class_node, paren) == -1) {
                 reportError(classes.get(n).filename, classes.get(n).lineNo, "Class '" + classes.get(n).name + "' inherits from an undefined class or non-existing class '" + paren + "'.");
                 flag = false;
             }
@@ -259,33 +164,7 @@ private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> ba
         makeClassList(adjacency_list,class_node);
     }
 
-    //adds the built in classes to the inheritance graph
-    private void helperUpdateClassNodeAndGraph(ArrayList<DroolParser.class_> class_node, ArrayList<ArrayList<Integer>> adjacency_list)
-    {
-
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-        class_node.add(null);
-
-        adjacency_list.add(new ArrayList<Integer>(Arrays.asList(1)));   //adding Object to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding IO to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Graph class in graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Matrix in graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Int to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding String to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Bool to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Float to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Vertex to graph
-        adjacency_list.add(new ArrayList<Integer>());   //adding Edge to graph
-        return;
-    }
+   
 
      // Nodes are added in a BFS style to classList so that the derived class can easily inherit features from the parent class   
     private void makeClassList(ArrayList<ArrayList<Integer>> adjacency_list,ArrayList<DroolParser.class_> class_node)
@@ -1355,7 +1234,7 @@ private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> ba
         l.type = l.body.type;
         scope.exitScope();
     }
-    //switch and dcase statements
+    //switch and duplicate case statements
     private void visit_expr(DroolParser.typcase cases) {
         visit_expr(cases.predicate);
         for (DroolParser.branch single_branch : cases.branches) {
@@ -1384,70 +1263,7 @@ private void helperAddObjectIOString(List<HashMap<String,DroolParser.method>> ba
             cases.type = ((i!=0)?lca(type, cases.branches.get(i).value.type):cases.branches.get(i).value.type);
         }
     }
-    //dispatch
-    private void visit_expr(DroolParser.dispatch disp) {
-        visit_expr(disp.caller);
-        for (int i = 0; i < disp.actuals.size(); i++) {
-            visit_expr(disp.actuals.get(i));
-        }
-        if (classList.containsKey(disp.caller.type) == true) {  //Valid caller.
-            if (classList.get(disp.caller.type).methods.containsKey(disp.name) == true) {
-                disp.type = classList.get(disp.caller.type).methods.get(disp.name).typeid;  //Check no. of arguments
-                if (classList.get(disp.caller.type).methods.get(disp.name).formals.size() == disp.actuals.size()) {
-                    for (int i = 0; i < classList.get(disp.caller.type).methods.get(disp.name).formals.size(); i++) { //Check conformance
-                        if (conform(disp.actuals.get(i).type, classList.get(disp.caller.type).methods.get(disp.name).formals.get(i).typeid) == false) {
-                            reportError(filename, disp.lineNo,  "Argument no. \"" + i + 1 + "\" of type \"" + disp.actuals.get(i).type + "\" has no conformance \"" + classList.get(disp.caller.type).methods.get(disp.name).formals.get(i).typeid + "\" to dispatch of method \"" + disp.name);
-                            disp.type = "Object";
-                        }
-                    }
-                } else {
-                    reportError(filename, disp.lineNo, "Method \"" + disp.name + " has " + disp.actuals.size() + " number of arguments; Expected no. was " + classList.get(disp.caller.type).methods.get(disp.name).formals.size());
-                    disp.type = "Object";
-                }
-            } else {
-                reportError(filename, disp.lineNo, "Method " + disp.name + " used without being defined.");
-                disp.type = "Object";
-            }
-            return;
-        }
-        reportError(filename, disp.caller.lineNo, "Class \"" + disp.caller.type + "\" was not declared");
-        disp.type = "Object";
-    }
-    //static dispatch
-    private void visit_expr(DroolParser.static_dispatch static_disp) {
-        visit_expr(static_disp.caller);
-        for (int i = 0; i < static_disp.actuals.size(); i++) {
-            visit_expr(static_disp.actuals.get(i));
-        }
-        if (classList.containsKey(static_disp.typeid) == true) {    //Check whether the class being operated upon exists
-            if (conform(static_disp.caller.type, static_disp.typeid) == false) {
-                reportError(filename, static_disp.lineNo, "Types encountered \"" + static_disp.caller.type + "\", \"" + static_disp.typeid + "do not conform");
-                static_disp.type = "Object";
-            } else {
-                if (classList.get(static_disp.caller.type).methods.containsKey(static_disp.name) == true) {
-                    static_disp.type = classList.get(static_disp.caller.type).methods.get(static_disp.name).typeid;
-                    if (classList.get(static_disp.caller.type).methods.get(static_disp.name).formals.size() == static_disp.actuals.size()) {
-                        for (int i = 0; i < classList.get(static_disp.caller.type).methods.get(static_disp.name).formals.size(); i++) {
-                            if (conform(static_disp.actuals.get(i).type, classList.get(static_disp.caller.type).methods.get(static_disp.name).formals.get(i).typeid) == false) {
-                                reportError(filename, static_disp.lineNo,  "Argument no. \"" + i + 1 + "\" of type \"" + static_disp.actuals.get(i).type + "\" has no conformance \"" + classList.get(static_disp.caller.type).methods.get(static_disp.name).formals.get(i).typeid + "\" to dispatch of method \"" + static_disp.name);
-                                static_disp.type = "Object";
-                            }
-                        }
-                    } else {
-                        reportError(filename, static_disp.lineNo, "Method \"" + static_disp.name + " has " + static_disp.actuals.size() + " number of arguments; Expected no. was " + classList.get(static_disp.caller.type).methods.get(static_disp.name).formals.size());
-                        static_disp.type = "Object";
-                    }
-                } else {
-                    reportError(filename, static_disp.lineNo, "Method " + static_disp.name + " used without being defined.");
-                    static_disp.type = "Object";
-                }
-            }
-            return;            
-        }
-        reportError(filename, static_disp.lineNo, "Class \"" + static_disp.typeid + "\" was not declared");  
-        static_disp.type = "Object";
-    }
-
+    
     // Least common ancestor of two nodes in AST
     private String lca(String type_1, String type_2) {
         return (type_1.equals(type_2))?type_1:((classList.get(type_1).height)<(classList.get(type_2).height)?lca(type_2,type_1):lca(classList.get(type_1).parent, type_2));

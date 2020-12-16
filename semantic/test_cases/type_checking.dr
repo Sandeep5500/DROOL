@@ -1,0 +1,10 @@
+int main()
+{
+    int num;
+    string str;
+    bool bl;
+
+    num = True;
+    str = 5;
+    bl = "Drool";
+}

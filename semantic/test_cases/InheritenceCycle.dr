@@ -1,0 +1,28 @@
+class A : D{
+	int a = d + 2;
+};
+
+class B : A{
+	int b = a + 2;
+};
+
+class C : B{
+    int c = b + 2;
+}
+
+class D : A{
+    int d = a + 2
+}
+
+int main(){
+	A obj_a;
+    B obj_b;
+    C obj_c;
+    D obj_d;
+
+    output(obj_a.a, "\n");
+    output(obj_b.b, "\n");
+    output(obj_c.c, "\n");
+    output(obj_d.d, "\n");
+
+}

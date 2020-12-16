@@ -1,0 +1,19 @@
+int main()
+{
+    Graph G = "graph";
+    Matrix M = m[5][5];
+
+    Vertex v1 = "v1", v2 = "v2", v3 = "v3", v4 = "v4", v5 = "v5";
+    G << v1 << v2 << v3 << v4  << v5;
+
+    for (int i=0; i<5; i++)
+    {
+        for (int j=0; j<5; j++)
+            m[i][j] = i*j;
+    }
+
+    // Mismatch of graph associated operators and Matrix associated operators
+    int g_size = sizeof(G)      // Graph has vsizeof or esizeof operators
+    int m_size = vsizeof(M)     // Matrix has sizeof operator
+
+}
