@@ -191,11 +191,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitProgram(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitProgram(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -268,11 +263,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitPrimaryExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitPrimaryExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -434,11 +424,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitPostfixExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitPostfixExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PostfixExprContext postfixExpr() throws RecognitionException {
@@ -569,11 +554,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitExprList(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExprList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExprListContext exprList() throws RecognitionException {
@@ -628,11 +608,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitUnaryExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitUnaryExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -734,11 +709,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitUnaryOpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitUnaryOpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final UnaryOprContext unaryOpr() throws RecognitionException {
@@ -791,11 +761,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitAddrcExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAddrcExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -872,11 +837,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitMultiplicationExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMultiplicationExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MultiplicationExprContext multiplicationExpr() throws RecognitionException {
@@ -951,11 +911,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitAdditiveExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAdditiveExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1040,11 +995,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitComparisonExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitComparisonExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ComparisonExprContext comparisonExpr() throws RecognitionException {
@@ -1120,11 +1070,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitEqualityExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitEqualityExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final EqualityExprContext equalityExpr() throws RecognitionException {
@@ -1196,11 +1141,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitBinAndExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBinAndExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BinAndExprContext binAndExpr() throws RecognitionException {
@@ -1263,11 +1203,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitBinXorExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBinXorExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1332,11 +1267,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitBinOrExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBinOrExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BinOrExprContext binOrExpr() throws RecognitionException {
@@ -1399,11 +1329,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitAndExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAndExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1468,11 +1393,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitOrExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitOrExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final OrExprContext orExpr() throws RecognitionException {
@@ -1534,11 +1454,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitAssignExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAssignExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1602,11 +1517,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitAssignOpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitAssignOpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final AssignOprContext assignOpr() throws RecognitionException {
@@ -1658,11 +1568,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitGraph(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitGraph(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1741,11 +1646,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitPushpullExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitPushpullExpr(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1856,11 +1756,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitPushpullOpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitPushpullOpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PushpullOprContext pushpullOpr() throws RecognitionException {
@@ -1920,11 +1815,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitGraphMemberArrayInit(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitGraphMemberArrayInit(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2013,11 +1903,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitExpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -2074,11 +1959,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitConstexpr(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitConstexpr(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ConstexprContext constexpr() throws RecognitionException {
@@ -2121,11 +2001,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInputStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInputStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2177,11 +2052,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitOutputStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitOutputStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2256,11 +2126,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2377,11 +2242,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitJumpStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitJumpStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JumpStatementContext jumpStatement() throws RecognitionException {
@@ -2489,11 +2349,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitCaseStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCaseStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CaseStatementContext caseStatement() throws RecognitionException {
@@ -2556,11 +2411,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitExprStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitExprStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExprStatementContext exprStatement() throws RecognitionException {
@@ -2612,11 +2462,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitCompoundStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCompoundStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2672,11 +2517,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitStatementSeq(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitStatementSeq(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2748,11 +2588,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitSelectStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitSelectStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2863,11 +2698,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitCondition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitCondition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ConditionContext condition() throws RecognitionException {
@@ -2953,11 +2783,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitIterStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitIterStatement(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3058,11 +2883,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitForInitStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitForInitStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ForInitStatementContext forInitStatement() throws RecognitionException {
@@ -3119,11 +2939,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitDeclarationStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclarationStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclarationStatementContext declarationStatement() throws RecognitionException {
@@ -3165,11 +2980,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitDeclarseq(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclarseq(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3228,11 +3038,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitDeclaration(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclaration(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3294,11 +3099,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitBlockDeclaration(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBlockDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BlockDeclarationContext blockDeclaration() throws RecognitionException {
@@ -3339,11 +3139,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitSimpleDeclaration(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitSimpleDeclaration(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3401,11 +3196,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitDataType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDataType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3527,11 +3317,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInitDeclaratorSeq(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitDeclaratorSeq(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitDeclaratorSeqContext initDeclaratorSeq() throws RecognitionException {
@@ -3592,11 +3377,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInitDeclarator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitDeclarator(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3661,11 +3441,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitDeclarator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitDeclarator(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3759,11 +3534,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitParameters(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParameters(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ParametersContext parameters() throws RecognitionException {
@@ -3821,11 +3591,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitParameterDeclarationSeq(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParameterDeclarationSeq(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3888,11 +3653,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitParameterDeclaration(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitParameterDeclaration(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3971,11 +3731,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitFunctionDefn(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitFunctionDefn(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionDefnContext functionDefn() throws RecognitionException {
@@ -4025,11 +3780,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitFunctionBody(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitFunctionBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionBodyContext functionBody() throws RecognitionException {
@@ -4074,11 +3824,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInitializer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitializer(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4150,11 +3895,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitBraceOrEqualInitializer(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBraceOrEqualInitializer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BraceOrEqualInitializerContext braceOrEqualInitializer() throws RecognitionException {
@@ -4213,11 +3953,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInitializationClause(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitializationClause(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4294,11 +4029,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitBracedInitSeq(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitBracedInitSeq(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BracedInitSeqContext bracedInitSeq() throws RecognitionException {
@@ -4368,11 +4098,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInitializationseq(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInitializationseq(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InitializationseqContext initializationseq() throws RecognitionException {
@@ -4429,11 +4154,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitClassName(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitClassName(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassNameContext className() throws RecognitionException {
@@ -4478,11 +4198,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitClassDefn(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitClassDefn(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4544,11 +4259,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitClassHead(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitClassHead(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassHeadContext classHead() throws RecognitionException {
@@ -4603,11 +4313,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitMemberlist(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberlist(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4664,11 +4369,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitMemberdeclaration(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberdeclaration(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -4743,11 +4443,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitMemberDeclaratorList(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberDeclaratorList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemberDeclaratorListContext memberDeclaratorList() throws RecognitionException {
@@ -4809,11 +4504,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitMemberDeclarator(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitMemberDeclarator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MemberDeclaratorContext memberDeclarator() throws RecognitionException {
@@ -4865,11 +4555,6 @@ public class DroolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInheritanceClause(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInheritanceClause(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final InheritanceClauseContext inheritanceClause() throws RecognitionException {
@@ -4917,11 +4602,6 @@ public class DroolParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DroolParserListener ) ((DroolParserListener)listener).exitInheriterList(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DroolParserVisitor ) return ((DroolParserVisitor<? extends T>)visitor).visitInheriterList(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
