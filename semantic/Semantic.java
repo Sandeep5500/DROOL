@@ -16,52 +16,32 @@ public class Semantic {
         return errorFlag;
     }
 
-    
-    int condiii = 0;
-    
-    
-
     // Hashmap containing all the classes
     public HashMap<String, ClassDefn> classList = new HashMap<String, ClassDefn>();
     private String filename;
 
     //functon to recursilvely travel classlist and store parents of each class
-    public HashMap<String, String> parent = new Hashmap<>();
+    public HashMap<String, Array<String> > parent = new Hashmap<>();
     public void Inheritance(DroolParser.ClassList ctx, parent){
         if(ctx == null)
             return;
         String temp = ctx.classDefn().classHead().className().Identifier().getText();
         classList[temp] = ctx.classDefn();
         if (ctx.classDefn().classHead().inheritanceClause() != null)
-            parent.put(temp, ctx.classDefn().inheritanceClause().className().getText());
+            parent.put(temp, ctx.classDefn().inheritanceClause().getText().split());
         System.out.println(ctx.classDefn().classHead().className().Identifier())
         Inheritance(ctx.classList()); 
     }
-    public Semantic(DroolParser.programContext program) {
+    public Semantic(DroolParser.programContext program) 
 
-        // process the entire program and fills classList with the help of few functions
-        // GraphHandler(program.declarseq.declaration.classList);
-        // int i = 0 ;
-        // while (i < (program.class).size()) {
-	       //  filename = ((program.classes).get(i)).filename; // each class has a file name
-        //     String name = ((program.classes).get(i)).name;
-        //     DroolParser.no_expr b = new DroolParser.no_expr(((program.classes).get(i)).lineNo); 
-        //     int lNo = ((program.classes).get(i)).lineNo;
-        //     DroolParser.classListContext.memberDeclarator a = new DroolParser.classListContext.memberDeclarator("self", name , b , lNo );
-        //     String Name = ((program.classes).get(i)).name;
-        //     visit_class((program.classes).get(i));
-        //     i++;
-        // }
-
-    // Check is there a Main function
+    // Checks if is there a Main function
         if (functionDefn.Identifier.containsKey("Main") == false) {
             reportError(filename, 1, "Program does not contain 'Main' function");
         } 
 
     }
-     // returns the number equivalent to a class in the adjacenccy graph
-        //return -1 if classname which is provided in the class list
-    private int ClassNameEquivalentNumber(ArrayList<DroolParser.class_> class_node,String name )
+     //returns the number of graph in the adjacency list of the class graph 
+    private int ClassNumber(HashMap<String, Array<String>> class_node,String name )
     {
         for (int i = 0 ; i < class_node.size(); i++ )
         {
@@ -71,16 +51,8 @@ public class Semantic {
         return -1;
     }
 
-
-
-   
-  
-
-    // makes a graph detects cycles checks for inheritance related stuff
-    //we check for cylcles in classes
-    // if everything is fine adds class to the class list using some functions
-    //Takes the argument of type List<DroolParser.class_> which is list of all classes in the language
-    private void GraphHandler(List<DroolParser.class_> classes) {
+    //checks for cycles in a graph takes the parent hashmap which is an adjacency list as the arguments
+    private void GraphHandler(HashMap<String, Array<String>_> classes) {
 
         // contains all the classes
         // defines a Array list variable of type <DroolParser.class_> which stroes all the classes
@@ -97,7 +69,7 @@ public class Semantic {
         while ( m < classes.size()) {
 
             //check if class is redefined again
-            if ( (ClassNameEquivalentNumber(class_node, classes.get(m).name)!= -1)) {
+            if ( ( classNumber(class_node, classes.get(m).name)!= -1)) {
                 reportError(classes.get(m).filename, classes.get(m).lineNo, "Class '" + classes.get(m).name + "' was previously defined.Redfining not allowed.");
                 flag = false;
             } else {
@@ -113,29 +85,14 @@ public class Semantic {
        int n = 0;
         while ( n< classes.size()) {
             // paren stores the class name of the parent class
-            //checks for if the parent classes is a basic class or doesnot exist in the class list
             String paren = classes.get(n).parent;
-            if (!paren.equals("Object")  && ClassNameEquivalentNumber(class_node, paren) == -1) {
+            if (classNumber(class_node, paren) == -1) {
                 reportError(classes.get(n).filename, classes.get(n).lineNo, "Class '" + classes.get(n).name + "' inherits from an undefined class or non-existing class '" + paren + "'.");
                 flag = false;
             }
 
-            if (flag) {
-                if(paren.equals("Object"))
-                {
-                    (adjacency_list.get(0)).add(ClassNameEquivalentNumber(class_node, classes.get(n).name));
-                }
-                else if(paren.equals("IO"))
-                {
-                    (adjacency_list.get(1)).add(ClassNameEquivalentNumber(class_node, classes.get(n).name));
-                }                    
-                else
-                (adjacency_list.get(ClassNameEquivalentNumber(class_node, paren) )).add(ClassNameEquivalentNumber(class_node, classes.get(n).name));     //adding the inheritance edge
-            }
-            n++;
-        }
-        // checks if there are any cylces in the graph or any of the above condition is wrong
-        //if cycle exits then we exit the prgram reporting error
+            
+        //function call to detect cycles
         if (flag == false || isCyclic(adjacency_list, class_node)) {
             System.exit(0);
         }
@@ -143,45 +100,6 @@ public class Semantic {
         makeClassList(adjacency_list,class_node);
     }
 
-   
-
-     // Nodes are added in a BFS style to classList so that the derived class can easily inherit features from the parent class   
-    private void makeClassList(ArrayList<ArrayList<Integer>> adjacency_list,ArrayList<DroolParser.class_> class_node)
-    {
-        ArrayList<Integer> q = new ArrayList<Integer>();
-        boolean[] visited = new boolean[class_node.size()];       
-        Arrays.fill(visited, Boolean.FALSE);
-        Integer node = 0;
-        int size = 0, i =0, nodeInList;
-        ArrayList<Integer> nodeList ;
-        q.add(0);   //Object class
-        visited[0] = true;
-        size =  q.size();
-        while (size > 0) {
-            node = q.get(--size);
-            q.remove(size);
-            i= 0;
-            nodeList = adjacency_list.get(node);
-            while ((nodeList!= null) && (i < nodeList.size())) {
-                nodeInList = nodeList.get(i);
-                if (visited[nodeInList] == false) {
-                    visited[nodeInList]= true;
-                    q.add(0, nodeInList);
-                    size++;
-                    // checking for Object & IO class
-                    if (nodeInList > 1) {
-                        
-                        insert_class(class_node.get(nodeInList));
-                    }
-                }
-            i++;
-            }
-        }
-    }
-    
-    // detecting cycles in adjacency list consisting of edges between related classes using dfs;
-    //we traverse through the adjaceny list to make sure that addition of the class_node results in a inheritance cycle or not 
-    //return true if cycle
 
     private boolean isCyclic(ArrayList<ArrayList<Integer>> adjacency_list, ArrayList<DroolParser.class_> class_node) {
     
