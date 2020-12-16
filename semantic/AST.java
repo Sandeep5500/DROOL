@@ -759,39 +759,39 @@ public class AST{
 			lineNo = l;
 		}
 		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_formal\n"+space+sp+name+"\n"+space+sp+typeid;
+			return space+"#"+lineNo+"\n"+space+"_class_head\n"+space+sp+name+"\n"+space+sp+typeid;
 		}
 	}
-	public static class feature extends ASTNode {
-		public feature(){
+	public static class memberDeclaration extends ASTNode {
+		public memberDeclaration(){
 		}
 		String getString(String space){
 			return "";
 		}
 
 	}
-	public static class method extends functionDefn {
+	public static class method extends memberDeclaration {
 		public String name;
-		public List<formal> formals;
+		public List<class_head> class_heads;
 		public String typeid;
 		public expression body;
-		public method(String n, List<formal> f, String t, expression b, int l){
+		public method(String n, List<class_head> f, String t, expression b, int l){
 			name = n;
-			formals = f;
+			class_heads = f;
 			typeid = t;
 			body = b;
 			lineNo = l;
 		}
 		String getString(String space){
 			String str = space+"#"+lineNo+"\n"+space+"_method\n"+space+sp+name+"\n";
-			for ( formal f : formals ) {
+			for ( class_head f : class_heads ) {
 				str += f.getString(space+sp)+"\n";
 			}
 			str += space+sp+typeid+"\n"+body.getString(space+sp);
 			return str;
 		}
 	}
-	public static class attr extends feature {
+	public static class attr extends memberDeclaration {
 		public String name;
 		public String typeid;
 		public expression value;
@@ -809,18 +809,18 @@ public class AST{
 		public String name;
 		public String filename;
 		public String parent;
-		public List<feature> features;
-		public class_(String n, String f, String p, List<feature> fs, int l){
+		public List<memberDeclaration> memberDeclarations;
+		public class_(String n, String f, String p, List<memberDeclaration> fs, int l){
 			name = n;
 			filename = f;
 			parent = p;
-			features = fs;
+			memberDeclarations = fs;
 			lineNo = l;
 		}
 		String getString(String space){
 			String str;
 			str = space+"#"+lineNo+"\n"+space+"_class\n"+space+sp+name+"\n"+space+sp+parent+"\n"+space+sp+"\""+filename+"\""+"\n"+space+sp+"(\n";
-			for ( feature f : features ) {
+			for ( memberDeclaration f : memberDeclarations ) {
 				str += f.getString(space+sp)+"\n";
 			}
 			str += space+sp+")";
