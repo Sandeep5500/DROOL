@@ -19,8 +19,7 @@ public class Semantic {
     
     int condiii = 0;
     
-    // Scope Table to manage scope of attributes
-    private ScopeTable<DroolParser.classListContext.memberDeclarator> scope = new ScopeTable<DroolParser.classListContext.memberDeclarator>();
+    
 
     // Hashmap containing all the classes
     public HashMap<String, ClassNode> classList = new HashMap<String, ClassNode>();
@@ -460,7 +459,7 @@ public class Semantic {
 
     
 
-    // Big bad function to take care of all the expressions tiny and large alike.
+    //Type checking
    
     private void visit_expr(DroolParser.expression expr) {
         String type = expr.getClass().getSimpleName();  //get type of AST as string for case
