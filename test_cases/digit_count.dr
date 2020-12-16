@@ -1,3 +1,5 @@
+// not errorneous
+
 int digit_count(int num)
 {
     int count = 0 ;

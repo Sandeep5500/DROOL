@@ -1,0 +1,17 @@
+# matrix inverse
+
+int main()
+{
+    Matrix m1[10][5];
+    
+    for (int i=0; i<10; i++)
+    {
+        for (int j=0; j<5; j++)
+        {
+            m1[i][j] = i+j;
+        }
+    }
+
+    // inverse of m1
+    output(inv(m1));
+}

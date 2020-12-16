@@ -1,20 +1,19 @@
 // assignment Operator
-int main()
-{
-int c = 1;
+// not erroneous
+Int c = 1;
 c += 10;
 c -= 5;
 
-int d = 4;
+Int d = 4;
 d *= 2;
 d /= 2;
 d %= 2;
 
-int x = 1, y = 1;
+Int x = 1, y = 1;
 x ^= y;
 x |= y;
 y &= 0;
-}
+
 
 
 
