@@ -38,12 +38,12 @@ public class AST{
 			return "";
 		};
 	}
-	public static class no_expr extends declaration {
-		public no_expr(int l){
+	public static class primaryExpr extends declaration {
+		public primaryExpr(int l){
 			lineNo = l;
 		}
 		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_no_expr\n"+space+": "+type;
+			return space+"#"+lineNo+"\n"+space+"_primaryExpr\n"+space+": "+type;
 		}
 	}
 	public static class bool_const extends  primaryExpr{
