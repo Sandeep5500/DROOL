@@ -1,4 +1,4 @@
-# error on incrementing global variable globaly
+// error on incrementing global variable globaly
 int x = 10;
 x += 2;
 int main()

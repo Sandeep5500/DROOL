@@ -11,11 +11,11 @@ int main()
     }
 
     output(m1);
-    output(det(m1));
+    output(det(m1));  //unary expr
     output(inv(m1));
     output(trans(m1));
-    m1 addr (1,2,3);
+    m1 addr (1,2,3); //addrc expr
     m1 addc (4,5,6);
     m1 delr;
-    m1 delc;   
+    m1 delc;   //postfix
 } 

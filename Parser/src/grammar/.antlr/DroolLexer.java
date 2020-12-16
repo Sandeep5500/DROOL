@@ -1,4 +1,4 @@
-// Generated from /home/manya/Desktop/COMPILERS2/DROOL/Parser/src/grammar/DroolLexer.g4 by ANTLR 4.8
+// Generated from /home/sandeep/homework/compilers2/DROOL/Parser/src/grammar/DroolLexer.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

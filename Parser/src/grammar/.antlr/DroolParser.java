@@ -1,4 +1,4 @@
-// Generated from /home/manya/Desktop/COMPILERS2/DROOL/Parser/src/grammar/DroolParser.g4 by ANTLR 4.8
+// Generated from /home/sandeep/homework/compilers2/DROOL/Parser/src/grammar/DroolParser.g4 by ANTLR 4.8
 
 	import java.util.List;
 

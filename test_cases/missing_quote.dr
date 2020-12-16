@@ -1,0 +1,7 @@
+// missing quote
+int main()
+{
+    output("Hello);
+    int a  = 1;
+    output(a);
+}
