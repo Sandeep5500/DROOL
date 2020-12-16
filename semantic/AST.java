@@ -29,16 +29,16 @@ public class AST{
 
 	
 
-	public static class expression extends ASTNode {
+	public static class declaration extends ASTNode {
 		String type;
-		public expression(){
+		public declaration(){
 			type = "_no_type";
 		}
 		String getString(String space){
 			return "";
 		};
 	}
-	public static class no_expr extends expression {
+	public static class no_expr extends declaration {
 		public no_expr(int l){
 			lineNo = l;
 		}
@@ -46,7 +46,7 @@ public class AST{
 			return space+"#"+lineNo+"\n"+space+"_no_expr\n"+space+": "+type;
 		}
 	}
-	public static class bool_const extends expression{
+	public static class bool_const extends  primaryExpr{
 		public boolean value;
 		public bool_const(boolean v, int l){
 			value = v;
@@ -56,7 +56,7 @@ public class AST{
 			return space+"#"+lineNo+"\n"+space+"_bool\n"+space+sp+(value?"1":"0")+"\n"+space+": "+type;
 		}
 	}
-	public static class string_const extends expression{
+	public static class string_const extends  primaryExpr{
 		public String value;
 		public string_const(String v, int l){
 			value = v;
@@ -67,7 +67,7 @@ public class AST{
 		}
 	}
 
-	public static class int_const extends expression{
+	public static class int_const extends  primaryExpr{
 		public int value;
 		public int_const(int v, int l){
 			value = v;
@@ -78,7 +78,7 @@ public class AST{
 		}
 	}
   
-  public static class float_const extends expression{
+  public static class float_const extends  primaryExpr{
 		public float value;
 		public float_const(float v, int l){
 			value = v;
@@ -89,9 +89,9 @@ public class AST{
 		}
 	}
 
-  public static class vertex_const extends expression{
-		public expression value;
-		public vertex_const(expression v, int l){
+  public static class vertex_const extends  primaryExpr{
+		public  primaryExpr value;
+		public vertex_const( primaryExpr v, int l){
 			value = v;
 			lineNo = l;
 		}
@@ -100,7 +100,7 @@ public class AST{
 		}
 	}
 
-	public static class object extends expression{
+	public static class object extends  primaryExpr{
 		public String name;
 		public object(String v, int l){
 			name = v;
@@ -112,9 +112,9 @@ public class AST{
 	}
 
   //tildae ~
-	public static class comp extends expression{
-		public expression e1;
-		public comp(expression v, int l){
+	public static class postfixExpr extends  primaryExpr{
+		public  primaryExpr e1;
+		public comp( primaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -124,21 +124,21 @@ public class AST{
 	}
 
   //NOT !
-	public static class neg extends expression{
-		public expression e1;
-		public neg(expression v, int l){
-			e1 = v;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_neg\n"+e1.getString(space+sp)+"\n"+space+": "+type;
-		}
-	}
+	// public static class neg extends  postfixExpr{
+	// 	public  primaryExpr e1;
+	// 	public neg( primaryExpr v, int l){
+	// 		e1 = v;
+	// 		lineNo = l;
+	// 	}
+	// 	String getString(String space){
+	// 		return space+"#"+lineNo+"\n"+space+"_neg\n"+e1.getString(space+sp)+"\n"+space+": "+type;
+	// 	}
+	// }
 
   //orexp
-	public static class unary_or extends expression{
-		public expression e1;
-		public unary_or(expression v, int l){
+	public static class unary_or extends  unaryExpr{
+		public  unaryExpr e1;
+		public unary_or( unaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -148,9 +148,9 @@ public class AST{
 	}
 
   //and &exp
-	public static class unary_and extends expression{
-		public expression e1;
-		public unary_and(expression v, int l){
+	public static class unary_and extends  unaryExpr{
+		public  unaryExpr e1;
+		public unary_and( primaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -160,9 +160,9 @@ public class AST{
 	}
 
   //*exp
-	public static class unary_mul extends expression{
-		public expression e1;
-		public unsary_mul(expression v, int l){
+	public static class unary_mul extends  unaryExpr{
+		public  unaryExpr e1;
+		public unsary_mul( unaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -172,9 +172,9 @@ public class AST{
 	}
 
   //+exp
-	public static class unary_plus extends expression{
-		public expression e1;
-		public unary_plus(expression v, int l){
+	public static class unary_plus extends  unaryExpr{
+		public  unaryExpr e1;
+		public unary_plus( unaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -184,9 +184,9 @@ public class AST{
 	}
 
   //-exp
-	public static class unary_minus extends expression{
-		public expression e1;
-		public unary_minus(expression v, int l){
+	public static class unary_minus extends  unaryExpr{
+		public  unaryExpr e1;
+		public unary_minus( unaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -196,9 +196,9 @@ public class AST{
 	}
 
   //plusplus
-	public static class plusplus extends expression{
-		public expression e1;
-		public plusplus(expression v, int l){
+	public static class plusplus extends  unaryExpr{
+		public  unaryExpr e1;
+		public plusplus( primaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -208,9 +208,9 @@ public class AST{
 	}
 
   //--
-	public static class minusminus extends expression{
-		public expression e1;
-		public minusminus(expression v, int l){
+	public static class minusminus extends  unaryExpr{
+		public  unaryExpr e1;
+		public minusminus( primaryExpr v, int l){
 			e1 = v;
 			lineNo = l;
 		}
@@ -219,12 +219,66 @@ public class AST{
 		}
 	}
 
+	public static class divide extends  multiplicationExpr{
+		public   multiplicationExpr e1;
+		public   multiplicationExpr e2;
+		public divide(  multiplicationExpr v1,   multiplicationExpr v2, int l){
+			e1 = v1;
+			e2 = v2;
+			lineNo = l;
+		}
+		String getString(String space){
+			return space+"#"+lineNo+"\n"+space+"_divide\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
+		}
+	}
+
+  //*
+	public static class mul extends   multiplicationExpr{
+		public   multiplicationExpr e1;
+		public   multiplicationExpr e2;
+		public mul(  multiplicationExpr v1,  additiveExpr v2, int l){
+			e1 = v1;
+			e2 = v2;
+			lineNo = l;
+		}
+		String getString(String space){
+			return space+"#"+lineNo+"\n"+space+"_mul\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
+		}
+	}
+
+  //-
+	public static class sub extends  additiveExpr{
+		public  additiveExpr e1;
+		public  additiveExpr e2;
+		public sub( additiveExpr v1,  additiveExpr v2, int l){
+			e1 = v1;
+			e2 = v2;
+			lineNo = l;
+		}
+		String getString(String space){
+			return space+"#"+lineNo+"\n"+space+"_sub\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
+		}
+	}
+
+  //+
+	public static class plus extends  additiveExpr{
+		public  additiveExpr e1;
+		public  additiveExpr e2;
+		public plus( additiveExpr v1,  additiveExpr v2, int l){
+			e1 = v1;
+			e2 = v2;
+			lineNo = l;
+		}
+		String getString(String space){
+			return space+"#"+lineNo+"\n"+space+"_plus\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
+		}
+	}
 
   //equal ==
-	public static class eq extends expression{
-		public expression e1;
-		public expression e2;
-		public eq(expression v1, expression v2, int l){
+	public static class eq extends  primaryExpr{
+		public  primaryExpr e1;
+		public  primaryExpr e2;
+		public eq( primaryExpr v1,  primaryExpr v2, int l){
 			e1=v1;
 			e2=v2;
 			lineNo = l;
@@ -235,10 +289,10 @@ public class AST{
 	}
 
   //notequal !=
-	public static class neq extends expression{
-		public expression e1;
-		public expression e2;
-		public neq(expression v1, expression v2, int l){
+	public static class neq extends  comparisionExpr{
+		public  comparisionExpr e1;
+		public  comparisionExpr e2;
+		public neq( comparisionExpr v1,  comparisionExpr v2, int l){
 			e1=v1;
 			e2=v2;
 			lineNo = l;
@@ -249,10 +303,10 @@ public class AST{
 	}
 	
   //<=
-	public static class leq extends expression{
-		public expression e1;
-		public expression e2;
-		public leq(expression v1, expression v2, int l){
+	public static class leq extends  comparisionExpr{
+		public  comparisionExpr e1;
+		public  comparisionExpr e2;
+		public leq( comparisionExpr v1,  comparisionExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -263,10 +317,10 @@ public class AST{
 	}
   
   //<
-	public static class lt extends expression{
-		public expression e1;
-		public expression e2;
-		public lt(expression v1, expression v2, int l){
+	public static class lt extends  comparisionExpr{
+		public  comparisionExpr e1;
+		public  comparisionExpr e2;
+		public lt( comparisionExpr v1,  comparisionExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -277,10 +331,10 @@ public class AST{
 	}
 
   //>=
-	public static class geq extends expression{
-		public expression e1;
-		public expression e2;
-		public geq(expression v1, expression v2, int l){
+	public static class geq extends  comparisionExpr{
+		public  comparisionExpr e1;
+		public  comparisionExpr e2;
+		public geq( comparisionExpr v1,  comparisionExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -291,10 +345,10 @@ public class AST{
 	}
 
   //>
-	public static class gt extends expression{
-		public expression e1;
-		public expression e2;
-		public gt(expression v1, expression v2, int l){
+	public static class gt extends  comparisionExpr{
+		public  comparisionExpr e1;
+		public  comparisionExpr e2;
+		public gt( comparisionExpr v1,  comparisionExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -306,66 +360,12 @@ public class AST{
   
 
   // /
-	public static class divide extends expression{
-		public expression e1;
-		public expression e2;
-		public divide(expression v1, expression v2, int l){
-			e1 = v1;
-			e2 = v2;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_divide\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
-		}
-	}
-
-  //*
-	public static class mul extends expression{
-		public expression e1;
-		public expression e2;
-		public mul(expression v1, expression v2, int l){
-			e1 = v1;
-			e2 = v2;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_mul\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
-		}
-	}
-
-  //-
-	public static class sub extends expression{
-		public expression e1;
-		public expression e2;
-		public sub(expression v1, expression v2, int l){
-			e1 = v1;
-			e2 = v2;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_sub\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
-		}
-	}
-
-  //+
-	public static class plus extends expression{
-		public expression e1;
-		public expression e2;
-		public plus(expression v1, expression v2, int l){
-			e1 = v1;
-			e2 = v2;
-			lineNo = l;
-		}
-		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_plus\n"+e1.getString(space+sp)+"\n"+e2.getString(space+sp)+"\n"+space+": "+type;
-		}
-	}
-
+	
   //%
-	public static class mod extends expression{
-		public expression e1;
-		public expression e2;
-		public mod(expression v1, expression v2, int l){
+	public static class mod extends  multiplicationExpr{
+		public  primaryExpr e1;
+		public  multiplicationExpr e2;
+		public mod( multiplicationExpr v1,  multiplicationExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -376,10 +376,10 @@ public class AST{
 	}
 
   //binary xor ^
-	public static class bin_xor extends expression{
-		public expression e1;
-		public expression e2;
-		public bin_xor(expression v1, expression v2, int l){
+	public static class bin_xor extends  equalityExpr{
+		public  equalityExpr e1;
+		public  equalityExpr e2;
+		public bin_xor( equalityExpr v1,  equalityExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -390,10 +390,10 @@ public class AST{
 	}
 
   //binary and &&
-	public static class bin_and extends expression{
-		public expression e1;
-		public expression e2;
-		public bin_and(expression v1, expression v2, int l){
+	public static class bin_and extends  equalityExpr{
+		public  equalityExpr e1;
+		public  equalityExpr e2;
+		public bin_and( equalityExpr v1,  equalityExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -404,10 +404,10 @@ public class AST{
 	}
 
   //binary or ||
-	public static class bin_or extends expression{
-		public expression e1;
-		public expression e2;
-		public bin_or(expression v1, expression v2, int l){
+	public static class bin_or extends  binXorExpr{
+		public  binXorExpr e1;
+		public  binXorExpr e2;
+		public bin_or( binXorExpr v1,  binXorExpr v2, int l){
 			e1 = v1;
 			e2 = v2;
 			lineNo = l;
@@ -418,10 +418,10 @@ public class AST{
 	}
 
 	//=
-	public static class assign extends expression{
-		public expression name;
-		public expression e1;
-		public assign(String n, expression v1, int l){
+	public static class assign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public assign(String n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -431,10 +431,10 @@ public class AST{
 		}
 	}
 	//*=
-  public static class mulassign extends expression{
-		public expression name;
-		public expression e1;
-		public mulassign(expression n, expression v1, int l){
+  public static class mulassign extends  primaryExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public mulassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -445,10 +445,10 @@ public class AST{
 	}
 
 	// /=
-  public static class divassign extends expression{
-		public expression name;
-		public expression e1;
-		public divassign(expression n, expression v1, int l){
+  public static class divassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public divassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -459,10 +459,10 @@ public class AST{
 	}
 
 	// %=
-	public static class modassign extends expression{
-		public expression name;
-		public expression e1;
-		public modassign(expression n, expression v1, int l){
+	public static class modassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public modassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -473,10 +473,10 @@ public class AST{
 	}
 
   //+=
-	public static class plusassign extends expression{
-		public expression name;
-		public expression e1;
-		public plusassign(expression n, expression v1, int l){
+	public static class plusassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public plusassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -487,10 +487,10 @@ public class AST{
 	}
 
   //-=
-	public static class minusassign extends expression{
-		public expression name;
-		public expression e1;
-		public minusassign(expression n, expression v1, int l){
+	public static class minusassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public minusassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -501,10 +501,10 @@ public class AST{
 	}
 
  // &=
-	public static class andassign extends expression{
-		public expression name;
-		public expression e1;
-		public andassign(expression n, expression v1, int l){
+	public static class andassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public andassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -515,10 +515,10 @@ public class AST{
 	}
 
   //^=
-	public static class xorassign extends expression{
-		public expression name;
-		public expression e1;
-		public xorassign(expression n, expression v1, int l){
+	public static class xorassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public xorassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -529,10 +529,10 @@ public class AST{
 	}
 
   //|=
-	public static class orassign extends expression{
-		public expression name;
-		public expression e1;
-		public orassign(expression n, expression v1, int l){
+	public static class orassign extends  orExpr{
+		public  orExpr name;
+		public  orExpr e1;
+		public orassign( orExpr n,  orExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -543,10 +543,10 @@ public class AST{
 	}
 
   // >>
-	public static class pull extends expression{
-		public expression name;
-		public expression e1;
-		public pull(expression n, expression v1, int l){
+	public static class pull extends  graph{
+		public  graph name;
+		public  graph e1;
+		public pull( graph n,  graph v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -557,10 +557,10 @@ public class AST{
 	}
 
   //<<
-	public static class push extends expression{
-		public expression name;
-		public expression e1;
-		public push(expression n, expression v1, int l){
+	public static class push extends  graph{
+		public  graph name;
+		public  graph e1;
+		public push( graph n,  graph v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -571,10 +571,10 @@ public class AST{
 	}
 
 	// hashtag #
-	public static class hashtag extends expression{
-		public expression name;
-		public expression e1;
-		public hashtag(expression name,expression v1, int l){
+	public static class hashtag extends  graph{
+		public  graph name;
+		public  graph e1;
+		public hashtag( graph name, graph v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -585,10 +585,10 @@ public class AST{
 	}
 
 	// qmark ?
-	public static class qmark extends expression{
-		public expression name;
-		public expression e1;
-		public qmark(expression name,expression v1, int l){
+	public static class qmark extends  graph{
+		public  graph name;
+		public  graph e1;
+		public qmark( graph name, graph v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -602,10 +602,10 @@ public class AST{
   
   
  // add row
-  public static class addr extends expression{
-		public expression name;
-		public expression e1;
-		public addr(expression n, expression v1, int l){
+  public static class addr extends  primaryExpr{
+		public  primaryExpr name;
+		public  primaryExpr e1;
+		public addr( primaryExpr n,  primaryExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -616,10 +616,10 @@ public class AST{
 	}
 
 	//add coloumn
-  public static class addc extends expression{
-		public expression name;
-		public expression e1;
-		public addc(expression n, expression v1, int l){
+  public static class addc extends  unaryExpr{
+		public  unaryExpr name;
+		public  unaryExpr e1;
+		public addc( unaryExpr n,  unaryExpr v1, int l){
 			name = n;
 			e1 = v1;
 			lineNo = l;
@@ -630,9 +630,9 @@ public class AST{
 	}
 
   //delete row
-	public static class delr extends expression{
-		public expression e1;
-		public delr(expression v1, int l){
+	public static class delr extends  unaryExpr{
+		public  unaryExpr e1;
+		public delr( unaryExpr v1, int l){
 			e1 = v1;
 			lineNo = l;
 		}
@@ -642,9 +642,9 @@ public class AST{
 	}
 
 	//delete column
-	public static class delc extends expression{
-		public expression e1;
-		public delc(expression v1, int l){
+	public static class delc extends  unaryExpr{
+		public  unaryExpr e1;
+		public delc( unaryExpr v1, int l){
 			e1 = v1;
 			lineNo = l;
 		}
@@ -655,15 +655,15 @@ public class AST{
 
 
   //compund statement
-  public static class block extends expression{
-		public List<expression> l1;
-		public block(List<expression> v1, int l){
+  public static class block extends  declaration{
+		public List< declaration> l1;
+		public block(List< declaration> v1, int l){
 			l1 = v1;
 			lineNo = l;
 		}
 		String getString(String space){
 			String str = space+"#"+lineNo+"\n"+space+"_block\n";
-			for (expression e1 : l1){
+			for ( declaration e1 : l1){
 				str += e1.getString(space+sp)+"\n";
 			}
 			str+=space+": "+type;
@@ -672,10 +672,10 @@ public class AST{
 	}
 
   //while
-	public static class whileloop extends expression{
-		public expression predicate;
-		public expression body;
-		public whileloop(expression v1, expression v2, int l){
+	public static class whileloop extends  statement{
+		public  statement predicate;
+		public  statement body;
+		public whileloop( statement v1,  statement v2, int l){
 			predicate = v1;
 			body = v2;
 			lineNo = l;
@@ -686,12 +686,12 @@ public class AST{
 	}
 
   //for
-  public static class forloop extends expression{
-    public expression init;
-		public expression predicate;
-    public expression update;
-		public expression body;
-		public loop(expression v1, expression v2,expression v3, expression v4 int l){
+  public static class forloop extends  statement{
+    public  statement init;
+		public  statement predicate;
+    public  statement update;
+		public  statement body;
+		public loop( statement v1,  statement v2, statement v3,  statement v4 int l){
 			init = v1;
       		predicate = v2;
            update = v3;
@@ -704,11 +704,11 @@ public class AST{
 	}
 
   //ifthen
-	public static class cond extends expression{
-		public expression predicate;
-		public expression ifbody;
-		public expression elsebody;
-		public cond(expression v1, expression v2, expression v3, int l){
+	public static class cond extends  statement{
+		public  statement predicate;
+		public  statement ifbody;
+		public  statement elsebody;
+		public cond( statement v1,  statement v2,  statement v3, int l){
 			predicate = v1;
 			ifbody = v2;
 			elsebody = v3;
@@ -719,35 +719,35 @@ public class AST{
 		}
 	}
 	
-	public static class typcase extends expression{
-		public expression predicate;
-		public List<branch> branches;
-		public typcase(expression p, List<branch> b, int l){
+	public static class switchcase extends statement{
+		public  statement predicate;
+		public List<funcDefn> functions;
+		public switchcase( statement p, List<funcDefn> b, int l){
 			predicate = p;
-			branches = b;
+			functions = b;
 			lineNo = l;
 		}
 		String getString(String space){
-			String str = space+"#"+lineNo+"\n"+space+"_typcase\n"+predicate.getString(space+sp)+"\n";
-			for ( branch b1 : branches ) {
+			String str = space+"#"+lineNo+"\n"+space+"_switchcase\n"+predicate.getString(space+sp)+"\n";
+			for ( funcDefn b1 : functions ) {
 				str += b1.getString(space+sp)+"\n";
 			}
 			str += space+": "+type;
 			return str;
 		}
 	}
-	public static class branch extends ASTNode {
+	public static class funcDefn extends ASTNode {
 		public String name;
 		public String type;
-		public expression value;
-		public branch(String n, String t, expression v, int l){
+		public  primaryExpr value;
+		public funcDefn(String n, String t,  primaryExpr v, int l){
 			name = n;
 			type = t;
 			value = v;
 			lineNo = l;
 		}
 		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_branch\n"+space+sp+name+"\n"+space+sp+type+"\n"+value.getString(space+sp);
+			return space+"#"+lineNo+"\n"+space+"_funcDefn\n"+space+sp+name+"\n"+space+sp+type+"\n"+value.getString(space+sp);
 		}
 	}
 	public static class class_head extends ASTNode {
@@ -774,8 +774,8 @@ public class AST{
 		public String name;
 		public List<class_head> class_heads;
 		public String typeid;
-		public expression body;
-		public method(String n, List<class_head> f, String t, expression b, int l){
+		public  primaryExpr body;
+		public method(String n, List<class_head> f, String t,  primaryExpr b, int l){
 			name = n;
 			class_heads = f;
 			typeid = t;
@@ -791,21 +791,21 @@ public class AST{
 			return str;
 		}
 	}
-	public static class attr extends memberDeclaration {
+	public static class member extends memberDeclaration {
 		public String name;
 		public String typeid;
-		public expression value;
-		public attr(String n, String t, expression v, int l){
+		public  primaryExpr value;
+		public member(String n, String t,  primaryExpr v, int l){
 			name = n;
 			typeid = t;
 			value = v;
 			lineNo = l;
 		}
 		String getString(String space){
-			return space+"#"+lineNo+"\n"+space+"_attr\n"+space+sp+name+"\n"+space+sp+typeid+"\n"+value.getString(space+sp);
+			return space+"#"+lineNo+"\n"+space+"_member\n"+space+sp+name+"\n"+space+sp+typeid+"\n"+value.getString(space+sp);
 		}
 	}
-	public static class class_ extends ASTNode {
+	public static class class_ extends classList {
 		public String name;
 		public String filename;
 		public String parent;
